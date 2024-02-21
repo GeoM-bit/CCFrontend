@@ -1,82 +1,39 @@
-.container {
-  margin-top: 5%;
-  position: absolute;
-  left: 40%;
+.main-div{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.mat-card {
-  width: 480px;
-  top: 50px;
-  right:50px;
-  position: relative;
-  display: flex;
+mat-card{
+  margin-top: 5%;
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3%;
 }
 
 mat-form-field{
-    margin-bottom:14px;
+  margin-bottom:20px;
+  min-width: 350px;
 }
 
 mat-card-title {
-  margin-top: 10px;
-  margin-left: 15%;
-  margin-bottom:30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 18%;
+  color: lightgray;
 }
 
-.mat-raised-button {
-  margin-top: 5px;
+form{
+  text-align: center;
 }
 
-img {
-  display: block;
-  margin-left: 20%;
-  margin-right: auto;
-  margin-top: 40%;
-}
-
-.column {
-  width: 1000%;
-  padding: 10px;
-}
-
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.mat-card-content{
-  margin-left:25%;
-}
-
-@media screen and (max-width: 450px) {
-  .column {
-    width: 70%;
-    display: block;
-    margin-bottom: 20px;
-    margin-left:-10%;
-  }
-
-  .mat-card {
-    width: 300px;
-    top: 50px;
-    position: relative;
-    display: flex;
-  }
-  .mat-card-title{
-      font-size: 20px;
-      text-align:center;
-      margin-left:0%;
-      width:300px;
-  }
-}
-
-@media screen and (max-width: 280px) {
-  .mat-card {
-    box-shadow: none;
-  }
+button{
+  margin-bottom: 2%;
 }
 
 .fa-user-plus {
-  color: black;
+  color: lightgray;
 }
 

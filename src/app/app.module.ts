@@ -23,12 +23,14 @@ import {MatSortModule} from "@angular/material/sort";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDialogModule} from "@angular/material/dialog";
 import {CommonModule} from "@angular/common";
+import {LayoutComponent} from "./core/components/layout/layout.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    SnackBarComponent
+    SnackBarComponent,
+    LayoutComponent
   ],
   imports: [
     BrowserModule,
