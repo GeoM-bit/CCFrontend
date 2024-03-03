@@ -1,0 +1,35 @@
+.main-div{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-card{
+  width: 30%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 3%;
+  min-width: 370px;
+}
+
+mat-form-field{
+  margin-bottom:20px;
+  min-width: 350px;
+}
+
+mat-card-title {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 38%;
+  color: lightgray;
+}
+
+.mat-raised-button {
+  margin-top: 5px;
+}
+
+form {
+  text-align: center;
+}
+
