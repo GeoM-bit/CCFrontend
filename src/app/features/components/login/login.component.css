@@ -6,7 +6,6 @@
 }
 
 mat-card{
-  margin-top: 5%;
   width: 30%;
   justify-content: center;
   align-items: center;
@@ -22,19 +21,15 @@ mat-form-field{
 mat-card-title {
   margin-top: 20px;
   margin-bottom: 20px;
-  margin-left: 18%;
+  margin-left: 38%;
   color: lightgray;
 }
 
-form{
+.mat-raised-button {
+  margin-top: 5px;
+}
+
+form {
   text-align: center;
-}
-
-button{
-  margin-bottom: 2%;
-}
-
-.fa-user-plus {
-  color: lightgray;
 }
 

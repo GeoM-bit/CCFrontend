@@ -24,13 +24,22 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatDialogModule} from "@angular/material/dialog";
 import {CommonModule} from "@angular/common";
 import {LayoutComponent} from "./core/components/layout/layout.component";
+import {LoginComponent} from "./features/components/login/login.component";
+import { JwtModule } from "@auth0/angular-jwt";
+import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
+import {FeedComponent} from "./features/components/feed/feed.component";
 
+export function tokenGetter() {
+  return localStorage.getItem("token");
+}
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     SnackBarComponent,
-    LayoutComponent
+    LayoutComponent,
+    LoginComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +61,16 @@ import {LayoutComponent} from "./core/components/layout/layout.component";
     MatSortModule,
     MatPaginatorModule,
     MatDialogModule,
-    CommonModule
+    CommonModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:4200"],
+      },
+    }),
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem
   ],
   providers: [
     provideAnimationsAsync()

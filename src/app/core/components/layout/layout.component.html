@@ -1,4 +1,16 @@
 <mat-toolbar>
   <span style="color:white">CC</span>
+  <div *ngIf="!checkTokenValidity()" class="menu-position">
+    <button mat-button [matMenuTriggerFor]="afterMenu"><span style="color:white"><i class="fa-solid fa-user" style="--fa-primary-color: white"></i>  Hello, {{getUserName()}}!</span></button>
+    <mat-menu #afterMenu="matMenu" xPosition="after">
+      <button mat-menu-item *ngIf="getRole()" (click)="logout()" >Logout</button>
+      <button mat-menu-item *ngIf="checkIfUserRole()" (click)="goToSomePage()">Some Page</button>
+      <button mat-menu-item *ngIf="checkIfUserRole()" (click)="goToSomePage()">SomePage</button>
+    </mat-menu>
+  </div>
+  <div *ngIf="checkTokenValidity()" class="menu-position">
+    <button *ngIf="getLoginPage()" mat-raised-button (click)="goToRegisterAccount()">Register your account</button>
+    <button *ngIf="!getLoginPage()" mat-raised-button (click)="goToLogin()">Login</button>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>
