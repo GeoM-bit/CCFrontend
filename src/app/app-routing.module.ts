@@ -6,7 +6,7 @@ import {FeedComponent} from "./features/components/feed/feed.component";
 
 const routes: Routes = [
 
-  { path: '', redirectTo: 'register', pathMatch: 'full' }, //default route
+  { path: '', redirectTo: 'login', pathMatch: 'full' }, //default route
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'feed', component: FeedComponent }
