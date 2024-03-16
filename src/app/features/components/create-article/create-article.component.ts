@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {EditorChangeContent, EditorChangeSelection} from "ngx-quill";
 
 @Component({
   selector: 'app-create-article',
@@ -6,23 +7,16 @@ import {Component, OnInit} from '@angular/core';
   styleUrl: './create-article.component.css'
 })
 export class CreateArticleComponent implements OnInit{
-  selectedImageFile: File;
-    ngOnInit(): void {
+  editorText="";
+  articleTitle: string = '';
+  ngOnInit(): void {
     }
-  onPhotoSelected(photoSelector: HTMLInputElement)
+  changedEditor(event: EditorChangeContent | EditorChangeSelection)
   {
-    this.selectedImageFile= photoSelector.files[0];
-    if(!this.selectedImageFile) return;
-    let fileReader = new FileReader();
-    fileReader.readAsDataURL(this.selectedImageFile);
-    fileReader.addEventListener(
-      "loaded",
-      ev => {
-        let readableString =  fileReader.result.toString();
-        document.getElementById("article-preview-image");
-        let articlePreviewImage = <HTMLImageElement>document.getElementById("article-preview-image")
-        articlePreviewImage.src = readableString;
-      }
-    )
+    this.editorText=event['editor']['root']['innerHTML'];
+  }
+
+  onSubmitArticleClick(){
+console.log(this.articleTitle);
   }
 }

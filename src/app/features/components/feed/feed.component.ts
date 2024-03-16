@@ -1,8 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import {CreateArticleComponent} from "../create-article/create-article.component";
-import {EditorChangeSelection} from "ngx-quill";
-import {EditorChangeContent} from "ngx-quill";
 
 @Component({
   selector: 'app-feed',
@@ -10,9 +8,7 @@ import {EditorChangeContent} from "ngx-quill";
   styleUrl: './feed.component.css'
 })
 export class FeedComponent implements OnInit{
-
-  editorText="";
-  onCreatePostClick()
+  onCreateArticleClick()
   {
     this.dialog.open(CreateArticleComponent);
   }
@@ -21,10 +17,5 @@ export class FeedComponent implements OnInit{
   }
 
   ngOnInit(): void {
-  }
-
-  changedEditor(event: EditorChangeContent | EditorChangeSelection)
-  {
-    this.editorText=event['editor']['root']['innerHTML'];
   }
 }

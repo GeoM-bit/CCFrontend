@@ -1,17 +1,2 @@
-<!--<button (click)="onCreatePostClick()"-->
-<!--        mat-fab color="" id="post-button"><mat-icon>add</mat-icon></button>-->
-
-<nav class="navbar" style="margin-top: 100px"></nav>
-<div class="container" style="width: 50%">
-  <div class="row">
-    <div class="col-md-12">
-      <quill-editor [styles]="{height: '200px'}" (onEditorChanged)="changedEditor($event)"></quill-editor>
-    </div>
-  </div>
-  <div class="row">
-    <h3 style="text-align: left">Output</h3>
-    <div class="col-md bg-light">
-      <p [innerHtml]="editorText"></p>
-    </div>
-  </div>
-</div>
+<button (click)="onCreateArticleClick()"
+        mat-fab color="" id="article-button"><mat-icon>add</mat-icon></button>

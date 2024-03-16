@@ -1,21 +1,27 @@
 <mat-card style="background-color:white">
   <mat-card-header>
-    <mat-card-title>Create Article</mat-card-title>
+    <mat-card-title >Article Editor</mat-card-title>
   </mat-card-header>
-  <div>
-    <textarea placeholder="Type Article..."></textarea>
-  </div>
-  <div *ngIf="selectedImageFile" id="article-preview">
-    <img id="article-preview-image"/>
+  <div class="container">
+    <div class="row" id="article-title-label">
+      <div class="col-md">
+          Article Title:
+            <input [(ngModel)]="articleTitle" id="article-title"/>
+      </div>
+    </div>
+    <div class="row" id="article-content-label">
+      <div class="col-md">
+        Article Content:
+      </div>
+    </div>
+    <div class="row" id="article-content">
+      <div class="col-md-12">
+        <quill-editor [styles]="{height: '400px'}" (onEditorChanged)="changedEditor($event)"></quill-editor>
+      </div>
+    </div>
   </div>
   <mat-card-actions align="end">
-    <button mat-button color="primary">
-      <label for="photo-upload">
-        <input #photoSelector (change)="onPhotoSelected(photoSelector)"
-          id="photo-upload" type="file" accept="image/*"/>
-        <mat-icon>insert_photo</mat-icon>
-      </label>
-    </button>
-    <button mat-flat-button color="primary">Create</button>
+    <button mat-flat-button color="primary" style="margin-right: 5px" (click)="onSubmitArticleClick()">Create</button>
+    <button mat-flat-button color="accent">Preview</button>
   </mat-card-actions>
 </mat-card>
