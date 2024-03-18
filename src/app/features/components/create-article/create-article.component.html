@@ -2,11 +2,12 @@
   <mat-card-header>
     <mat-card-title >Article Editor</mat-card-title>
   </mat-card-header>
+  <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
   <div class="container">
     <div class="row" id="article-title-label">
       <div class="col-md">
           Article Title:
-            <input [(ngModel)]="articleTitle" id="article-title"/>
+            <input matInput formControlName="title"  id="article-title"/>
       </div>
     </div>
     <div class="row" id="article-content-label">
@@ -21,7 +22,8 @@
     </div>
   </div>
   <mat-card-actions align="end">
-    <button mat-flat-button color="primary" style="margin-right: 5px" (click)="onSubmitArticleClick()">Create</button>
-    <button mat-flat-button color="accent">Preview</button>
+    <button mat-flat-button color="primary" style="margin-right: 5px" type="submit">Create</button>
+    <button mat-flat-button color="accent"  type="button" (click)="onPreviewClicked()">Preview</button>
   </mat-card-actions>
+  </form>
 </mat-card>

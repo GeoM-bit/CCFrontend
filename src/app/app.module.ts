@@ -15,7 +15,7 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import {MatCardModule} from "@angular/material/card";
 import {MatTableModule} from "@angular/material/table";
 import {MatDatepickerModule} from "@angular/material/datepicker";
-import {HttpClientModule} from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {MatSortModule} from "@angular/material/sort";
@@ -31,6 +31,7 @@ import {FeedComponent} from "./features/components/feed/feed.component";
 import { FeedArticleComponent } from './features/components/feed-article/feed-article.component';
 import { CreateArticleComponent } from './features/components/create-article/create-article.component';
 import { QuillModule} from "ngx-quill";
+import {JwtInterceptor} from "./core/interceptor/token.interceptor";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -79,6 +80,7 @@ export function tokenGetter() {
     QuillModule.forRoot()
   ],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
