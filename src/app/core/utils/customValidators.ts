@@ -22,6 +22,21 @@ export class CustomValidators {
     return isValid ? null : { 'whitespace': true };
   }
 
+  static WhitespaceInputQuillEditor(control: FormControl) {
+    if(control.value!=null) {
+      let strippedValue = control.value.replace(/<[^>]*>/g, '');
+      const isWhitespaceInput = (strippedValue || '').trim().length === 0;
+      const isValid = !isWhitespaceInput;
+      return isValid ? null : {'whitespace': true};
+    }
+    else {
+      const isWhitespaceInput = (control.value || '').trim().length === 0;
+      const isValid = !isWhitespaceInput;
+      return isValid ? null : {'whitespace': true};
+    }
+  }
+
+
   static dateValidator(control: AbstractControl){
     const start = control.get('startDate');
     const end = control.get('endDate');

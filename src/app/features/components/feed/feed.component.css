@@ -1,12 +1,13 @@
-#article-button{
+#create-article-button{
   position: fixed;
   bottom: 2em;
   right: 2em;
 }
 
 #articlesFeed{
-  max-width: 500px;
-  margin-top: .5em;
+  max-width: 800px;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 100px;
 }
+

@@ -2,6 +2,7 @@ mat-card{
   justify-content: center;
   align-items: center;
   min-width: 370px;
+  max-width: 1200px;
 }
 
 #article-title-label{
@@ -9,21 +10,35 @@ mat-card{
   margin-top: 5px;
   font-size: 15px;
 }
-#article-content-label{
-  margin-top: 5px;
+#article-summary-label, #article-content-label{
+  margin-top: 20px;
 }
-#article-title{
+#article-title, #article-summary{
   border: none;
-  font-weight: bold;
   font-size: 17px;
   background-color: #F1EFF1;
   border-radius: 10px;
 }
 
-#article-title:focus {
+#article-title:focus, #article-summary:focus {
   outline: none;
 }
 
-.col-md input {
+.col-md textarea {
   width: 100%;
 }
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+  background-color: darkgray;
+  border-radius: 10px;
+}
+
+.submit-button[disabled], .preview-button[disabled] {
+  background-color: lightgray;
+  color: #999;
+  border: 1px solid #ccc;
+  cursor: not-allowed;
+}
+

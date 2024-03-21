@@ -6,6 +6,7 @@ import {SnackBarComponent} from "../snack-bar/snack-bar.component";
 import {ArticleService} from "../../../core/services/article.service";
 import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
+import {CustomValidators} from "../../../core/utils/customValidators";
 
 @Component({
   selector: 'app-create-article',
@@ -16,7 +17,6 @@ export class CreateArticleComponent implements OnInit{
   articleModel: NewArticleModel;
   articleForm: FormGroup;
   articleContent: string="";
-
   constructor(private articleService: ArticleService, private snackBar: SnackBarComponent,  private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
@@ -25,35 +25,58 @@ export class CreateArticleComponent implements OnInit{
   changedEditor(event: EditorChangeContent | EditorChangeSelection)
   {
     this.articleContent = event['editor']['root']['innerHTML'];
+    this.articleForm.patchValue({
+      content: this.articleContent
+    });
+    this.resizeAndCenterImages();
+  }
+
+  private resizeAndCenterImages() {
+    const images = document.querySelectorAll('.ql-editor img');
+    images.forEach((img: HTMLImageElement) => {
+      img.style.maxWidth = '40%';
+      img.style.height = 'auto';
+      img.style.display = 'block';
+      img.style.margin = '0 auto';
+    });
   }
 
   onSubmit(){
-    this.articleModel = this.articleForm.value;
-    this.articleModel.content = this.articleContent;
-    this.articleService.createArticle(this.articleModel).subscribe((response: boolean) => {
-      if(response) {
-        this.dialog.closeAll();
-        this.openArticlePublishingSucceededSnackBar();
-      }
-      else {
-        this.openArticlePublishingFailedSnackBar();
-      }
-    });
+    console.log('Form Valid:', this.articleForm);
+    if(!this.articleForm.invalid) {
+      this.articleModel = this.articleForm.value;
+      this.articleModel.content = this.articleContent;
+      this.articleService.createArticle(this.articleModel).subscribe((response: boolean) => {
+        if (response) {
+          this.dialog.closeAll();
+          this.openArticlePublishingSucceededSnackBar();
+        } else {
+          this.openArticlePublishingFailedSnackBar();
+        }
+      });
+    }
   }
 
   initForm()
   {
     this.articleForm = new FormGroup({
-      'title': new FormControl(null,[Validators.required]),
-      'content': new FormControl(null, [Validators.required])
+      'title': new FormControl(null,[Validators.required, CustomValidators.WhitespaceInput]),
+      'summary': new FormControl(null, [Validators.required, this.summaryLengthValidator, CustomValidators.WhitespaceInput]),
+      'content': new FormControl(null, [Validators.required, CustomValidators.WhitespaceInputQuillEditor])
     });
+  }
+
+  summaryLengthValidator(control: FormControl): { [s: string]: boolean } | null {
+    if (control.value && control.value.trim().length > 200) {
+      return { 'maxlengthExceeded': true };
+    }
+    return null;
   }
 
   onPreviewClicked()
   {
     this.articleModel = this.articleForm.value;
     this.articleModel.content = this.articleContent;
-    console.log(this.articleModel);
   }
 
   openArticlePublishingSucceededSnackBar() {

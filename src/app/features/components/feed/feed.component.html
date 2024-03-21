@@ -1,5 +1,4 @@
-<div id="articlesFeed">
-<app-feed-article *ngFor="let article of articles" [articleData]="article"></app-feed-article>
-</div>
-<button (click)="onCreateArticleClick()"
-        mat-fab color="" id="article-button"><mat-icon>add</mat-icon></button>
+  <div id="articlesFeed">
+    <app-feed-article *ngFor="let article of articles" [articleData]="article"></app-feed-article>
+  </div>
+<button (click)="onCreateArticleClick()" mat-fab id="create-article-button"><mat-icon>add</mat-icon></button>
