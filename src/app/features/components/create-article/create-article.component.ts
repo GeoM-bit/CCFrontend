@@ -42,7 +42,6 @@ export class CreateArticleComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log('Form Valid:', this.articleForm);
     if(!this.articleForm.invalid) {
       this.articleModel = this.articleForm.value;
       this.articleModel.content = this.articleContent;
@@ -62,7 +61,8 @@ export class CreateArticleComponent implements OnInit{
     this.articleForm = new FormGroup({
       'title': new FormControl(null,[Validators.required, CustomValidators.WhitespaceInput]),
       'summary': new FormControl(null, [Validators.required, this.summaryLengthValidator, CustomValidators.WhitespaceInput]),
-      'content': new FormControl(null, [Validators.required, CustomValidators.WhitespaceInputQuillEditor])
+      'content': new FormControl(null, [Validators.required, CustomValidators.WhitespaceInputQuillEditor]),
+      'titlePhotoContent': new FormControl(null, [Validators.required])
     });
   }
 
@@ -84,5 +84,17 @@ export class CreateArticleComponent implements OnInit{
   }
   openArticlePublishingFailedSnackBar() {
     this.snackBar.openSnackBar('Article could not be published!','');
+  }
+
+  setFileData(event: Event): void {
+    const eventTarget: HTMLInputElement | null = event.target as HTMLInputElement | null;
+    if (eventTarget?.files?.[0]) {
+      const file: File = eventTarget.files[0];
+      const reader = new FileReader();
+      reader.addEventListener('load', () => {
+        this.articleForm.get('titlePhotoContent')?.setValue(reader.result as string);
+      });
+      reader.readAsDataURL(file);
+    }
   }
 }

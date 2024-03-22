@@ -3,4 +3,5 @@ export class FeedArticleDto {
   public summary: String;
   public authorName: String;
   public publicationDate: Date;
+  public titlePhotoContent: String;
 }
