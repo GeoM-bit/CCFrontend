@@ -4,9 +4,11 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {NewArticleModel} from "../../../../models/newArticleModel";
 import {SnackBarComponent} from "../snack-bar/snack-bar.component";
 import {ArticleService} from "../../../core/services/article.service";
-import {Router} from "@angular/router";
 import {MatDialog} from "@angular/material/dialog";
 import {CustomValidators} from "../../../core/utils/customValidators";
+import {ArticleDto} from "../../../../models/articleDto";
+import {AuthenticationService} from "../../../core/services/authentication.service";
+import {ArticlePreviewComponent} from "../article-preview/article-preview.component";
 
 @Component({
   selector: 'app-create-article',
@@ -15,9 +17,10 @@ import {CustomValidators} from "../../../core/utils/customValidators";
 })
 export class CreateArticleComponent implements OnInit{
   articleModel: NewArticleModel;
+  articleDto: ArticleDto = new ArticleDto();
   articleForm: FormGroup;
   articleContent: string="";
-  constructor(private articleService: ArticleService, private snackBar: SnackBarComponent,  private router: Router, private dialog: MatDialog) { }
+  constructor(private articleService: ArticleService, private snackBar: SnackBarComponent, private dialog: MatDialog, private authService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -77,6 +80,15 @@ export class CreateArticleComponent implements OnInit{
   {
     this.articleModel = this.articleForm.value;
     this.articleModel.content = this.articleContent;
+    this.articleDto.title = this.articleModel.title;
+    this.articleDto.content = this.articleModel.content;
+    this.articleDto.titlePhotoContent = this.articleModel.titlePhotoContent;
+    this.articleDto.authorName = this.authService.getUserEmail();
+    this.articleDto.publicationDate = new Date();
+    this.dialog.open(ArticlePreviewComponent, {
+      width: '80%',
+      data: this.articleDto
+    });
   }
 
   openArticlePublishingSucceededSnackBar() {

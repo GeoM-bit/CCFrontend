@@ -32,6 +32,9 @@ import { FeedArticleComponent } from './features/components/feed-article/feed-ar
 import { CreateArticleComponent } from './features/components/create-article/create-article.component';
 import { QuillModule} from "ngx-quill";
 import {JwtInterceptor} from "./core/interceptor/token.interceptor";
+import {ArticleComponent} from "./features/components/article/article.component";
+import { ArticlePreviewComponent } from './features/components/article-preview/article-preview.component';
+
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -45,7 +48,9 @@ export function tokenGetter() {
     LoginComponent,
     FeedComponent,
     FeedArticleComponent,
-    CreateArticleComponent
+    CreateArticleComponent,
+    ArticleComponent,
+    ArticlePreviewComponent
   ],
   imports: [
     BrowserModule,

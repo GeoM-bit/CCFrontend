@@ -31,10 +31,11 @@
         <div class="row" style="margin-left: 2px">
           Article Title Photo:
         </div>
-        <div class="row" style="height: 100%">
+        <div class="row" style="height: 100%;">
           <div class="col-md-12">
-              <mat-form-field style="color: white">
-                <div class="fileUploadContainer"  style="background-color: white" [ngStyle]="{'margin-top' : articleForm.get('titlePhotoContent')!.value ? '5px' :  '20px'}">
+            <div style="text-align: center;">
+              <mat-form-field>
+                <div class="fileUploadContainer"  style="background-color: white; margin-top: 15px}">
                   <ng-container *ngIf="articleForm.get('titlePhotoContent')!.value">
                     <img [src]="articleForm.get('titlePhotoContent')!.value" />
                     <button class="deleteButton" mat-icon-button (click)="fileInput.value = ''; articleForm.get('titlePhotoContent')?.setValue(null);">
@@ -43,14 +44,15 @@
                  </ng-container>
                   <div *ngIf="!articleForm.get('titlePhotoContent')!.value">
                     <mat-icon style="opacity: 60%;">file_upload</mat-icon>
-                    <button mat-raised-button color="primary" style="width:100%; opacity: 80%;">Browser</button>
+                    <button mat-raised-button color="primary" style="width:100%; opacity: 80%;">Browse</button>
                   </div>
                   <input #fileInput class="fileInput" type="file" multiple="multiple" accept="image/*"
                    (change)="setFileData($event)" />
                 </div>
                   <input matInput formControlName="titlePhotoContent" readonly [hidden]="true " />
               </mat-form-field>
-            <div>
+            </div>
+            <div style="margin-top: -20px">
               <div class="error-message" *ngIf="articleForm.get('titlePhotoContent').errors?.required">*A Title Photo is required.</div>
             </div>
           </div>

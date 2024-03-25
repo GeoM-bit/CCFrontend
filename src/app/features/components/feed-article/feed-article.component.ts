@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FeedArticleDto} from "../../../../models/feedArticleDto";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-feed-article',
@@ -8,12 +9,13 @@ import {FeedArticleDto} from "../../../../models/feedArticleDto";
 })
 export class FeedArticleComponent implements OnInit{
   @Input() articleData: FeedArticleDto;
-  htmlContent: String;
-  constructor() {
+  constructor( private router: Router) {
   }
 
   ngOnInit(): void {
-    this.htmlContent = this.articleData.summary;
   }
 
+  onFeedArticleClick(){
+  this.router.navigate(['article', this.articleData.title]);
+  }
 }

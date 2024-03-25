@@ -1,4 +1,4 @@
-  <div id="articlesFeed">
-    <app-feed-article *ngFor="let article of articles" [articleData]="article"></app-feed-article>
+  <div id="articlesFeed" style="display: flex; flex-wrap: wrap;">
+    <app-feed-article *ngFor="let article of articles" [articleData]="article" style="flex: 0 0 calc(33.33% - 10px); margin: 5px;"></app-feed-article>
   </div>
 <button (click)="onCreateArticleClick()" mat-fab id="create-article-button"><mat-icon>add</mat-icon></button>

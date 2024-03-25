@@ -3,6 +3,8 @@ mat-card{
   align-items: center;
   min-width: 370px;
   max-width: 1200px;
+  overflow-y: auto;
+  max-height: 780px;
 }
 
 #article-title-label{
@@ -48,7 +50,7 @@ textarea {
   flex-direction: column;
   margin: 0 auto;
   width: 150px;
-  height: 150px;
+  height: 135px;
   border: dashed 1px #979797;
   text-align: center;
   justify-content: center;
