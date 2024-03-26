@@ -50,10 +50,23 @@ export class AuthenticationService {
       let decodedJwtJsonData = window.atob(jwtData);
       let decodedJwtData = JSON.parse(decodedJwtJsonData);
 
+      return decodedJwtData.email;
+    }
+    return null;
+  }
+
+  getUserName(): string {
+    let token = localStorage.getItem('token');
+    if (token != null) {
+      let jwtData = token.split('.')[1];
+      let decodedJwtJsonData = window.atob(jwtData);
+      let decodedJwtData = JSON.parse(decodedJwtJsonData);
+
       return decodedJwtData.name;
     }
     return null;
   }
+
   checkTokenExpired(): boolean {
     if (this.jwtHelper.isTokenExpired(localStorage.getItem('token'))) {
       return true;

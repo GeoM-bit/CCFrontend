@@ -1,0 +1,82 @@
+<mat-card style="background-color:white">
+  <mat-card-header>
+    <mat-card-title >Article Editor</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+  <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row" id="article-title-label">
+          <div class="col-md-12">
+            Article Title:
+              <textarea matInput formControlName="title" id="article-title"></textarea>
+              <div>
+                <div class="error-message" *ngIf="articleForm.get('title').errors?.whitespace">*Title is required.</div>
+              </div>
+          </div>
+        </div>
+        <div class="row" id="article-summary-label">
+          <div class="col-md-12">
+            Article Summary:
+              <textarea matInput formControlName="summary" id="article-summary"></textarea>
+              <div>
+                <div class="error-message" *ngIf="articleForm.get('summary').errors?.whitespace">*Summary is required.</div>
+                <div class="error-message" *ngIf="articleForm.get('summary').errors?.maxlengthExceeded">*Summary cannot exceed 200 characters.</div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row" style="margin-left: 2px">
+          Article Title Photo:
+        </div>
+        <div class="row" style="height: 100%;">
+          <div class="col-md-12">
+            <div style="text-align: center;">
+              <mat-form-field>
+                <div class="fileUploadContainer"  style="background-color: white; margin-top: 15px}">
+                  <ng-container *ngIf="articleForm.get('titlePhotoContent')!.value">
+                    <img [src]="articleForm.get('titlePhotoContent')!.value" />
+                    <button class="deleteButton" mat-icon-button (click)="fileInput.value = ''; articleForm.get('titlePhotoContent')?.setValue(null);">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                 </ng-container>
+                  <div *ngIf="!articleForm.get('titlePhotoContent')!.value">
+                    <mat-icon style="opacity: 60%;">file_upload</mat-icon>
+                    <button mat-raised-button color="primary" style="width:100%; opacity: 80%;">Browse</button>
+                  </div>
+                  <input #fileInput class="fileInput" type="file" multiple="multiple" accept="image/*"
+                   (change)="setFileData($event)" />
+                </div>
+                  <input matInput formControlName="titlePhotoContent" readonly [hidden]="true " />
+              </mat-form-field>
+            </div>
+            <div style="margin-top: -20px">
+              <div class="error-message" *ngIf="articleForm.get('titlePhotoContent').errors?.required">*A Title Photo is required.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row" id="article-content-label">
+      <div class="col-md">
+        Article Content:
+      </div>
+    </div>
+    <div class="row" id="article-content">
+      <div>
+        <quill-editor [styles]="{height: '310px', 'max-width': '1200px'}" (onEditorChanged)="changedEditor($event)" ></quill-editor>
+      </div>
+      <div>
+        <div class="error-message" *ngIf="articleForm.get('content').errors?.whitespace">*Content is required.</div>
+      </div>
+    </div>
+  <mat-card-actions align="end">
+    <button class="submit-button" mat-flat-button style="margin-right: 5px" type="submit" [disabled]="articleForm.invalid">Create</button>
+    <button class="preview-button" mat-flat-button color="accent"  type="button" (click)="onPreviewClicked()" [disabled]="articleForm.invalid">Preview</button>
+  </mat-card-actions>
+  </form>
+  </mat-card-content>
+</mat-card>
