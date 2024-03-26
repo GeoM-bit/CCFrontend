@@ -2,10 +2,10 @@
 <mat-card>
   <mat-card-header style="text-align: center; margin-top: 50px">
     <mat-card-title>
-      <div style="font-size: 68px; line-height: 70px"> {{article.title}}"</div>
-      <img src="{{article.titlePhotoContent}}" style="max-height: 580px; max-width: 720px; margin-top: 10px">
+      <div style="font-size: 68px; line-height: 70px; text-align: center">{{article.title}}</div>
+      <img src="{{article.titlePhotoContent}}" style="max-height: 580px; max-width: 720px; margin-top: 10px; text-align: center">
     </mat-card-title>
-    <mat-card-subtitle style="margin-top: 5px; margin-bottom: 40px"><span style="margin-right: 120px;">Author: {{ article.authorName }}</span>Date:{{article.publicationDate}}</mat-card-subtitle>
+    <mat-card-subtitle style="margin-top: 5px; margin-bottom: 40px; text-align: center"><span style="margin-right: 120px;">Author: {{ article.authorName }}</span>Date: {{article.publicationDate!=undefined?article.publicationDate:getDate()}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content style="margin-left: 25px; margin-right: 25px">
     <div [innerHTML]="article.content"></div>

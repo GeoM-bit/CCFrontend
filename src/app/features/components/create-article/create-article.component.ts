@@ -83,8 +83,7 @@ export class CreateArticleComponent implements OnInit{
     this.articleDto.title = this.articleModel.title;
     this.articleDto.content = this.articleModel.content;
     this.articleDto.titlePhotoContent = this.articleModel.titlePhotoContent;
-    this.articleDto.authorName = this.authService.getUserEmail();
-    this.articleDto.publicationDate = new Date();
+    this.articleDto.authorName = this.authService.getUserName();
     this.dialog.open(ArticlePreviewComponent, {
       width: '80%',
       data: this.articleDto
