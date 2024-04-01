@@ -4,7 +4,7 @@
     <button mat-button [matMenuTriggerFor]="afterMenu"><span style="color:white"><i class="fa-solid fa-user" style="--fa-primary-color: white"></i>  Hello, {{getUserName()}}!</span></button>
     <mat-menu #afterMenu="matMenu" xPosition="after">
       <button mat-menu-item *ngIf="getRole()" (click)="logout()" >Logout</button>
-      <button mat-menu-item *ngIf="checkIfUserRole()" (click)="goToSomePage()">Some Page</button>
+      <button mat-menu-item (click)="goToSomePage()">Grupuri de suport</button>
       <button mat-menu-item *ngIf="checkIfUserRole()" (click)="goToSomePage()">SomePage</button>
     </mat-menu>
   </div>

@@ -51,7 +51,7 @@ export class LayoutComponent implements OnInit {
   }
 
   goToSomePage(){
-
+    this.router.navigate(['support-groups']);
   }
 
   goToRegisterAccount(){

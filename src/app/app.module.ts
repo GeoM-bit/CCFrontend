@@ -34,6 +34,7 @@ import { QuillModule} from "ngx-quill";
 import {JwtInterceptor} from "./core/interceptor/token.interceptor";
 import {ArticleComponent} from "./features/components/article/article.component";
 import { ArticlePreviewComponent } from './features/components/article-preview/article-preview.component';
+import { SupportGroupsTableComponent } from './features/components/support-groups-table/support-groups-table.component';
 
 
 export function tokenGetter() {
@@ -50,7 +51,8 @@ export function tokenGetter() {
     FeedArticleComponent,
     CreateArticleComponent,
     ArticleComponent,
-    ArticlePreviewComponent
+    ArticlePreviewComponent,
+    SupportGroupsTableComponent
   ],
   imports: [
     BrowserModule,
