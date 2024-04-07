@@ -3,8 +3,8 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {SupportGroupDto} from "../../../models/supportGroupDto";
-import {TokenModel} from "../../../models/tokenModel";
 import {SupportGroupMemberModel} from "../../../models/supportGroupMemberModel";
+import {SupportGroupNameDto} from "../../../models/supportGroupNameDto";
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +20,9 @@ export class SupportGroupsService {
 
   addMember(member: SupportGroupMemberModel): Observable<any> {
     return this.http.post<SupportGroupMemberModel>(environment.baseUrl + '/api/SupportGroup/add-member', member);
+  }
+
+  getNonMembersEmails(groupName: SupportGroupNameDto): Observable<String[]> {
+    return this.http.post<String[]>(environment.baseUrl + '/api/SupportGroup/get-non-members', groupName);
   }
 }

@@ -35,6 +35,8 @@ import {JwtInterceptor} from "./core/interceptor/token.interceptor";
 import {ArticleComponent} from "./features/components/article/article.component";
 import { ArticlePreviewComponent } from './features/components/article-preview/article-preview.component';
 import { SupportGroupsTableComponent } from './features/components/support-groups-table/support-groups-table.component';
+import { AddMemberComponent } from './features/components/add-member/add-member.component';
+import {MatList, MatListItem} from "@angular/material/list";
 
 
 export function tokenGetter() {
@@ -52,7 +54,8 @@ export function tokenGetter() {
     CreateArticleComponent,
     ArticleComponent,
     ArticlePreviewComponent,
-    SupportGroupsTableComponent
+    SupportGroupsTableComponent,
+    AddMemberComponent
   ],
   imports: [
     BrowserModule,
@@ -84,7 +87,9 @@ export function tokenGetter() {
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    MatList,
+    MatListItem
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

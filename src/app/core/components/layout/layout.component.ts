@@ -50,8 +50,11 @@ export class LayoutComponent implements OnInit {
     return false;
   }
 
-  goToSomePage(){
+  goToSupportGroups(){
     this.router.navigate(['support-groups']);
+  }
+  goToFeed(){
+    this.router.navigate(['feed']);
   }
 
   goToRegisterAccount(){

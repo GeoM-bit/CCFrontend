@@ -33,19 +33,12 @@ export class LoginComponent implements OnInit {
     this.authenticationService.login(this.loginModel).subscribe((response: TokenModel) => {
       if(response!=null) {
         this.openSuccessfulLoginSnackBar();
-        this.redirectToFeedBasedOnRole();
+        this.router.navigate(['feed']);
       }
       else {
         this.openFailedLoginSnackBar();
       }
     });
-  }
-
-  redirectToFeedBasedOnRole(){
-    let role = this.authenticationService.getRole();
-    if(role==Roles[0] || role==Roles[1]) {
-      this.router.navigate(['feed']);
-    }
   }
 
   openFailedLoginSnackBar() {

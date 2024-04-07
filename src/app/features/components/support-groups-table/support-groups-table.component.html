@@ -23,12 +23,16 @@
         Acțiune
       </th>
       <td mat-cell *matCellDef="let element">
-        <button mat-raised-button [disabled]="element.isMember" color="primary"
+        <button mat-raised-button
+                [disabled]="element.isMember" color="primary"
                 style="margin-bottom: 5px; margin-top: 5px; width: 150px"
                 (click)="joinGroup(element.groupName)">
           Alătură-te
         </button>
-        <button mat-raised-button color="accent"  style="margin-bottom: 5px; width: 150px">Adaugă membri</button>
+        <button mat-raised-button color="accent"
+                style="margin-bottom: 5px; width: 150px"
+                (click)="onAddMembersClick(element.groupName)"
+                *ngIf="checkRole()">Adaugă membri</button>
       </td>
     </ng-container>
     <ng-container  *ngIf="noGroups">

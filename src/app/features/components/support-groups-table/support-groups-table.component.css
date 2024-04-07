@@ -7,7 +7,6 @@
 }
 
 .mat-paginator{
-  margin-bottom: 10%;
   width: 97%;
 }
 
@@ -28,6 +27,6 @@
 
 .table-container{
   max-width: 1200px;
-  min-height: 700px;
-  margin: 100px auto 50px;
+  min-height: 650px;
+  margin: 100px auto;
 }

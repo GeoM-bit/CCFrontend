@@ -6,6 +6,10 @@ import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import {MatPaginator} from "@angular/material/paginator";
 import {SupportGroupMemberModel} from "../../../../models/supportGroupMemberModel";
+import {Roles} from "../../../core/enums/roles";
+import {SnackBarComponent} from "../snack-bar/snack-bar.component";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {AddMemberComponent} from "../add-member/add-member.component";
 
 @Component({
   selector: 'app-support-groups-table',
@@ -16,8 +20,8 @@ export class SupportGroupsTableComponent implements OnInit{
   displayedColumns: string[] = ['groupName', 'description', 'memberCount', 'action'];
   dataSource= new MatTableDataSource<SupportGroupDto>;
   noGroups=false;
-  suportGroupMemberModel = new SupportGroupMemberModel();
-  constructor(private supportGroupService: SupportGroupsService, private authService: AuthenticationService){
+  supportGroupMemberModel = new SupportGroupMemberModel();
+  constructor(private supportGroupService: SupportGroupsService, private authService: AuthenticationService, private snackBar: SnackBarComponent, private dialog: MatDialog){
   }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -38,17 +42,39 @@ export class SupportGroupsTableComponent implements OnInit{
     this.noGroups = this.dataSource.data.length==0 ? true:false;
   }
 
-  joinGroup(groupName: String)
-  {
-    this.suportGroupMemberModel.groupName = groupName;
-    this.suportGroupMemberModel.email = this.authService.getUserEmail();
-    this.supportGroupService.addMember(this.suportGroupMemberModel).subscribe((response: Boolean) => {
+  joinGroup(groupName: String) {
+    this.supportGroupMemberModel.groupName = groupName;
+    this.supportGroupMemberModel.email = this.authService.getUserEmail();
+    this.supportGroupService.addMember(this.supportGroupMemberModel).subscribe((response: Boolean) => {
       if(response!=null) {
-        console.log(response);
+        this.getData();
+        this.openSuccessfullyJoinedGroupSnackBar();
       }
       else {
-        console.log(response);
+        this.openFailedToJoinGroupSnackBar();
       }
+    });
+  }
+
+  checkRole(): boolean {
+    let role = this.authService.getRole();
+    return Roles[role] != Roles.User && Roles[role] != Roles.Member;
+  }
+
+  openSuccessfullyJoinedGroupSnackBar() {
+    this.snackBar.openSnackBar('V-ați alăturat cu succes grupului!','');
+  }
+  openFailedToJoinGroupSnackBar(){
+    this.snackBar.openSnackBar('Nu ați putut fi adăugat grupului!','');
+  }
+
+  onAddMembersClick(groupName: String) {
+    const dialogRef: MatDialogRef<AddMemberComponent> = this.dialog.open(AddMemberComponent, {
+      width: '80%',
+      data: groupName
+    });
+    dialogRef.afterClosed().subscribe(result => {
+        this.getData();
     });
   }
 }
