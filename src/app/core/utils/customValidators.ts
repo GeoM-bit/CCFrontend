@@ -36,18 +36,9 @@ export class CustomValidators {
     }
   }
 
-
-  static dateValidator(control: AbstractControl){
-    const start = control.get('startDate');
-    const end = control.get('endDate');
-    if (start.value !== null && end.value !== null && start.value >= end.value) {
-      return {dateInvalid: true};
-    }
-    else if(start.value !== null && end.value == null){
-      return {missingEndDate: true};
-    }
-    else if(start.value == null && end.value !== null){
-      return {missingStartDate: true}
+  static SummaryLengthValidator(control: FormControl): { [s: string]: boolean } | null {
+    if (control.value && control.value.trim().length > 200) {
+      return { 'maxlengthExceeded': true };
     }
     return null;
   }
@@ -58,16 +49,5 @@ export class ConfirmValidParentMatcher implements ErrorStateMatcher {
     return (control.parent.errors?.['mismatch'] || control.errors?.['required']) && control.touched;
   }
 }
-
-// export class ConfirmValidDateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     return (control.parent.errors?.dateInvalid && control.touched) || control.parent.errors?.missingStartDate;
-//   }
-// }
-//
-//   export class MissingDateMatcher implements ErrorStateMatcher {
-//   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-//     return control.parent.errors?.missingEndDate;
-//   }
 
 

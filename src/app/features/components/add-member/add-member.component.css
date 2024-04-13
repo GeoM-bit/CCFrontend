@@ -1,3 +1,8 @@
+.email-list {
+  max-height: 450px;
+  overflow-y: auto;
+}
+
 .email-item {
   display: flex;
   align-items: center;
@@ -8,8 +13,4 @@
   justify-content: space-between;
   align-items: center;
   width: 100%;
-}
-
-.add-button {
-  margin-left: 16px;
 }

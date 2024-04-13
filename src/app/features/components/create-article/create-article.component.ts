@@ -63,18 +63,18 @@ export class CreateArticleComponent implements OnInit{
   {
     this.articleForm = new FormGroup({
       'title': new FormControl(null,[Validators.required, CustomValidators.WhitespaceInput]),
-      'summary': new FormControl(null, [Validators.required, this.summaryLengthValidator, CustomValidators.WhitespaceInput]),
+      'summary': new FormControl(null, [Validators.required, CustomValidators.SummaryLengthValidator, CustomValidators.WhitespaceInput]),
       'content': new FormControl(null, [Validators.required, CustomValidators.WhitespaceInputQuillEditor]),
       'titlePhotoContent': new FormControl(null, [Validators.required])
     });
   }
 
-  summaryLengthValidator(control: FormControl): { [s: string]: boolean } | null {
-    if (control.value && control.value.trim().length > 200) {
-      return { 'maxlengthExceeded': true };
-    }
-    return null;
-  }
+  // summaryLengthValidator(control: FormControl): { [s: string]: boolean } | null {
+  //   if (control.value && control.value.trim().length > 200) {
+  //     return { 'maxlengthExceeded': true };
+  //   }
+  //   return null;
+  // }
 
   onPreviewClicked()
   {

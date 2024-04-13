@@ -1,0 +1,46 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title style="color: white; margin-bottom: 15px">Creează grup de suport</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="createGroupForm" (ngSubmit)="onSubmit()">
+      <mat-form-field style="width: 100%">
+        <mat-label>Numele grupului</mat-label>
+        <input matInput formControlName="groupName" placeholder="Introduceți numele grupului...">
+      </mat-form-field>
+      <mat-form-field style="width: 100%">
+        <mat-label>Descrierea grupului</mat-label>
+        <input matInput formControlName="description" placeholder="Introduceți descrierea grupului...">
+      </mat-form-field>
+      <mat-form-field style="width: 100%">
+        <mat-label>Membri</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Căutați după email...">
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
+      <mat-list class="email-list">
+        <mat-list-item *ngFor="let email of filteredEmails" class="email-item">
+          <div class="email-info">
+            <div>
+              <mat-checkbox [value]="email" [checked]="selectedEmails.includes(email)" (change)="toggleSelectedEmail(email, $event.checked)"></mat-checkbox>
+              <span>{{ email }}</span>
+            </div>
+          </div>
+        </mat-list-item>
+      </mat-list>
+      <mat-error *ngIf="(selectedEmails.length < 2)">
+        Grupul trebuie să aibă cel puțin 2 membri!
+      </mat-error>
+      <div *ngIf="selectedEmails.length > 0" class="selected-emails">
+        <div *ngFor="let email of selectedEmails" class="selected-email">
+          <span>{{ email }}</span>
+          <button mat-icon-button (click)="removeSelectedEmail(email)">
+            <mat-icon>close</mat-icon>
+          </button>
+        </div>
+      </div>
+      <mat-card-actions align="end">
+        <button mat-raised-button color="accent" class="submit-button" type="submit" [disabled]="createGroupForm.invalid || selectedEmails.length < 2">Creează</button>
+      </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

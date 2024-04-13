@@ -37,6 +37,8 @@ import { ArticlePreviewComponent } from './features/components/article-preview/a
 import { SupportGroupsTableComponent } from './features/components/support-groups-table/support-groups-table.component';
 import { AddMemberComponent } from './features/components/add-member/add-member.component';
 import {MatList, MatListItem} from "@angular/material/list";
+import { CreateSupportGroupComponent } from './features/components/create-support-group/create-support-group.component';
+import {MatCheckbox} from "@angular/material/checkbox";
 
 
 export function tokenGetter() {
@@ -55,42 +57,44 @@ export function tokenGetter() {
     ArticleComponent,
     ArticlePreviewComponent,
     SupportGroupsTableComponent,
-    AddMemberComponent
+    AddMemberComponent,
+    CreateSupportGroupComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    FormsModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatTableModule,
-    MatDatepickerModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    CommonModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:4200"],
-      },
-    }),
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    QuillModule.forRoot(),
-    MatList,
-    MatListItem
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        FormsModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatTableModule,
+        MatDatepickerModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        MatSelectModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        CommonModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: ["localhost:4200"],
+            },
+        }),
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        QuillModule.forRoot(),
+        MatList,
+        MatListItem,
+        MatCheckbox
+    ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideAnimationsAsync()

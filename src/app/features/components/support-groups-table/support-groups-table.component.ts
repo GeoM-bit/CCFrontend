@@ -10,6 +10,7 @@ import {Roles} from "../../../core/enums/roles";
 import {SnackBarComponent} from "../snack-bar/snack-bar.component";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {AddMemberComponent} from "../add-member/add-member.component";
+import {CreateSupportGroupComponent} from "../create-support-group/create-support-group.component";
 
 @Component({
   selector: 'app-support-groups-table',
@@ -70,11 +71,33 @@ export class SupportGroupsTableComponent implements OnInit{
 
   onAddMembersClick(groupName: String) {
     const dialogRef: MatDialogRef<AddMemberComponent> = this.dialog.open(AddMemberComponent, {
-      width: '80%',
+      width: '60%',
       data: groupName
     });
     dialogRef.afterClosed().subscribe(result => {
         this.getData();
     });
+  }
+
+  onCreateGroupClick(){
+    this.dialog.open(CreateSupportGroupComponent);
+  }
+
+  applyFilter(filterValue: any) {
+    filterValue = filterValue.target.value.trim().toLowerCase();
+    this.dataSource.filter = filterValue;
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+  clearSearchInput(input: HTMLInputElement) {
+    input.value = '';
+    this.dataSource.filter = '';
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 }

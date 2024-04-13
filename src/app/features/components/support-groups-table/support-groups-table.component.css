@@ -30,3 +30,9 @@
   min-height: 650px;
   margin: 100px auto;
 }
+
+#create-group-button{
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+}
