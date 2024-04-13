@@ -7,11 +7,11 @@ import {SnackBarComponent} from "../snack-bar/snack-bar.component";
 import {UserService} from "../../../core/services/user.service";
 
 @Component({
-  selector: 'app-add-member',
-  templateUrl: './add-member.component.html',
-  styleUrl: './add-member.component.css'
+  selector: 'app-manage-members',
+  templateUrl: './manage-members.component.html',
+  styleUrl: './manage-members.component.css'
 })
-export class AddMemberComponent implements OnInit{
+export class ManageMembersComponent implements OnInit{
   emails: String[] = [];
   filteredEmails: String[] = [];
   addedMembers: String[] = [];
@@ -37,6 +37,14 @@ export class AddMemberComponent implements OnInit{
 
   applyFilter(event: any) {
     const filterValue = event.target.value;
+    this.filteredEmails = this.emails.filter(email =>
+      email.toLowerCase().includes(filterValue.toLowerCase())
+    );
+  }
+
+  clearSearchInput(input: HTMLInputElement) {
+    input.value = '';
+    const filterValue = '';
     this.filteredEmails = this.emails.filter(email =>
       email.toLowerCase().includes(filterValue.toLowerCase())
     );

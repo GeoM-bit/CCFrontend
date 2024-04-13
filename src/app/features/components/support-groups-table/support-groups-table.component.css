@@ -1,7 +1,3 @@
-.mat-row:hover {
-  background-color: #f6f6f6;
-}
-
 .mat-cell {
   text-align: left;
 }
@@ -36,3 +32,15 @@
   bottom: 2em;
   right: 2em;
 }
+
+.action-button{
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: 150px
+}
+
+tr.table-row-style:hover{
+  background-color: #707070;
+  cursor: pointer;
+}
+

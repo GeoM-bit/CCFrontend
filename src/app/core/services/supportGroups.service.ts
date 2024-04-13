@@ -27,6 +27,10 @@ export class SupportGroupsService {
     return this.http.post<SupportGroupMemberModel>(environment.baseUrl + '/api/SupportGroup/remove-member', member);
   }
 
+  deleteGroup(groupName: SupportGroupNameDto): Observable<Boolean> {
+    return this.http.post<Boolean>(environment.baseUrl + '/api/SupportGroup/delete-group', groupName);
+  }
+
   getNonMembersEmails(groupName: SupportGroupNameDto): Observable<String[]> {
     return this.http.post<String[]>(environment.baseUrl + '/api/SupportGroup/get-non-members', groupName);
   }

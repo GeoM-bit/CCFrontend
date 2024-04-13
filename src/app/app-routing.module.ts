@@ -5,6 +5,7 @@ import {LoginComponent} from "./features/components/login/login.component";
 import {FeedComponent} from "./features/components/feed/feed.component";
 import {ArticleComponent} from "./features/components/article/article.component";
 import {SupportGroupsTableComponent} from "./features/components/support-groups-table/support-groups-table.component";
+import {SupportGroupFeedComponent} from "./features/components/support-group-feed/support-group-feed.component";
 
 const routes: Routes = [
 
@@ -13,7 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'feed', component: FeedComponent },
   { path: 'article/:title', component: ArticleComponent},
-  { path: 'support-groups', component: SupportGroupsTableComponent}
+  { path: 'support-groups', component: SupportGroupsTableComponent},
+  { path: 'support-group-feed/:groupName', component: SupportGroupFeedComponent}
 ];
 
 @NgModule({

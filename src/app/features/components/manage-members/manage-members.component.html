@@ -1,6 +1,9 @@
 <div class="email-list">
 <mat-form-field style="width:100%">
-  <input matInput (keyup)="applyFilter($event)" placeholder="Introduceți un email...">
+  <input matInput (keyup)="applyFilter($event)" #searchInput placeholder="Introduceți un email...">
+  <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput(searchInput)">
+    <mat-icon>close</mat-icon>
+  </button>
 </mat-form-field>
 
 <mat-list>

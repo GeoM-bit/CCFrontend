@@ -35,10 +35,12 @@ import {JwtInterceptor} from "./core/interceptor/token.interceptor";
 import {ArticleComponent} from "./features/components/article/article.component";
 import { ArticlePreviewComponent } from './features/components/article-preview/article-preview.component';
 import { SupportGroupsTableComponent } from './features/components/support-groups-table/support-groups-table.component';
-import { AddMemberComponent } from './features/components/add-member/add-member.component';
+import { ManageMembersComponent } from './features/components/manage-members/manage-members.component';
 import {MatList, MatListItem} from "@angular/material/list";
 import { CreateSupportGroupComponent } from './features/components/create-support-group/create-support-group.component';
 import {MatCheckbox} from "@angular/material/checkbox";
+import { ConfirmationDialogComponent } from './features/components/confirmation-dialog/confirmation-dialog.component';
+import { SupportGroupFeedComponent } from './features/components/support-group-feed/support-group-feed.component';
 
 
 export function tokenGetter() {
@@ -57,8 +59,10 @@ export function tokenGetter() {
     ArticleComponent,
     ArticlePreviewComponent,
     SupportGroupsTableComponent,
-    AddMemberComponent,
-    CreateSupportGroupComponent
+    ManageMembersComponent,
+    CreateSupportGroupComponent,
+    ConfirmationDialogComponent,
+    SupportGroupFeedComponent
   ],
     imports: [
         BrowserModule,

@@ -9,8 +9,11 @@ import {SupportGroupMemberModel} from "../../../../models/supportGroupMemberMode
 import {Roles} from "../../../core/enums/roles";
 import {SnackBarComponent} from "../snack-bar/snack-bar.component";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {AddMemberComponent} from "../add-member/add-member.component";
+import {ManageMembersComponent} from "../manage-members/manage-members.component";
 import {CreateSupportGroupComponent} from "../create-support-group/create-support-group.component";
+import {ConfirmationDialogComponent} from "../confirmation-dialog/confirmation-dialog.component";
+import {Router} from "@angular/router";
+import {SupportGroupNameDto} from "../../../../models/supportGroupNameDto";
 
 @Component({
   selector: 'app-support-groups-table',
@@ -22,7 +25,8 @@ export class SupportGroupsTableComponent implements OnInit{
   dataSource= new MatTableDataSource<SupportGroupDto>;
   noGroups=false;
   supportGroupMemberModel = new SupportGroupMemberModel();
-  constructor(private supportGroupService: SupportGroupsService, private authService: AuthenticationService, private snackBar: SnackBarComponent, private dialog: MatDialog){
+  constructor(private supportGroupService: SupportGroupsService, private authService: AuthenticationService,
+              private snackBar: SnackBarComponent, private dialog: MatDialog, private router: Router){
   }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -70,7 +74,7 @@ export class SupportGroupsTableComponent implements OnInit{
   }
 
   onAddMembersClick(groupName: String) {
-    const dialogRef: MatDialogRef<AddMemberComponent> = this.dialog.open(AddMemberComponent, {
+    const dialogRef: MatDialogRef<ManageMembersComponent> = this.dialog.open(ManageMembersComponent, {
       width: '60%',
       data: groupName
     });
@@ -99,5 +103,36 @@ export class SupportGroupsTableComponent implements OnInit{
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  deleteGroup(groupName: String) {
+    let group = new SupportGroupNameDto();
+    group.GroupName=groupName;
+    this.supportGroupService.deleteGroup(group).subscribe((response: Boolean) => {
+      if(response) {
+        this.getData();
+        this.snackBar.openSnackBar('Grupul ' + groupName + ' a fost șters cu succes!','');
+      }
+      else {
+        this.snackBar.openSnackBar('Grupul ' + groupName + ' nu a putut fi șters!','');
+      }
+    });
+  }
+
+  openConfirmationDialog(groupName: string): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: { groupName: groupName }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.deleteGroup(groupName);
+      }
+    });
+  }
+
+  goToGroup(groupName: String){
+    this.router.navigate(['support-group-feed', groupName]);
   }
 }
