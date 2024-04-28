@@ -40,7 +40,10 @@ import {MatList, MatListItem} from "@angular/material/list";
 import { CreateSupportGroupComponent } from './features/components/create-support-group/create-support-group.component';
 import {MatCheckbox} from "@angular/material/checkbox";
 import { ConfirmationDialogComponent } from './features/components/confirmation-dialog/confirmation-dialog.component';
-import { SupportGroupFeedComponent } from './features/components/support-group-feed/support-group-feed.component';
+import { SupportGroupComponent } from './features/components/support-group/support-group.component';
+import { SupportGroupPostComponent } from './features/components/support-group-post/support-group-post.component';
+import {MatExpansionPanel, MatExpansionPanelTitle} from "@angular/material/expansion";
+import {CommentsModule} from "./features/comments/comments.module";
 
 
 export function tokenGetter() {
@@ -62,43 +65,47 @@ export function tokenGetter() {
     ManageMembersComponent,
     CreateSupportGroupComponent,
     ConfirmationDialogComponent,
-    SupportGroupFeedComponent
+    SupportGroupComponent,
+    SupportGroupPostComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        MatIconModule,
-        FormsModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatTableModule,
-        MatDatepickerModule,
-        HttpClientModule,
-        MatSnackBarModule,
-        MatSelectModule,
-        MatSortModule,
-        MatPaginatorModule,
-        MatDialogModule,
-        CommonModule,
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: tokenGetter,
-                allowedDomains: ["localhost:4200"],
-            },
-        }),
-        MatMenuTrigger,
-        MatMenu,
-        MatMenuItem,
-        QuillModule.forRoot(),
-        MatList,
-        MatListItem,
-        MatCheckbox
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatButtonModule,
+    MatIconModule,
+    FormsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatTableModule,
+    MatDatepickerModule,
+    HttpClientModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    MatSortModule,
+    MatPaginatorModule,
+    MatDialogModule,
+    CommonModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ["localhost:4200"],
+      },
+    }),
+    MatMenuTrigger,
+    MatMenu,
+    MatMenuItem,
+    QuillModule.forRoot(),
+    MatList,
+    MatListItem,
+    MatCheckbox,
+    MatExpansionPanel,
+    MatExpansionPanelTitle,
+    CommentsModule
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideAnimationsAsync()

@@ -1,0 +1,32 @@
+<div id="postWrapper">
+  <mat-card>
+    <mat-card-header>
+      <img mat-card-avatar>
+      <mat-card-title>{{ postData.authorName }}</mat-card-title>
+      <mat-card-subtitle>{{ postData.publicationDate }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ postData.content }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-icon-button>
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+<!--      <button mat-icon-button>-->
+<!--        <mat-icon>comment</mat-icon>-->
+<!--      </button>-->
+    </mat-card-actions>
+<!--    <button mat-icon-button (click)="toggleDiscussion()">-->
+<!--      <mat-icon>{{ showDiscussion ? 'expand_less' : 'expand_more' }}</mat-icon>-->
+<!--    </button>-->
+<!--    <mat-expansion-panel *ngIf="showDiscussion">-->
+<!--    </mat-expansion-panel>-->
+<!--    <mat-form-field class="comment-field">-->
+<!--      <input matInput placeholder="Comentariul tău...">-->
+<!--    </mat-form-field>-->
+<!--    <button mat-icon-button class="send-button">-->
+<!--      <mat-icon>send</mat-icon>-->
+<!--    </button>-->
+    <app-comments currentUser="{{postData.authorName}}" postId="{{postData.authorName}}"></app-comments>
+  </mat-card>
+</div>

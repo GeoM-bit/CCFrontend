@@ -1,0 +1,4 @@
+<div id="postsFeed">
+  <app-support-group-post *ngFor="let post of posts" [postData]="post"></app-support-group-post>
+</div>
+<button (click)="onCreatePostClick()" mat-fab id="create-post-button"><mat-icon>add</mat-icon></button>

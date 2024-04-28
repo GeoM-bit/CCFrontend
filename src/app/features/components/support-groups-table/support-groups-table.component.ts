@@ -133,6 +133,6 @@ export class SupportGroupsTableComponent implements OnInit{
   }
 
   goToGroup(groupName: String){
-    this.router.navigate(['support-group-feed', groupName]);
+    this.router.navigate(['support-group', groupName]);
   }
 }
