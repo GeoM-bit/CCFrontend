@@ -42,7 +42,12 @@ import {MatCheckbox} from "@angular/material/checkbox";
 import { ConfirmationDialogComponent } from './features/components/confirmation-dialog/confirmation-dialog.component';
 import { SupportGroupComponent } from './features/components/support-group/support-group.component';
 import { SupportGroupPostComponent } from './features/components/support-group-post/support-group-post.component';
-import {MatExpansionPanel, MatExpansionPanelTitle} from "@angular/material/expansion";
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelDescription, MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from "@angular/material/expansion";
 import {CommentsModule} from "./features/comments/comments.module";
 
 
@@ -104,7 +109,10 @@ export function tokenGetter() {
     MatCheckbox,
     MatExpansionPanel,
     MatExpansionPanelTitle,
-    CommentsModule
+    CommentsModule,
+    MatAccordion,
+    MatExpansionPanelDescription,
+    MatExpansionPanelHeader
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

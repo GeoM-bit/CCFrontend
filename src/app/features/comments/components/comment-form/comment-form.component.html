@@ -1,7 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
-  <textarea class="comment-form-textarea" formControlName="title"></textarea>
-  <button class="comment-form-button" type="submit" [disabled]="form.invalid">
-    {{submitLabel}}
+  <mat-form-field class="comment-form-textarea" style="width: 95%">
+    <input matInput formControlName="input" placeholder="Comentariul tău...">
+  </mat-form-field>
+  <button mat-icon-button class="send-button" type="submit" [disabled]="form.invalid">
+    <mat-icon>send</mat-icon>
   </button>
   <button *ngIf="hasCancelButton" type="button" class="comment-form-button comment-form-cancel-button"
   (click)="handleCancel.emit()">

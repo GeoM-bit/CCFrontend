@@ -3,6 +3,8 @@ import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {CommentInterface} from "../../features/comments/types/comment.interface";
+import {CreateCommentDto} from "../../../models/createCommentDto";
+import {PostIdDto} from "../../../models/postIdDto";
 
 @Injectable({
   providedIn: 'root'
@@ -12,14 +14,14 @@ export class CommentsService {
   constructor(private http: HttpClient) {
   }
 
-  getComments(postId: string): Observable<CommentInterface[]> {
+  getComments(postId: PostIdDto): Observable<CommentInterface[]> {
     return this.http.post<CommentInterface[]>(
       environment.baseUrl + '/api/Comments/get-comments', postId);
   }
 
-  createComment(text: string, parentId: null | string, postId: string): Observable<CommentInterface>{
+  createComment(createCommentDto: CreateCommentDto): Observable<CommentInterface>{
     return this.http.post<CommentInterface>(
-      environment.baseUrl + '/api/Comments/create-comment', {text, parentId});
+      environment.baseUrl + '/api/Comments/create-comment', createCommentDto);
   }
 
   updateComment(id: string, text: string): Observable<CommentInterface>{

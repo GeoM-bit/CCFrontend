@@ -8,9 +8,11 @@ import {PostDto} from "../../../../models/postDto";
 })
 export class SupportGroupPostComponent {
   @Input() postData: PostDto;
-  showDiscussion: boolean = false;
+  showDiscussion = false;
 
   toggleDiscussion() {
     this.showDiscussion  = !this.showDiscussion;
   }
+
+
 }

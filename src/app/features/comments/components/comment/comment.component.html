@@ -1,11 +1,6 @@
 <div class="comment">
-  <div class="comment-image-container">
-    <img mat-card-avatar>
-  </div>
   <div class="comment-right-part">
-    <div class="comment-content">
-      <div class="comment-author">{{comment.username}}</div>
-    </div>
+    <div class="comment-author"> <img mat-card-avatar style="margin-right: 3px"> {{comment.author}}</div>
     <div class="comment-text" *ngIf="!isEditing()">{{comment.body}}</div>
     <app-comment-form
       *ngIf="isEditing()"
@@ -13,8 +8,7 @@
       [hasCancelButton]="true"
       [initialText]="comment.body"
       (handleSubmit)="updateComment.emit({text: $event, commentId: comment.id})"
-      (handleCancel)="setActiveComment.emit(null)"
-    >
+      (handleCancel)="setActiveComment.emit(null)">
     </app-comment-form>
     <div class="comment-actions">
       <div *ngIf="canReply" class="comment-action" (click)="setActiveComment.emit({id: comment.id, type: activeCommentType.replying})">Reply</div>
@@ -26,7 +20,7 @@
                       submitLabel="Reply"
                       (handleSubmit)="addComment.emit({text: $event, parentId: replyId})">
     </app-comment-form>
-    <div class="replies" *ngIf="replies.length > 0">
+    <div class="replies" *ngIf="replies.length > 0" style="margin-left: 50px">
       <app-comment *ngFor="let reply of replies"
                    [comment]="reply"
                    (setActiveComment)="setActiveComment.emit($event)"

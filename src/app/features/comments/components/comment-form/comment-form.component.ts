@@ -18,12 +18,12 @@ export class CommentFormComponent implements OnInit{
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      title: [this.initialText, Validators.required]
+      input: [this.initialText, Validators.required]
     })
   }
 
   onSubmit(){
-    console.log('onSubmit', this.form.value);
-    this.handleSubmit.emit(this.form.value.title);
+    console.log(this.form.value.input);
+    this.handleSubmit.emit(this.form.value.input);
   }
 }
