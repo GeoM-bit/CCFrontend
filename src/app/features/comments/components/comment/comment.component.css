@@ -1,0 +1,12 @@
+.comment-actions {
+  display: flex;
+}
+
+.comment-action {
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.comment-action:hover {
+  color: cornflowerblue;
+}

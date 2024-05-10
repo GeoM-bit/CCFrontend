@@ -1,0 +1,16 @@
+.email-list {
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.email-item {
+  display: flex;
+  align-items: center;
+}
+
+.email-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}

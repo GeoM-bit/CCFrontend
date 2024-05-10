@@ -1,0 +1,12 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="comment-form-textarea" style="width: 95%">
+    <input matInput formControlName="input" placeholder="Comentariul tău...">
+  </mat-form-field>
+  <button mat-icon-button class="send-button" type="submit" [disabled]="form.invalid">
+    <mat-icon>send</mat-icon>
+  </button>
+  <div *ngIf="hasCancelButton" type="button"
+  (click)="handleCancel.emit()">
+    Cancel
+  </div>
+</form>

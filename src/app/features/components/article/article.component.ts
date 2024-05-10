@@ -21,8 +21,7 @@ export class ArticleComponent implements OnInit{
       }
     });
   }
-  getArticle()
-  {
+  getArticle() {
     this.articleService.getArticleByTitle(this.article).subscribe((response: ArticleDto) => {
       this.article = response;
     });

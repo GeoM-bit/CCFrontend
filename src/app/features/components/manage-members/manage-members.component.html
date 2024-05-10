@@ -1,0 +1,20 @@
+<div class="email-list">
+<mat-form-field style="width:100%">
+  <input matInput (keyup)="applyFilter($event)" #searchInput placeholder="Introduceți un email...">
+  <button *ngIf="searchInput.value" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearchInput(searchInput)">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-form-field>
+
+<mat-list>
+  <mat-list-item *ngFor="let email of filteredEmails" class="email-item">
+    <div class="email-info">
+      <div>{{ email }}</div>
+      <div class="buttons-container">
+        <button mat-raised-button color="primary" style="margin-right: 5px" (click)="removeMember(email)" class="remove-button" [disabled]="!isMemberAdded(email)">Șterge</button>
+        <button mat-raised-button color="accent" (click)="addMember(email)" class="add-button" [disabled]="isMemberAdded(email)">Adaugă</button>
+      </div>
+      </div>
+  </mat-list-item>
+</mat-list>
+</div>

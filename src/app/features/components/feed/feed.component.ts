@@ -11,10 +11,6 @@ import {FeedArticleDto} from "../../../../models/feedArticleDto";
 })
 export class FeedComponent implements OnInit{
   articles: FeedArticleDto[] = [];
-  onCreateArticleClick()
-  {
-    this.dialog.open(CreateArticleComponent);
-  }
 
   constructor(private dialog: MatDialog, private articleService: ArticleService) {
   }
@@ -23,10 +19,13 @@ export class FeedComponent implements OnInit{
     this.getArticles();
   }
 
-  getArticles()
-  {
+  getArticles() {
     this.articleService.getArticles().subscribe((response: FeedArticleDto[]) => {
       response.forEach(x=>this.articles.push(x));
     });
+  }
+
+  onCreateArticleClick() {
+    this.dialog.open(CreateArticleComponent);
   }
 }

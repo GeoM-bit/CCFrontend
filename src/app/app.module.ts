@@ -34,6 +34,23 @@ import { QuillModule} from "ngx-quill";
 import {JwtInterceptor} from "./core/interceptor/token.interceptor";
 import {ArticleComponent} from "./features/components/article/article.component";
 import { ArticlePreviewComponent } from './features/components/article-preview/article-preview.component';
+import { SupportGroupsTableComponent } from './features/components/support-groups-table/support-groups-table.component';
+import { ManageMembersComponent } from './features/components/manage-members/manage-members.component';
+import {MatList, MatListItem} from "@angular/material/list";
+import { CreateSupportGroupComponent } from './features/components/create-support-group/create-support-group.component';
+import {MatCheckbox} from "@angular/material/checkbox";
+import { ConfirmationDialogComponent } from './features/components/confirmation-dialog/confirmation-dialog.component';
+import { SupportGroupComponent } from './features/components/support-group/support-group.component';
+import { SupportGroupPostComponent } from './features/components/support-group-post/support-group-post.component';
+import {
+  MatAccordion,
+  MatExpansionPanel,
+  MatExpansionPanelDescription, MatExpansionPanelHeader,
+  MatExpansionPanelTitle
+} from "@angular/material/expansion";
+import {CommentsModule} from "./features/comments/comments.module";
+import { CreatePostComponent } from './features/components/create-post/create-post.component';
+import { PostPreviewComponent } from './features/components/post-preview/post-preview.component';
 
 
 export function tokenGetter() {
@@ -50,7 +67,15 @@ export function tokenGetter() {
     FeedArticleComponent,
     CreateArticleComponent,
     ArticleComponent,
-    ArticlePreviewComponent
+    ArticlePreviewComponent,
+    SupportGroupsTableComponent,
+    ManageMembersComponent,
+    CreateSupportGroupComponent,
+    ConfirmationDialogComponent,
+    SupportGroupComponent,
+    SupportGroupPostComponent,
+    CreatePostComponent,
+    PostPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +107,16 @@ export function tokenGetter() {
     MatMenuTrigger,
     MatMenu,
     MatMenuItem,
-    QuillModule.forRoot()
+    QuillModule.forRoot(),
+    MatList,
+    MatListItem,
+    MatCheckbox,
+    MatExpansionPanel,
+    MatExpansionPanelTitle,
+    CommentsModule,
+    MatAccordion,
+    MatExpansionPanelDescription,
+    MatExpansionPanelHeader
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

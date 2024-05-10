@@ -1,0 +1,27 @@
+<div id="postWrapper">
+  <mat-card>
+    <mat-card-header>
+      <img mat-card-avatar>
+      <mat-card-title>{{ postData.authorName }}</mat-card-title>
+      <mat-card-subtitle>{{ postData.publicationDate != undefined ? postData.publicationDate : getDate() }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p>{{ postData.content }}</p>
+    </mat-card-content>
+      <button mat-icon-button>
+        <mat-icon>thumb_up</mat-icon>
+      </button>
+    <mat-accordion class="scrollable-accordion">
+      <mat-expansion-panel
+                          (opened)="showDiscussion = true"
+                          (closed)="showDiscussion = false">
+        <mat-expansion-panel-header expandedHeight="auto">
+          <mat-panel-title>
+            Comentarii
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-comments currentUser="{{currentUsername}}" postId="{{postData.postId}}"></app-comments>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card>
+</div>

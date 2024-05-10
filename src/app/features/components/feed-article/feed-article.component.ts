@@ -16,6 +16,6 @@ export class FeedArticleComponent implements OnInit{
   }
 
   onFeedArticleClick(){
-  this.router.navigate(['article', this.articleData.title]);
+    this.router.navigate(['article', this.articleData.title]);
   }
 }

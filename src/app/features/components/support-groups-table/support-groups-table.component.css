@@ -1,0 +1,46 @@
+.mat-cell {
+  text-align: left;
+}
+
+.mat-paginator{
+  width: 97%;
+}
+
+.mat-column-action {
+  width:10%;
+}
+
+.mat-raised-button{
+  width: 80px;
+  text-align: center;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+
+.noDataRow{
+  height: 60px;
+}
+
+.table-container{
+  max-width: 1200px;
+  min-height: 650px;
+  margin: 100px auto;
+}
+
+#create-group-button{
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+}
+
+.action-button{
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: 150px
+}
+
+tr.table-row-style:hover{
+  background-color: #707070;
+  cursor: pointer;
+}
+
