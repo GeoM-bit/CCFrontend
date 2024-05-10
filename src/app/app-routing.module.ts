@@ -6,6 +6,7 @@ import {SupportGroupsTableComponent} from "./features/support groups/support-gro
 import {SupportGroupComponent} from "./features/support groups/support-group/support-group.component";
 import {FeedComponent} from "./features/feed & articles/feed/feed.component";
 import {ArticleComponent} from "./features/feed & articles/article/article.component";
+import {ProfileComponent} from "./features/user profile/profile/profile.component";
 
 const routes: Routes = [
 
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'feed', component: FeedComponent },
   { path: 'article/:title', component: ArticleComponent},
   { path: 'support-groups', component: SupportGroupsTableComponent},
-  { path: 'support-group/:groupName', component: SupportGroupComponent}
+  { path: 'support-group/:groupName', component: SupportGroupComponent},
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({

@@ -51,6 +51,7 @@ import {FeedArticleComponent} from "./features/feed & articles/feed-article/feed
 import {CreateArticleComponent} from "./features/feed & articles/create-article/create-article.component";
 import {ArticleComponent} from "./features/feed & articles/article/article.component";
 import {ArticlePreviewComponent} from "./features/feed & articles/article-preview/article-preview.component";
+import { ProfileComponent } from './features/user profile/profile/profile.component';
 
 
 export function tokenGetter() {
@@ -75,7 +76,8 @@ export function tokenGetter() {
     SupportGroupComponent,
     SupportGroupPostComponent,
     CreatePostComponent,
-    PostPreviewComponent
+    PostPreviewComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

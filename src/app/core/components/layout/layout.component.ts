@@ -26,13 +26,6 @@ export class LayoutComponent implements OnInit {
     return false;
   }
 
-  checkIfUserRole(){
-    let role = this.authenticationService.getRole();
-    if(role==Roles[Roles.User])
-      return true;
-    return false;
-  }
-
   getUserName(){
     let userName = this.authenticationService.getUserEmail();
     if(userName!=null)
@@ -63,5 +56,9 @@ export class LayoutComponent implements OnInit {
 
   goToLogin(){
     this.router.navigate(['login']);
+  }
+
+  goToProfile(){
+    this.router.navigate(['profile']);
   }
 }

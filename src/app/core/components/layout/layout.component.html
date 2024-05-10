@@ -6,6 +6,7 @@
       <button mat-menu-item *ngIf="getRole()" (click)="logout()" >Logout</button>
       <button mat-menu-item (click)="goToSupportGroups()">Grupuri de suport</button>
       <button mat-menu-item (click)="goToFeed()">Articole</button>
+      <button mat-menu-item (click)="goToProfile()">Profil</button>
     </mat-menu>
   </div>
   <div *ngIf="checkTokenValidity()" class="menu-position">
