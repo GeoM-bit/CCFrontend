@@ -4,6 +4,8 @@ import {ActivatedRoute} from "@angular/router";
 import {SupportGroupNameDto} from "../../../../models/supportGroupNameDto";
 import {PostDto} from "../../../../models/postDto";
 import {GroupPostsService} from "../../../core/services/groupPosts.service";
+import {CreateArticleComponent} from "../create-article/create-article.component";
+import {CreatePostComponent} from "../create-post/create-post.component";
 
 @Component({
   selector: 'app-support-group',
@@ -33,6 +35,8 @@ export class SupportGroupComponent {
   }
 
   onCreatePostClick() {
-    //this.dialog.open();
+    this.dialog.open(CreatePostComponent,  {
+      data: this.supportGroupNameDto.GroupName
+    });
   }
 }

@@ -49,6 +49,8 @@ import {
   MatExpansionPanelTitle
 } from "@angular/material/expansion";
 import {CommentsModule} from "./features/comments/comments.module";
+import { CreatePostComponent } from './features/components/create-post/create-post.component';
+import { PostPreviewComponent } from './features/components/post-preview/post-preview.component';
 
 
 export function tokenGetter() {
@@ -71,7 +73,9 @@ export function tokenGetter() {
     CreateSupportGroupComponent,
     ConfirmationDialogComponent,
     SupportGroupComponent,
-    SupportGroupPostComponent
+    SupportGroupPostComponent,
+    CreatePostComponent,
+    PostPreviewComponent
   ],
   imports: [
     BrowserModule,

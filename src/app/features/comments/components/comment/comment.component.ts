@@ -28,8 +28,8 @@ export class CommentComponent implements OnInit{
 
   ngOnInit(): void {
     const fiveMinutes = 300000;
-    const timePassed = new Date().getMilliseconds() - new Date(this.comment.createdAt).getMilliseconds() > fiveMinutes;
-    this.canReply = Boolean(this.currentUser);
+    const timePassed = new Date().getTime() - new Date(this.comment.createdAt).getTime() > fiveMinutes;
+    this.canReply = Boolean(this.currentUser) && this.comment.parentId == null;
     this.canEdit = this.currentUser===this.comment.username && !timePassed;
     this.canDelete = this.currentUser===this.comment.username && !timePassed && this.replies.length===0;
     this.replyId = this.parentId ? this.parentId : this.comment.id;

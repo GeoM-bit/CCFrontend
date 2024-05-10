@@ -1,6 +1,6 @@
-<div class="comment">
+<div class="comment" style="margin-top: 20px">
   <div class="comment-right-part">
-    <div class="comment-author"> <img mat-card-avatar style="margin-right: 3px"> {{comment.author}}</div>
+    <div class="comment-author"> <img mat-card-avatar style="margin-right: 3px"> <b>{{comment.author}}</b></div>
     <div class="comment-text" *ngIf="!isEditing()">{{comment.body}}</div>
     <app-comment-form
       *ngIf="isEditing()"
@@ -13,8 +13,7 @@
     <div class="comment-actions">
       <div *ngIf="canReply" class="comment-action" (click)="setActiveComment.emit({id: comment.id, type: activeCommentType.replying})">Reply</div>
       <div *ngIf="canEdit" class="comment-action" (click)="setActiveComment.emit({id: comment.id, type: activeCommentType.editing})">Edit</div>
-      <div *ngIf="canDelete" class="comment-action"
-      (click)="deleteComment.emit(comment.id)">Delete</div>
+      <div *ngIf="canDelete" class="comment-action" (click)="deleteComment.emit(comment.id)">Delete</div>
     </div>
     <app-comment-form *ngIf="isReplying()"
                       submitLabel="Reply"

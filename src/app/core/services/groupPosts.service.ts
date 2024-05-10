@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import {PostDto} from "../../../models/postDto";
 import {SupportGroupNameDto} from "../../../models/supportGroupNameDto";
+import {NewPostModel} from "../../../models/newPostModel";
 
 @Injectable({
   providedIn: 'root'
@@ -15,5 +16,9 @@ export class GroupPostsService {
 
   getPosts(groupName: SupportGroupNameDto): Observable<PostDto[]> {
     return this.http.post<PostDto[]>(environment.baseUrl + '/api/Post/get-posts', groupName);
+  }
+
+  createPost(newPost: NewPostModel): Observable<boolean> {
+    return this.http.post<boolean>(environment.baseUrl + '/api/Post/create-post', newPost);
   }
 }

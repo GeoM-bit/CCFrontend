@@ -4,6 +4,7 @@ import {CommentInterface} from "../../types/comment.interface";
 import {ActiveCommentInterface} from "../../types/activeComment.interface";
 import {CreateCommentDto} from "../../../../../models/createCommentDto";
 import {PostIdDto} from "../../../../../models/postIdDto";
+import {UpdateCommentDto} from "../../../../../models/updateCommentDto";
 
 @Component({
   selector: 'app-comments',
@@ -19,6 +20,7 @@ export class CommentsComponent implements OnInit{
   activeComment: ActiveCommentInterface | null = null;
   newComment: CreateCommentDto = new CreateCommentDto();
   postIdDto: PostIdDto = new PostIdDto();
+  updateCommentDto: UpdateCommentDto = new UpdateCommentDto();
 
   constructor(private commentsService: CommentsService) {
   }
@@ -48,9 +50,11 @@ export class CommentsComponent implements OnInit{
   }
 
   updateComment({text, commentId}: {text: string, commentId:string}){
-    this.commentsService.updateComment(commentId, text).subscribe((updatedComment)=>{
+    this.updateCommentDto.body = text;
+    this.commentsService.updateComment(commentId, this.updateCommentDto).subscribe((updatedComment)=>{
       this.comments = this.comments.map(comment =>{
         if(comment.id === commentId){
+          this.getComments();
           return updatedComment;
         }
         return comment;
@@ -61,7 +65,7 @@ export class CommentsComponent implements OnInit{
 
   deleteComment(commentId: string){
     this.commentsService.deleteComment(commentId).subscribe(()=> {
-      this.comments = this.comments.filter(comment => comment.id !== commentId)
+      this.getComments();
     });
   }
 

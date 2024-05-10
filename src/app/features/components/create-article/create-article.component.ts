@@ -24,9 +24,9 @@ export class CreateArticleComponent implements OnInit{
 
   ngOnInit(): void {
     this.initForm();
-    }
-  changedEditor(event: EditorChangeContent | EditorChangeSelection)
-  {
+  }
+
+  changedEditor(event: EditorChangeContent | EditorChangeSelection) {
     this.articleContent = event['editor']['root']['innerHTML'];
     this.articleForm.patchValue({
       content: this.articleContent
@@ -59,8 +59,7 @@ export class CreateArticleComponent implements OnInit{
     }
   }
 
-  initForm()
-  {
+  initForm() {
     this.articleForm = new FormGroup({
       'title': new FormControl(null,[Validators.required, CustomValidators.WhitespaceInput]),
       'summary': new FormControl(null, [Validators.required, CustomValidators.SummaryLengthValidator, CustomValidators.WhitespaceInput]),
@@ -76,8 +75,7 @@ export class CreateArticleComponent implements OnInit{
   //   return null;
   // }
 
-  onPreviewClicked()
-  {
+  onPreviewClicked() {
     this.articleModel = this.articleForm.value;
     this.articleModel.content = this.articleContent;
     this.articleDto.title = this.articleModel.title;

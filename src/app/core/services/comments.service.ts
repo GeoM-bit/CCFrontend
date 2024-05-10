@@ -5,6 +5,7 @@ import { environment } from '../../../environments/environment';
 import {CommentInterface} from "../../features/comments/types/comment.interface";
 import {CreateCommentDto} from "../../../models/createCommentDto";
 import {PostIdDto} from "../../../models/postIdDto";
+import {UpdateCommentDto} from "../../../models/updateCommentDto";
 
 @Injectable({
   providedIn: 'root'
@@ -24,9 +25,9 @@ export class CommentsService {
       environment.baseUrl + '/api/Comments/create-comment', createCommentDto);
   }
 
-  updateComment(id: string, text: string): Observable<CommentInterface>{
+  updateComment(id: string, updateCommentDto: UpdateCommentDto): Observable<CommentInterface>{
     return this.http.patch<CommentInterface>(
-      environment.baseUrl + `/api/Comments/create-comment/${id}`, {text});
+      environment.baseUrl + `/api/Comments/update-comment/${id}`, updateCommentDto);
   }
 
   deleteComment(id: string): Observable<{}>{

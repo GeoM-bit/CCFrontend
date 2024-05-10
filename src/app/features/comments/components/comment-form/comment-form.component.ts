@@ -23,7 +23,7 @@ export class CommentFormComponent implements OnInit{
   }
 
   onSubmit(){
-    console.log(this.form.value.input);
     this.handleSubmit.emit(this.form.value.input);
+    this.form.get('input').setValue('');
   }
 }
