@@ -1,0 +1,23 @@
+textarea {
+  width: 150%;
+  border: none;
+  font-size: 17px;
+  background-color: #F1EFF1;
+  border-radius: 10px;
+}
+
+.error-message {
+  color: red;
+  margin-top: 5px;
+  background-color: darkgray;
+  border-radius: 10px;
+}
+
+mat-card{
+  justify-content: center;
+  align-items: center;
+  min-width: 370px;
+  max-width: 1200px;
+  overflow-y: auto;
+  max-height: 780px;
+}

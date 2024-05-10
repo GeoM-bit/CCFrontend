@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import {RegisterComponent} from "./features/components/register/register.component";
-import {LoginComponent} from "./features/components/login/login.component";
-import {FeedComponent} from "./features/components/feed/feed.component";
-import {ArticleComponent} from "./features/components/article/article.component";
-import {SupportGroupsTableComponent} from "./features/components/support-groups-table/support-groups-table.component";
-import {SupportGroupComponent} from "./features/components/support-group/support-group.component";
+import {RegisterComponent} from "./features/auth/register/register.component";
+import {LoginComponent} from "./features/auth/login/login.component";
+import {SupportGroupsTableComponent} from "./features/support groups/support-groups-table/support-groups-table.component";
+import {SupportGroupComponent} from "./features/support groups/support-group/support-group.component";
+import {FeedComponent} from "./features/feed & articles/feed/feed.component";
+import {ArticleComponent} from "./features/feed & articles/article/article.component";
 
 const routes: Routes = [
 
