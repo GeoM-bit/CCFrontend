@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import {NewArticleModel} from "../../../models/newArticleModel";
-import {FeedArticleDto} from "../../../models/feedArticleDto";
-import {ArticleDto} from "../../../models/articleDto";
-import {TitleDto} from "../../../models/titleDto";
+import {NewArticleModel} from "../../features/feed & articles/types/newArticleModel";
+import {FeedArticle} from "../../features/feed & articles/types/feedArticle";
+import {ArticleModel} from "../../features/feed & articles/types/articleModel";
+import {Title} from "../../features/feed & articles/types/title";
 
 @Injectable({
   providedIn: 'root'
@@ -18,12 +18,12 @@ export class ArticleService {
     return this.http.post(environment.baseUrl + '/api/Article/create-article', article);
   }
 
-  getArticles(): Observable<FeedArticleDto[]>{
-    return this.http.get<FeedArticleDto[]>(environment.baseUrl + '/api/Article/get-feed-articles');
+  getArticles(): Observable<FeedArticle[]>{
+    return this.http.get<FeedArticle[]>(environment.baseUrl + '/api/Article/get-feed-articles');
   }
 
-  getArticleByTitle(title: TitleDto): Observable<ArticleDto>{
-    return this.http.post<ArticleDto>(environment.baseUrl + '/api/Article/get-article-by-title', title);
+  getArticleByTitle(title: Title): Observable<ArticleModel>{
+    return this.http.post<ArticleModel>(environment.baseUrl + '/api/Article/get-article-by-title', title);
   }
 
 }

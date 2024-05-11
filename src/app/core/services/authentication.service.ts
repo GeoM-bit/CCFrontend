@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RegisterModel } from '../../../models/registerModel';
+import { RegisterModel } from '../../features/auth/types/registerModel';
 import { environment } from '../../../environments/environment';
-import {LoginModel} from "../../../models/loginModel";
-import {TokenModel} from "../../../models/tokenModel";
+import {LoginModel} from "../../features/auth/types/loginModel";
+import {TokenModel} from "../../features/auth/types/tokenModel";
 import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({

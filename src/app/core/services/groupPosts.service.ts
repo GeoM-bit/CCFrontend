@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import {PostDto} from "../../../models/postDto";
-import {SupportGroupNameDto} from "../../../models/supportGroupNameDto";
-import {NewPostModel} from "../../../models/newPostModel";
+import {PostModel} from "../../features/posts/types/postModel";
+import {SupportGroupName} from "../../features/support groups/types/supportGroupName";
+import {NewPostModel} from "../../features/posts/types/newPostModel";
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +14,8 @@ export class GroupPostsService {
   constructor(private http: HttpClient) {
   }
 
-  getPosts(groupName: SupportGroupNameDto): Observable<PostDto[]> {
-    return this.http.post<PostDto[]>(environment.baseUrl + '/api/Post/get-posts', groupName);
+  getPosts(groupName: SupportGroupName): Observable<PostModel[]> {
+    return this.http.post<PostModel[]>(environment.baseUrl + '/api/Post/get-posts', groupName);
   }
 
   createPost(newPost: NewPostModel): Observable<boolean> {
