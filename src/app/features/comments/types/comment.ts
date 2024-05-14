@@ -5,4 +5,5 @@ export class Comment {
   author: string;
   parentId: string | null;
   createdAt: string;
+  profilePhoto: string;
 }

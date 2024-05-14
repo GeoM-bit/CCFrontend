@@ -33,6 +33,7 @@ export class CommentsComponent implements OnInit{
     this.postIdDto.postId = this.postId;
     this.commentsService.getComments(this.postIdDto).subscribe(comments => {
       this.comments = comments;
+      console.log(comments);
       this.parentComments = this.comments
         .filter(comment => comment.parentId == null);
     });

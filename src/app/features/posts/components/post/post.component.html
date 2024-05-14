@@ -1,12 +1,17 @@
 <div id="postWrapper">
   <mat-card>
     <mat-card-header>
-      <img mat-card-avatar>
-      <mat-card-title>{{ postData.authorName }}</mat-card-title>
-      <mat-card-subtitle>{{ postData.publicationDate != undefined ? postData.publicationDate : getDate() }}</mat-card-subtitle>
+      <div class="author-info">
+        <img src="{{postData.profilePhoto}}" alt="UserProfilePhoto" class="rounded-circle" width="40" style="margin-right: 5px">
+        <div>
+          <b style="font-size: 20px">{{postData.authorName}}</b>
+          <br>
+          <b>{{postData.publicationDate != undefined ? postData.publicationDate : getDate()}}</b>
+        </div>
+      </div>
     </mat-card-header>
-    <mat-card-content>
-      <h1>{{ postData.title }}</h1>
+    <mat-card-content >
+      <h1 style="margin-top: 20px">{{ postData.title }}</h1>
       <div [innerHTML]="postData.content"></div>
 
     </mat-card-content>

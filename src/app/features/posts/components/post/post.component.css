@@ -15,6 +15,12 @@
   overflow-y: auto;
 }
 
+.author-info {
+  display: flex;
+  align-items: center; /* Vertically center items */
+}
+
+
 
 
 

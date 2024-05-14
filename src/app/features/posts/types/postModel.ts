@@ -4,4 +4,5 @@ export class PostModel {
   authorName: String;
   publicationDate: Date;
   content: String;
+  profilePhoto: String;
 }

@@ -1,6 +1,9 @@
 <div class="comment" style="margin-top: 20px">
   <div class="comment-right-part">
-    <div class="comment-author"> <img mat-card-avatar style="margin-right: 3px"> <b>{{comment.author}}</b></div>
+    <div class="comment-author">
+      <img src="{{comment.profilePhoto}}" alt="UserProfilePhoto" class="rounded-circle" width="40" style="margin-right: 5px">
+      <b>{{comment.author}}</b>
+    </div>
     <div class="comment-text" *ngIf="!isEditing()">{{comment.body}}</div>
     <app-comment-form
       *ngIf="isEditing()"

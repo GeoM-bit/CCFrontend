@@ -1,7 +1,9 @@
 <mat-toolbar>
   <span style="color:white">CC</span>
   <div *ngIf="!checkTokenValidity()" class="menu-position">
-    <button mat-button [matMenuTriggerFor]="afterMenu"><span style="color:white"><i class="fa-solid fa-user" style="--fa-primary-color: white"></i>  Hello, {{getUserName()}}!</span></button>
+    <button mat-button [matMenuTriggerFor]="afterMenu"><span style="color:white">
+      <img src="{{profilePhoto}}" alt="UserProfilePhoto" class="rounded-circle" width="30">
+      Hello, {{getUserName()}}!</span></button>
     <mat-menu #afterMenu="matMenu" xPosition="after">
       <button mat-menu-item *ngIf="getRole()" (click)="logout()" >Logout</button>
       <button mat-menu-item (click)="goToSupportGroups()">Grupuri de suport</button>

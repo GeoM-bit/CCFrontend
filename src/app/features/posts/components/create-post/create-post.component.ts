@@ -9,6 +9,8 @@ import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar
 import {PostModel} from "../../types/postModel";
 import {AuthenticationService} from "../../../../core/services/authentication.service";
 import {PostPreviewComponent} from "../post-preview/post-preview.component";
+import {ProfileInfo} from "../../../user profile/types/profileInfo";
+import {UserService} from "../../../../core/services/user.service";
 
 @Component({
   selector: 'app-create-post',
@@ -25,6 +27,7 @@ export class CreatePostComponent implements OnInit{
               private dialog: MatDialog,
               private snackBar: SnackBarComponent,
               private authService: AuthenticationService,
+              private userService: UserService,
               @Inject(MAT_DIALOG_DATA) public groupName: String,
               private dialogRef: MatDialogRef<CreatePostComponent>) {
   }
@@ -79,6 +82,9 @@ export class CreatePostComponent implements OnInit{
     this.postDto.content = this.postContent;
     this.postDto.title = this.newPostModel.title;
     this.postDto.authorName = this.authService.getUserName();
+    this.userService.getProfileInfo().subscribe((response: ProfileInfo) => {
+      this.postDto.profilePhoto = response.profilePhoto;
+    });
     this.dialog.open(PostPreviewComponent, {
       width: '80%',
       data: this.postDto
