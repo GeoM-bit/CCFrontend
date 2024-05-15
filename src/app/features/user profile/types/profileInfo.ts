@@ -3,4 +3,5 @@ export class ProfileInfo{
   lastName: String;
   email: String;
   profilePhoto: String;
+  role: String;
 }

@@ -47,3 +47,51 @@
 .shadow-none {
   box-shadow: none!important;
 }
+
+.btn-remove-photo {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 5px;
+  background-color: rgba(255, 255, 255, 0.5);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.btn-remove-photo i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.btn-remove-photo i {
+  font-size: 16px;
+}
+
+.btn-remove-photo {
+  z-index: 1;
+}
+
+.mat-expansion-panel{
+  background-color: lightgray;
+}
+
+.mat-expansion-panel-header-title {
+  color: black;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.button-container {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+
+
