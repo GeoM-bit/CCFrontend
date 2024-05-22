@@ -1,10 +1,18 @@
-import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../../../../core/services/user.service";
 import {ProfileInfo} from "../../types/profileInfo";
 import {ProfilePhoto} from "../../types/profilePhoto";
 import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar.component";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {CustomValidators} from "../../../../core/utils/customValidators";
+import {ConfirmValidParentMatcher, CustomValidators} from "../../../../core/utils/customValidators";
+import {ChangePasswordDto} from "../../types/changePasswordDto";
+import {UpdateProfileDto} from "../../types/updateProfileDto";
+import {Router} from "@angular/router";
+import {AuthenticationService} from "../../../../core/services/authentication.service";
+import {
+  ConfirmationDialogComponent
+} from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-profile',
@@ -15,14 +23,25 @@ export class ProfileComponent implements OnInit{
   profileInfo: ProfileInfo = new ProfileInfo();
   profilePhotoModel: ProfilePhoto = new ProfilePhoto();
   profileDetailsForm: FormGroup;
+  changePasswordForm: FormGroup;
   originalProfileInfo: ProfileInfo = new ProfileInfo();
-  formChanged: boolean = false;
+  profileDetailsFormChanged: boolean = false;
+  hideConfirmationPassword = true;
+  hidePassword = true;
+  hideOldPassword = true;
+  confirmValidParentMatcher = new ConfirmValidParentMatcher();
+  updateProfileDetails: ProfileInfo = new ProfileInfo();
+
   constructor(private userService: UserService,
-              private snackBar: SnackBarComponent) {
+              private snackBar: SnackBarComponent,
+              private router: Router,
+              private authService: AuthenticationService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
     this.getProfileData();
+    this.initChangePasswordForm();
     this.initProfileDetailsForm();
   }
 
@@ -70,26 +89,100 @@ export class ProfileComponent implements OnInit{
     });
   }
 
-  onProfileDetailsSubmit(){
-
-  }
-
   initProfileDetailsForm(){
     this.profileDetailsForm = new FormGroup({
-        'firstName': new FormControl(this.profileInfo.firstName,[Validators.pattern("^[a-zA-Z ]*$"), CustomValidators.WhitespaceInput]),
-        'lastName': new FormControl(this.profileInfo.lastName, [Validators.pattern("^[a-zA-Z ]*$"), CustomValidators.WhitespaceInput]),
-        'email': new FormControl(this.profileInfo.email, [Validators.email, CustomValidators.WhitespaceInput]),
-        'role': new FormControl(this.profileInfo.role)
+        'firstName': new FormControl(null,[Validators.pattern("^[a-zA-Z ]*$")]),
+        'lastName': new FormControl(null, [Validators.pattern("^[a-zA-Z ]*$")]),
+        'email': new FormControl(null, [Validators.email]),
+        'role': new FormControl(null)
       });
   }
 
-  onInputChange(): void {
-    console.log(this.profileDetailsForm);
-    this.formChanged = true;
+  onProfileDetailsInputChange(): void {
+    this.profileDetailsFormChanged = true;
   }
 
   resetForm(): void {
     this.profileDetailsForm.patchValue(this.originalProfileInfo);
-    this.formChanged = false;
+    this.profileDetailsFormChanged = false;
+  }
+
+  initChangePasswordForm(){
+    this.changePasswordForm = new FormGroup({
+        'oldPassword': new FormControl(null, [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#=+';:_,.?!@$%^&*-]).{10,}$")]),
+        'password': new FormControl(null, [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#=+';:_,.?!@$%^&*-]).{10,}$")]),
+        'confirmationPassword': new FormControl(null, [Validators.required])
+      },
+      [CustomValidators.PasswordMatchValidator]);
+  }
+
+  onChangePasswordSubmit(){
+    let changePasswordDto = new ChangePasswordDto();
+    changePasswordDto.newPassword = this.changePasswordForm.get("password").value;
+    changePasswordDto.oldPassword = this.changePasswordForm.get("oldPassword").value;
+    this.userService.changePassword(changePasswordDto).subscribe((response: boolean) => {
+      if(response)
+        this.snackBar.openSnackBar('Parola a fost modificată cu succes!','');
+      else
+        this.snackBar.openSnackBar('Parola nu a putut fi modificată!','');
+    });
+  }
+
+  onProfileDetailsSubmit(){
+    this.updateProfileDetails.firstName = this.profileDetailsForm.get("firstName").value;
+    this.updateProfileDetails.lastName = this.profileDetailsForm.get("lastName").value;
+    this.updateProfileDetails.email = this.profileDetailsForm.get("email").value;
+
+    if(this.updateProfileDetails.email != null &&
+       this.updateProfileDetails.email != undefined) {
+      this.openConfirmationDialog()
+    }
+    else
+      this.submitProfileUpdate();
+  }
+
+  submitProfileUpdate(){
+    this.userService.changeProfileInfo(this.updateProfileDetails).subscribe((response: UpdateProfileDto) => {
+      if(response.result && !response.logoutNeeded) {
+        this.authService.replaceToken(response.newToken);
+        this.snackBar.openSnackBar('Detaliile profilului au fost actualizate!', '');
+        this.getProfileData();
+      }
+      else if(response.result && response.logoutNeeded){
+        this.authService.logout();
+        this.router.navigate(['login']);
+        this.snackBar.openSnackBar('Un mail de confirmare a fost trimis către ' + this.updateProfileDetails.email + '!', '');
+      }
+      else
+        this.snackBar.openSnackBar('Detaliile profilului nu au putut fi actualizate!','');
+    });
+  }
+
+  openConfirmationDialog(): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: {
+        title: "Confirmați schimbarea adresei de email",
+        content: "Sunteți sigur/ă că doriți să modificați adresa de email? <br> " +
+          "După confirmare veți fi delogat automat și va trebui să confirmați noua adresă de email pentru a vă autentifica."
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.submitProfileUpdate();
+      }
+    });
+  }
+
+  togglePasswordVisibility(field: string) {
+    if (field === 'password') {
+      this.hidePassword = !this.hidePassword;
+    } else if (field === 'confirmationPassword') {
+      this.hideConfirmationPassword = !this.hideConfirmationPassword;
+    }
+    else if (field === 'oldPassword') {
+      this.hideOldPassword = !this.hideOldPassword;
+    }
   }
 }

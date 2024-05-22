@@ -131,7 +131,10 @@ export class SupportGroupsTableComponent implements OnInit{
   openConfirmationDialog(groupName: string): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '500px',
-      data: { groupName: groupName }
+      data: {
+        title: "Confirmați ștergerea grupului",
+        content: "Sunteți sigur/ă că doriți să ștergeți grupul " + groupName + "?<br>Toată postările și activitatea asociate cu acesta vor fi șterse."
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {

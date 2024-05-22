@@ -1,9 +1,18 @@
-<h2 mat-dialog-title>Confirmați ștergerea grupului</h2>
-<div mat-dialog-content>
-  Sunteți sigur/ă că doriți să ștergeți grupul "{{ data.groupName }}"?<br>
-  Toată postările și activitatea asociate cu acesta vor fi șterse.
+<h2 mat-dialog-title>{{data.title}}</h2>
+<div mat-dialog-content [innerHTML]="data.content">
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancel()">Renunță</button>
-  <button mat-button color="warn" (click)="onConfirm()">Șterge</button>
+  <button mat-button color="warn" (click)="onConfirm()">Confirmă</button>
 </div>
+
+<!--<h2 mat-dialog-title>Confirmați ștergerea grupului</h2>-->
+<!--<div mat-dialog-content>-->
+<!--  Sunteți sigur/ă că doriți să ștergeți grupul "{{ data.groupName }}"?<br>-->
+<!--  Toată postările și activitatea asociate cu acesta vor fi șterse.-->
+<!--</div>-->
+<!--<div mat-dialog-actions>-->
+<!--  <button mat-button (click)="onCancel()">Renunță</button>-->
+<!--  <button mat-button color="warn" (click)="onConfirm()">Confirmă</button>-->
+<!--</div>-->
+

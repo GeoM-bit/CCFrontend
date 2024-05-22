@@ -27,12 +27,19 @@ export class AuthenticationService {
     });
     return result;
   }
+
   logout() {
     this.http.post<any>(environment.baseUrl + '/api/Auth/logout', null)
       .subscribe((response: any) => {
         localStorage.removeItem('token');
       });
   }
+
+  replaceToken(newToken: String){
+    localStorage.removeItem('token');
+    localStorage.setItem('token', JSON.stringify({token: newToken}));
+  }
+
   getRole(): string
   {
     let token = localStorage.getItem('token');

@@ -37,35 +37,33 @@
                 <div>
                   <mat-form-field>
                     <mat-label>Prenume</mat-label>
-                    <input matInput formControlName="firstName" (input)="onInputChange()" [value]="profileInfo.firstName">
-                    <mat-error *ngIf="((!profileDetailsForm.get('firstName').valid ||
-                                       profileDetailsForm.get('firstName').errors?.whitespace) && formChanged) ">
+                    <input matInput formControlName="firstName" (input)="onProfileDetailsInputChange()" [value]="profileInfo.firstName">
+                    <mat-error *ngIf="((!profileDetailsForm.get('firstName').valid) && profileDetailsFormChanged) ">
                       Prenumele nu este valid!
                     </mat-error>
-<!--                    <mat-error *ngIf="profileDetailsForm.get('firstName').dirty && profileDetailsForm.get('firstName').errors?.required">-->
-<!--                      Prenumele este obligatoriu!-->
-<!--                    </mat-error>-->
                   </mat-form-field>
                 </div>
                 <div>
                   <mat-form-field>
                     <mat-label>Nume</mat-label>
-                    <input matInput formControlName="lastName" (input)="onInputChange()" [value]="profileInfo.lastName">
-                    <mat-error *ngIf="(!profileDetailsForm.get('lastName').valid ||
-                                       profileDetailsForm.get('lastName').errors?.whitespace) &&
-                                       !profileDetailsForm.get('lastName').errors?.required">
+                    <input matInput formControlName="lastName" (input)="onProfileDetailsInputChange()" [value]="profileInfo.lastName">
+                    <mat-error *ngIf="((!profileDetailsForm.get('lastName').valid) && profileDetailsFormChanged)">
                       Numele nu este valid!
-                    </mat-error>
-                    <mat-error *ngIf="profileDetailsForm.get('lastName').dirty && profileDetailsForm.get('lastName').errors?.required">
-                      Numele este obligatoriu!
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div>
+                <div style="display: flex; align-items: center;">
                   <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" (input)="onInputChange()" [value]="profileInfo.email">
+                    <input matInput formControlName="email" (input)="onProfileDetailsInputChange()" [value]="profileInfo.email">
+                    <mat-error *ngIf="((!profileDetailsForm.get('email').valid) && profileDetailsFormChanged)">
+                      Adresa de email nu este validă!
+                    </mat-error>
                   </mat-form-field>
+                  <div style="margin-left: 8px; margin-bottom: 35px; display: flex; align-items: center;">
+                    <mat-icon color="warn">warning</mat-icon>
+                    <span style="margin-left: 4px; color: darkred">Schimbarea adresei de email necesită reautentificare!</span>
+                  </div>
                 </div>
                 <div>
                   <mat-form-field>
@@ -74,8 +72,63 @@
                   </mat-form-field>
                 </div>
                 <div class="button-container">
-                  <button mat-raised-button color="primary" type="submit" [disabled]="!profileDetailsForm.valid || !formChanged">Modifică</button>
-                  <button mat-raised-button color="warn" *ngIf="formChanged" (click)="resetForm()">Anulează</button>
+                  <button mat-raised-button type="submit" [disabled]="!profileDetailsForm.valid || !profileDetailsFormChanged">Modifică</button>
+                  <button mat-raised-button color="accent" style="margin-left:10px" *ngIf="profileDetailsFormChanged" (click)="resetForm()">Anulează</button>
+                </div>
+              </form>
+            </mat-expansion-panel>
+            <mat-expansion-panel *ngIf="profileInfo.emailConfirmed">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Modificare parolă
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <form [formGroup]="changePasswordForm" (ngSubmit)="onChangePasswordSubmit()" class="form-container">
+                <div>
+                  <mat-form-field>
+                    <mat-label>Parola veche</mat-label>
+                    <input matInput
+                           formControlName="oldPassword"
+                           [type]="hideOldPassword ? 'password' : 'text'">
+                    <mat-icon matSuffix (click)="togglePasswordVisibility('oldPassword')" >
+                      {{hideOldPassword?'visibility_off':'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="changePasswordForm.get('oldPassword').errors?.pattern">
+                      Parola trebuie să aibă cel puțin 10 caractere, o literă mare, o literă mică, o cifră și un simbol.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field>
+                    <mat-label>Parola nouă</mat-label>
+                    <input matInput
+                           formControlName="password"
+                           [type]="hidePassword ? 'password' : 'text'">
+                    <mat-icon matSuffix (click)="togglePasswordVisibility('password')" >
+                      {{hidePassword?'visibility_off':'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="changePasswordForm.get('password').errors?.pattern">
+                      Parola trebuie să aibă cel puțin 10 caractere, o literă mare, o literă mică, o cifră și un simbol.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div>
+                  <mat-form-field>
+                    <mat-label>Reintroduceți parola nouă</mat-label>
+                    <input matInput
+                           formControlName="confirmationPassword"
+                           [type]="hideConfirmationPassword ? 'password' : 'text'"
+                           [errorStateMatcher]="confirmValidParentMatcher">
+                    <mat-icon matSuffix (click)="togglePasswordVisibility('confirmationPassword')" >
+                      {{hideConfirmationPassword?'visibility_off':'visibility'}}
+                    </mat-icon>
+                    <mat-error *ngIf="changePasswordForm.hasError('mismatch')">
+                      Parolele nu se potrivesc!
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="button-container">
+                  <button mat-raised-button type="submit" [disabled]="!changePasswordForm.valid">Modifică</button>
                 </div>
               </form>
             </mat-expansion-panel>
@@ -86,9 +139,46 @@
 <!--                  Grupuri de suport-->
 <!--                </mat-panel-title>-->
 <!--              </mat-expansion-panel-header>-->
-<!--              <div>-->
-<!--                <button mat-raised-button color="primary" (click)="submitChanges('section2')">Submit</button>-->
-<!--              </div>-->
+<!--              <form [formGroup]="supportGroupsForm" (ngSubmit)="onSupportGroupsSubmit()" class="form-container">-->
+<!--                <div>-->
+<!--                  <mat-form-field>-->
+<!--                    <mat-label>Prenume</mat-label>-->
+<!--                    <input matInput formControlName="firstName" (input)="onInputChange()" [value]="profileInfo.firstName">-->
+<!--                    <mat-error *ngIf="((!profileDetailsForm.get('firstName').valid) && formChanged) ">-->
+<!--                      Prenumele nu este valid!-->
+<!--                    </mat-error>-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <mat-form-field>-->
+<!--                    <mat-label>Nume</mat-label>-->
+<!--                    <input matInput formControlName="lastName" (input)="onInputChange()" [value]="profileInfo.lastName">-->
+<!--                    <mat-error *ngIf="((!profileDetailsForm.get('lastName').valid) && formChanged)">-->
+<!--                      Numele nu este valid!-->
+<!--                    </mat-error>-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <mat-form-field>-->
+<!--                    <mat-label>Email</mat-label>-->
+<!--                    <input matInput formControlName="email" (input)="onInputChange()" [value]="profileInfo.email">-->
+<!--                    <mat-error *ngIf="((!profileDetailsForm.get('email').valid) && formChanged)">-->
+<!--                      Adresa de email nu este validă!-->
+<!--                    </mat-error>-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                  <mat-form-field>-->
+<!--                    <mat-label>Tip de cont</mat-label>-->
+<!--                    <input matInput formControlName="role" [value]="profileInfo.role" readonly>-->
+<!--                  </mat-form-field>-->
+<!--                </div>-->
+<!--                <div class="button-container">-->
+<!--                  <button mat-raised-button type="submit" [disabled]="!profileDetailsForm.valid || !formChanged">Modifică</button>-->
+<!--                  <button mat-raised-button style="margin-left:10px" *ngIf="formChanged" (click)="resetForm()">Anulează</button>-->
+<!--                </div>-->
+<!--              </form>-->
+
 <!--            </mat-expansion-panel>-->
 <!--            <mat-expansion-panel>-->
 <!--              <mat-expansion-panel-header>-->

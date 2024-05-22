@@ -48,8 +48,7 @@ export class LoginComponent implements OnInit {
     this.snackBar.openSnackBar('V-ați conectat cu succes!','');
   }
 
-  initForm()
-  {
+  initForm() {
     this.loginForm = new FormGroup({
       'email': new FormControl(null,[Validators.required, Validators.email, CustomValidators.WhitespaceInput]),
       'password': new FormControl(null, [Validators.required])

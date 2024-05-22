@@ -76,6 +76,7 @@
 
 .mat-expansion-panel{
   background-color: lightgray;
+  margin-bottom: 15px;
 }
 
 .mat-expansion-panel-header-title {
@@ -92,6 +93,16 @@
   display: flex;
   justify-content: flex-end;
 }
+
+button:disabled {
+  background-color: #b0b0b0;
+}
+
+mat-form-field{
+  width: 300px;
+  margin-bottom: 17px;
+}
+
 
 
 
