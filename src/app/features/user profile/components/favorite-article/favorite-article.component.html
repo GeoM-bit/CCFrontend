@@ -1,0 +1,16 @@
+<mat-card style="max-width: 340px; margin-bottom: 10px">
+  <mat-card-header>
+    <mat-card-title (click)="removeArticle.emit(favoriteArticle.id)">
+      {{favoriteArticle.title}}
+    </mat-card-title>
+    <mat-card-subtitle style="margin-top: 5px">
+      {{favoriteArticle.authorName}}, {{favoriteArticle.publicationDate}}
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-actions style="align-self: flex-start">
+    <mat-icon class="action-item" color="primary" style="cursor: pointer" (click)="removeArticle.emit(favoriteArticle.id)">
+      delete
+    </mat-icon>
+  </mat-card-actions>
+</mat-card>
+

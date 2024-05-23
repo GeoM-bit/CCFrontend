@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CreateArticleComponent} from "../create-article/create-article.component";
 import {ArticleService} from "../../../../core/services/article.service";
 import {FeedArticle} from "../../types/feedArticle";
+import {ArticleModel} from "../../types/articleModel";
 
 @Component({
   selector: 'app-feed',
@@ -34,5 +35,12 @@ export class FeedComponent implements OnInit{
         this.getArticles();
       }
     });
+  }
+
+  refreshArticle(articleId: String){
+    const article = this.articles.find(article => article.id == articleId);
+    if (article) {
+      article.isFavorite = !article.isFavorite;
+    }
   }
 }

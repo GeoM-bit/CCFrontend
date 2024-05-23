@@ -8,7 +8,12 @@
   <mat-card-content (click)="onFeedArticleClick()" style="cursor:pointer">
     <div style="font-size: 30px;margin-top: 10px; font-weight: bold; line-height: 1"> {{articleData.title}}</div>
   </mat-card-content>
+  <div style="align-self: flex-start; margin-left: 30px; margin-right: 30px; margin-top: 20px">
+    {{articleData.summary}}
+  </div>
   <mat-card-actions style="align-self: flex-start">
-    <mat-icon class="action-item" color="warn">favorite_border</mat-icon>
+    <mat-icon class="action-item" color="primary" (click)="toggleFavorite()">
+      {{ articleData.isFavorite ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
   </mat-card-actions>
 </mat-card>

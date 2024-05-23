@@ -132,68 +132,22 @@
                 </div>
               </form>
             </mat-expansion-panel>
-
-            <!--            <mat-expansion-panel>-->
-<!--              <mat-expansion-panel-header>-->
-<!--                <mat-panel-title>-->
-<!--                  Grupuri de suport-->
-<!--                </mat-panel-title>-->
-<!--              </mat-expansion-panel-header>-->
-<!--              <form [formGroup]="supportGroupsForm" (ngSubmit)="onSupportGroupsSubmit()" class="form-container">-->
-<!--                <div>-->
-<!--                  <mat-form-field>-->
-<!--                    <mat-label>Prenume</mat-label>-->
-<!--                    <input matInput formControlName="firstName" (input)="onInputChange()" [value]="profileInfo.firstName">-->
-<!--                    <mat-error *ngIf="((!profileDetailsForm.get('firstName').valid) && formChanged) ">-->
-<!--                      Prenumele nu este valid!-->
-<!--                    </mat-error>-->
-<!--                  </mat-form-field>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <mat-form-field>-->
-<!--                    <mat-label>Nume</mat-label>-->
-<!--                    <input matInput formControlName="lastName" (input)="onInputChange()" [value]="profileInfo.lastName">-->
-<!--                    <mat-error *ngIf="((!profileDetailsForm.get('lastName').valid) && formChanged)">-->
-<!--                      Numele nu este valid!-->
-<!--                    </mat-error>-->
-<!--                  </mat-form-field>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <mat-form-field>-->
-<!--                    <mat-label>Email</mat-label>-->
-<!--                    <input matInput formControlName="email" (input)="onInputChange()" [value]="profileInfo.email">-->
-<!--                    <mat-error *ngIf="((!profileDetailsForm.get('email').valid) && formChanged)">-->
-<!--                      Adresa de email nu este validă!-->
-<!--                    </mat-error>-->
-<!--                  </mat-form-field>-->
-<!--                </div>-->
-<!--                <div>-->
-<!--                  <mat-form-field>-->
-<!--                    <mat-label>Tip de cont</mat-label>-->
-<!--                    <input matInput formControlName="role" [value]="profileInfo.role" readonly>-->
-<!--                  </mat-form-field>-->
-<!--                </div>-->
-<!--                <div class="button-container">-->
-<!--                  <button mat-raised-button type="submit" [disabled]="!profileDetailsForm.valid || !formChanged">Modifică</button>-->
-<!--                  <button mat-raised-button style="margin-left:10px" *ngIf="formChanged" (click)="resetForm()">Anulează</button>-->
-<!--                </div>-->
-<!--              </form>-->
-
-<!--            </mat-expansion-panel>-->
-<!--            <mat-expansion-panel>-->
-<!--              <mat-expansion-panel-header>-->
-<!--                <mat-panel-title>-->
-<!--                  Articole preferate-->
-<!--                </mat-panel-title>-->
-<!--              </mat-expansion-panel-header>-->
-<!--              <div>-->
-<!--                <button mat-raised-button color="primary" (click)="submitChanges('section3')">Submit</button>-->
-<!--              </div>-->
-<!--            </mat-expansion-panel>-->
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Articole preferate
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div id="favoriteArticles" class="articles-container">
+                <app-favorite-article *ngFor="let article of favoriteArticles"
+                                      [favoriteArticle]="article"
+                                      (removeArticle)="removeFromFavorites($event)">
+                </app-favorite-article>
+              </div>
+            </mat-expansion-panel>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 </div>

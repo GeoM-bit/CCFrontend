@@ -15,14 +15,14 @@ export class ArticleComponent implements OnInit{
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
-      if(params['title'] != undefined) {
-        this.article.title = params['title'];
+      if(params['id'] != undefined) {
+        this.article.id = params['id'];
         this.getArticle();
       }
     });
   }
   getArticle() {
-    this.articleService.getArticleByTitle(this.article).subscribe((response: ArticleModel) => {
+    this.articleService.getArticleById(this.article.id).subscribe((response: ArticleModel) => {
       this.article = response;
     });
   }

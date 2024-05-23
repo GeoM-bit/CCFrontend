@@ -9,10 +9,10 @@ import {ChangePasswordDto} from "../../types/changePasswordDto";
 import {UpdateProfileDto} from "../../types/updateProfileDto";
 import {Router} from "@angular/router";
 import {AuthenticationService} from "../../../../core/services/authentication.service";
-import {
-  ConfirmationDialogComponent
-} from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import {ConfirmationDialogComponent} from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import {MatDialog} from "@angular/material/dialog";
+import {FavoriteArticle} from "../../types/favoriteArticle";
+import {ArticleService} from "../../../../core/services/article.service";
 
 @Component({
   selector: 'app-profile',
@@ -31,11 +31,13 @@ export class ProfileComponent implements OnInit{
   hideOldPassword = true;
   confirmValidParentMatcher = new ConfirmValidParentMatcher();
   updateProfileDetails: ProfileInfo = new ProfileInfo();
+  favoriteArticles: FavoriteArticle[] = [];
 
   constructor(private userService: UserService,
               private snackBar: SnackBarComponent,
               private router: Router,
               private authService: AuthenticationService,
+              private articleService: ArticleService,
               private dialog: MatDialog) {
   }
 
@@ -50,6 +52,10 @@ export class ProfileComponent implements OnInit{
       this.profileInfo = response;
       this.originalProfileInfo = response;
     });
+
+    this.articleService.getFavoriteArticles().subscribe((response: FavoriteArticle[]) =>{
+      this.favoriteArticles = response;
+    })
   }
 
   handleUploadButtonClick() {
@@ -184,5 +190,16 @@ export class ProfileComponent implements OnInit{
     else if (field === 'oldPassword') {
       this.hideOldPassword = !this.hideOldPassword;
     }
+  }
+
+  removeFromFavorites(articleId: string){
+    this.articleService.removeArticleFromFavorites(articleId).subscribe( response => {
+      if (response) {
+        this.snackBar.openSnackBar('Articolul a fost șters din favorite!','');
+        this.favoriteArticles = this.favoriteArticles.filter(article => article.id !== articleId);
+      } else {
+        this.snackBar.openSnackBar('Articolul nu a putut fi șters din favorite!','');
+      }
+    });
   }
 }

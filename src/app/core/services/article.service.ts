@@ -5,7 +5,7 @@ import { environment } from '../../../environments/environment';
 import {NewArticleModel} from "../../features/feed & articles/types/newArticleModel";
 import {FeedArticle} from "../../features/feed & articles/types/feedArticle";
 import {ArticleModel} from "../../features/feed & articles/types/articleModel";
-import {Title} from "../../features/feed & articles/types/title";
+import {FavoriteArticle} from "../../features/user profile/types/favoriteArticle";
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +22,19 @@ export class ArticleService {
     return this.http.get<FeedArticle[]>(environment.baseUrl + '/api/Article/get-feed-articles');
   }
 
-  getArticleByTitle(title: Title): Observable<ArticleModel>{
-    return this.http.post<ArticleModel>(environment.baseUrl + '/api/Article/get-article-by-title', title);
+  getArticleById(id: String): Observable<ArticleModel>{
+    return this.http.get<ArticleModel>(environment.baseUrl + '/api/Article/get-article-by-title/' + id);
   }
 
+  getFavoriteArticles(): Observable<FavoriteArticle[]>{
+    return this.http.get<FavoriteArticle[]>(environment.baseUrl + '/api/Article/get-favorite-articles');
+  }
+
+  addArticleToFavorites(articleId: String): Observable<boolean>{
+    return this.http.get<boolean>(environment.baseUrl + '/api/Article/add-article-to-favorites/' + articleId);
+  }
+
+  removeArticleFromFavorites(articleId: String): Observable<boolean>{
+    return this.http.delete<boolean>(environment.baseUrl + '/api/Article/remove-article-from-favorites/' + articleId);
+  }
 }
