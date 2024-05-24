@@ -15,9 +15,12 @@
       <div [innerHTML]="postData.content"></div>
 
     </mat-card-content>
-      <button mat-icon-button style="margin-top: 20px">
-        <mat-icon>thumb_up</mat-icon>
+    <div style="display: flex; align-items: center;">
+      <button mat-icon-button style="margin-top: 20px;" color="primary" (click)="toggleLiked()">
+        <mat-icon>{{ postData.isLiked ? 'thumb_up' : 'thumb_up_off_alt' }}</mat-icon>
       </button>
+      <span style="margin-left: 5px; margin-top: 22px">{{ postData.numberOfLikes }}</span>
+    </div>
     <mat-accordion class="scrollable-accordion" *ngIf="showComments">
       <mat-expansion-panel
                           (opened)="showDiscussion = true"

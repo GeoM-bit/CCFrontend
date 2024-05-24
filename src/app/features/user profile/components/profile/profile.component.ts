@@ -13,6 +13,9 @@ import {ConfirmationDialogComponent} from "../../../../core/components/confirmat
 import {MatDialog} from "@angular/material/dialog";
 import {FavoriteArticle} from "../../types/favoriteArticle";
 import {ArticleService} from "../../../../core/services/article.service";
+import {UserProfileSupportGroup} from "../../types/userProfileSupportGroup";
+import {SupportGroupsService} from "../../../../core/services/supportGroups.service";
+import {SupportGroupMemberModel} from "../../../support groups/types/supportGroupMemberModel";
 
 @Component({
   selector: 'app-profile',
@@ -32,12 +35,14 @@ export class ProfileComponent implements OnInit{
   confirmValidParentMatcher = new ConfirmValidParentMatcher();
   updateProfileDetails: ProfileInfo = new ProfileInfo();
   favoriteArticles: FavoriteArticle[] = [];
+  supportGroups: UserProfileSupportGroup[] = [];
 
   constructor(private userService: UserService,
               private snackBar: SnackBarComponent,
               private router: Router,
               private authService: AuthenticationService,
               private articleService: ArticleService,
+              private supportGroupsService: SupportGroupsService,
               private dialog: MatDialog) {
   }
 
@@ -55,7 +60,11 @@ export class ProfileComponent implements OnInit{
 
     this.articleService.getFavoriteArticles().subscribe((response: FavoriteArticle[]) =>{
       this.favoriteArticles = response;
-    })
+    });
+
+    this.supportGroupsService.getGroupsForProfile().subscribe((response: UserProfileSupportGroup[]) =>{
+      this.supportGroups = response;
+    });
   }
 
   handleUploadButtonClick() {
@@ -141,7 +150,7 @@ export class ProfileComponent implements OnInit{
 
     if(this.updateProfileDetails.email != null &&
        this.updateProfileDetails.email != undefined) {
-      this.openConfirmationDialog()
+      this.openChangeEmailConfirmationDialog();
     }
     else
       this.submitProfileUpdate();
@@ -164,7 +173,7 @@ export class ProfileComponent implements OnInit{
     });
   }
 
-  openConfirmationDialog(): void {
+  openChangeEmailConfirmationDialog(): void {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
       width: '500px',
       data: {
@@ -192,7 +201,7 @@ export class ProfileComponent implements OnInit{
     }
   }
 
-  removeFromFavorites(articleId: string){
+  removeFromFavorites(articleId: String){
     this.articleService.removeArticleFromFavorites(articleId).subscribe( response => {
       if (response) {
         this.snackBar.openSnackBar('Articolul a fost șters din favorite!','');
@@ -201,5 +210,48 @@ export class ProfileComponent implements OnInit{
         this.snackBar.openSnackBar('Articolul nu a putut fi șters din favorite!','');
       }
     });
+  }
+
+  goToArticle(articleId: String){
+    this.router.navigate(['article', articleId]);
+  }
+
+  removeSupportGroup(groupName: String){
+    this.openLeaveSupportGroupConfirmationDialog(groupName);
+  }
+
+  openLeaveSupportGroupConfirmationDialog(groupName: String): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: {
+        title: "Confirmați părăsirea grupului de suport",
+        content: "Sunteți sigur/ă că doriți să părăsiți grupul '" + groupName +
+          "'?<br>Ulterior părăsirii grupului nu veți mai avea acces la activitatea din cadrul său."
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.leaveSupportGroup(groupName);
+      }
+    });
+  }
+
+  leaveSupportGroup(groupName: String){
+    let supportGroupMemberModel = new SupportGroupMemberModel();
+    supportGroupMemberModel.groupName = groupName;
+    supportGroupMemberModel.email = this.profileInfo.email;
+
+    this.supportGroupsService.removeMember(supportGroupMemberModel).subscribe((result => {
+      if(result){
+        this.supportGroups = this.supportGroups.filter(group => group.groupName !== groupName);
+      }
+      else
+        this.snackBar.openSnackBar('Grupul nu a putut fi părăsit!','');
+    }))
+  }
+
+  goToGroup(groupName: String){
+    this.router.navigate(['support-group', groupName]);
   }
 }

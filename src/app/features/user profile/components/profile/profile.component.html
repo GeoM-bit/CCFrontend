@@ -138,11 +138,30 @@
                   Articole preferate
                 </mat-panel-title>
               </mat-expansion-panel-header>
-              <div id="favoriteArticles" class="articles-container">
+              <div id="favoriteArticles" class="iterative-container">
+                <div *ngIf="favoriteArticles.length==0" style="color: black">Nu aveți articole preferate.</div>
                 <app-favorite-article *ngFor="let article of favoriteArticles"
                                       [favoriteArticle]="article"
-                                      (removeArticle)="removeFromFavorites($event)">
+                                      (removeArticle)="removeFromFavorites($event)"
+                                      (goToArticle)="goToArticle($event)">
                 </app-favorite-article>
+              </div>
+            </mat-expansion-panel>
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  Grupurile dumneavoastră de suport
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div id="supportGroups" class="iterative-container">
+                <div *ngIf="supportGroups.length==0" style="color: black">
+                  Nu faceți parte din vreun grup de suport.
+                </div>
+                <app-user-profile-support-group *ngFor="let group of supportGroups"
+                                      [supportGroup]="group"
+                                      (removeSupportGroup)="removeSupportGroup($event)"
+                                      (goToGroup)="goToGroup($event)">
+                </app-user-profile-support-group>
               </div>
             </mat-expansion-panel>
           </div>

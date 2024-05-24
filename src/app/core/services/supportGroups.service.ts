@@ -6,6 +6,7 @@ import {SupportGroupModel} from "../../features/support groups/types/supportGrou
 import {SupportGroupMemberModel} from "../../features/support groups/types/supportGroupMemberModel";
 import {SupportGroupName} from "../../features/support groups/types/supportGroupName";
 import {NewSupportGroupModel} from "../../features/support groups/types/newSupportGroupModel";
+import {UserProfileSupportGroup} from "../../features/user profile/types/userProfileSupportGroup";
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,9 @@ export class SupportGroupsService {
 
   createGroup(supportGroupModel: NewSupportGroupModel): Observable<any> {
     return this.http.post<NewSupportGroupModel>(environment.baseUrl + '/api/SupportGroup/create-group', supportGroupModel);
+  }
+
+  getGroupsForProfile():Observable<UserProfileSupportGroup[]>{
+    return this.http.get<UserProfileSupportGroup[]>(environment.baseUrl + '/api/SupportGroup/get-groups-for-profile');
   }
 }

@@ -5,4 +5,6 @@ export class PostModel {
   publicationDate: Date;
   content: String;
   profilePhoto: String;
+  isLiked: Boolean;
+  numberOfLikes: number;
 }

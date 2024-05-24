@@ -103,20 +103,20 @@ mat-form-field{
   margin-bottom: 17px;
 }
 
-.articles-container {
+.iterative-container {
   display: flex;
   flex-wrap: wrap;
   max-height: 600px;
   overflow-y: auto;
 }
 
-.articles-container app-favorite-article {
+.iterative-container app-favorite-article, app-user-profile-support-group {
   flex: 1 1 calc(50% - 10px);
   margin: 5px;
   box-sizing: border-box;
 }
 
-app-favorite-article {
+app-favorite-article, app-user-profile-support-group {
   background-color: #f9f9f9;
   border: 1px solid #ddd;
   padding: 10px;

@@ -9,4 +9,5 @@ import {FavoriteArticle} from "../../types/favoriteArticle";
 export class FavoriteArticleComponent {
   @Input() favoriteArticle: FavoriteArticle = new FavoriteArticle();
   @Output() removeArticle = new EventEmitter<string>();
+  @Output() goToArticle = new EventEmitter<string>();
 }

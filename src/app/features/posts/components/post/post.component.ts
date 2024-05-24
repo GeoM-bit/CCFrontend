@@ -1,6 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {PostModel} from "../../types/postModel";
 import {AuthenticationService} from "../../../../core/services/authentication.service";
+import {GroupPostsService} from "../../../../core/services/groupPosts.service";
+import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar.component";
 
 @Component({
   selector: 'app-post',
@@ -12,7 +14,9 @@ export class SupportGroupPostComponent implements OnInit {
   @Input() showComments: boolean = true;
   showDiscussion = false;
   currentUsername: string;
-  constructor(private authenticationService: AuthenticationService) {
+  constructor(private authenticationService: AuthenticationService,
+              private postService: GroupPostsService,
+              private snackBar: SnackBarComponent) {
   }
 
   ngOnInit(): void {
@@ -26,5 +30,28 @@ export class SupportGroupPostComponent implements OnInit {
     const yyyy = today.getFullYear();
 
     return yyyy + '-' + mm + '-' + dd;
+  }
+
+  toggleLiked(){
+    if(this.postData.isLiked) {
+      this.postService.removeLikeFromPost(this.postData.postId).subscribe((response: boolean) => {
+        if (response) {
+          this.postData.isLiked = !this.postData.isLiked;
+          this.postData.numberOfLikes = this.postData.numberOfLikes - 1;
+        } else {
+          this.snackBar.openSnackBar('A apărut o problemă! Nu a putut fi ștearsă aprecierea!','');
+        }
+      });
+    }
+    else {
+      this.postService.likePost(this.postData.postId).subscribe((response: boolean) => {
+        if (response) {
+          this.postData.isLiked = !this.postData.isLiked;
+          this.postData.numberOfLikes = this.postData.numberOfLikes + 1;
+        } else {
+          this.snackBar.openSnackBar('A apărut o problemă! Postarea nu a putut fi apreciată!','');
+        }
+      });
+    }
   }
 }

@@ -47,6 +47,7 @@ import { ManageMembersComponent } from "./features/support groups/components/man
 import { CreateSupportGroupComponent } from "./features/support groups/components/create-support-group/create-support-group.component";
 import { SupportGroupComponent } from "./features/support groups/components/support-group/support-group.component";
 import { FavoriteArticleComponent } from './features/user profile/components/favorite-article/favorite-article.component';
+import { UserProfileSupportGroupComponent } from './features/user profile/components/user-profile-support-group/user-profile-support-group.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -73,7 +74,8 @@ export function tokenGetter() {
     CreatePostComponent,
     PostPreviewComponent,
     ProfileComponent,
-    FavoriteArticleComponent
+    FavoriteArticleComponent,
+    UserProfileSupportGroupComponent
   ],
   imports: [
     BrowserModule,

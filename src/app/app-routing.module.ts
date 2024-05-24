@@ -16,7 +16,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
   { path: 'feed', component: FeedComponent },
-  { path: 'article/:title', component: ArticleComponent},
+  { path: 'article/:id', component: ArticleComponent},
   { path: 'support-groups', component: SupportGroupsTableComponent},
   { path: 'support-group/:groupName', component: SupportGroupComponent},
   { path: 'profile', component: ProfileComponent }

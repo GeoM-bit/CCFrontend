@@ -1,6 +1,7 @@
 <mat-card style="max-width: 340px; margin-bottom: 10px">
   <mat-card-header>
-    <mat-card-title (click)="removeArticle.emit(favoriteArticle.id)">
+    <mat-card-title style="cursor: pointer"
+      (click)="goToArticle.emit(favoriteArticle.id)">
       {{favoriteArticle.title}}
     </mat-card-title>
     <mat-card-subtitle style="margin-top: 5px">

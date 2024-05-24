@@ -21,4 +21,12 @@ export class GroupPostsService {
   createPost(newPost: NewPostModel): Observable<boolean> {
     return this.http.post<boolean>(environment.baseUrl + '/api/Post/create-post', newPost);
   }
+
+  likePost(postId: String): Observable<boolean>{
+    return this.http.get<boolean>(environment.baseUrl + '/api/Post/like-post/' + postId);
+  }
+
+  removeLikeFromPost(postId: String): Observable<boolean>{
+    return this.http.get<boolean>(environment.baseUrl + '/api/Post/remove-like/' + postId);
+  }
 }
