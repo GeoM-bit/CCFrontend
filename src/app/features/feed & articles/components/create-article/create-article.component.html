@@ -1,0 +1,82 @@
+<mat-card style="background-color:white">
+  <mat-card-header>
+    <mat-card-title> Creează un articol</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+  <form [formGroup]="articleForm" (ngSubmit)="onSubmit()">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row" id="article-title-label">
+          <div class="col-md-12">
+            Titlu:
+              <textarea matInput formControlName="title" id="article-title"></textarea>
+              <div>
+                <div class="error-message" *ngIf="articleForm.get('title').errors?.whitespace">*Titlul este obligatoriu.</div>
+              </div>
+          </div>
+        </div>
+        <div class="row" id="article-summary-label">
+          <div class="col-md-12">
+            Rezumat articol:
+              <textarea matInput formControlName="summary" id="article-summary"></textarea>
+              <div>
+                <div class="error-message" *ngIf="articleForm.get('summary').errors?.whitespace">*Rezumatul este obligatoriu.</div>
+                <div class="error-message" *ngIf="articleForm.get('summary').errors?.maxlengthExceeded">*Rezumatul nu trebuie să depășească 200 de caractere.</div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="row" style="margin-left: 2px">
+          Imagine titlu:
+        </div>
+        <div class="row" style="height: 100%;">
+          <div class="col-md-12">
+            <div style="text-align: center;">
+              <mat-form-field>
+                <div class="fileUploadContainer"  style="background-color: white; margin-top: 15px}">
+                  <ng-container *ngIf="articleForm.get('titlePhotoContent')!.value">
+                    <img [src]="articleForm.get('titlePhotoContent')!.value" />
+                    <button class="deleteButton" mat-icon-button (click)="fileInput.value = ''; articleForm.get('titlePhotoContent')?.setValue(null);">
+                      <mat-icon>close</mat-icon>
+                    </button>
+                 </ng-container>
+                  <div *ngIf="!articleForm.get('titlePhotoContent')!.value">
+                    <mat-icon style="opacity: 60%;">file_upload</mat-icon>
+                    <button mat-raised-button color="primary" style="width:100%; opacity: 80%;">Browse</button>
+                  </div>
+                  <input #fileInput class="fileInput" type="file" multiple="multiple" accept="image/*"
+                   (change)="setFileData($event)" />
+                </div>
+                  <input matInput formControlName="titlePhotoContent" readonly [hidden]="true " />
+              </mat-form-field>
+            </div>
+            <div style="margin-top: -20px">
+              <div class="error-message" *ngIf="articleForm.get('titlePhotoContent').errors?.required">*Imaginea pentru titlu este obligatorie.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div class="row" id="article-content-label">
+      <div class="col-md">
+        Conținut:
+      </div>
+    </div>
+    <div class="row" id="article-content">
+      <div>
+        <quill-editor [styles]="{height: '310px', 'max-width': '1200px'}" (onEditorChanged)="changedEditor($event)" ></quill-editor>
+      </div>
+      <div>
+        <div class="error-message" *ngIf="articleForm.get('content').errors?.whitespace">*Conținutul este obligatoriu.</div>
+      </div>
+    </div>
+  <mat-card-actions align="end">
+    <button class="submit-button" mat-flat-button style="margin-right: 5px" type="submit" [disabled]="articleForm.invalid">Creează</button>
+    <button class="preview-button" mat-flat-button color="accent"  type="button" (click)="onPreviewClicked()" [disabled]="articleForm.invalid">Previzualizează</button>
+  </mat-card-actions>
+  </form>
+  </mat-card-content>
+</mat-card>

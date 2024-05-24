@@ -1,5 +1,4 @@
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -11,7 +10,7 @@ export class CustomValidators {
   static PasswordMatchValidator(source: FormGroup) {
       const control1 = source.controls['password'];
       const control2 = source.controls['confirmationPassword'];
-      return control1 && control2 && control1.value !== control2.value
+    return  control1 && control2 && control1.value !== control2.value
         ? { 'mismatch': true }
         : null;
   }

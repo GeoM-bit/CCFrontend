@@ -1,0 +1,41 @@
+<mat-card style="background-color:white">
+  <mat-card-header>
+    <mat-card-title>Creează o postare</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row" id="post-title-label">
+              <div class="col-md-12">
+                Titlul postării:
+                <textarea matInput formControlName="title" id="post-title"></textarea>
+                <div>
+                  <div class="error-message" style="width:150%" *ngIf="postForm.get('title').errors?.whitespace">*Titlul este obligatoriu.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row" id="post-content-label" style="margin-top: 20px">
+          <div class="col-md">
+            Conținutul postării:
+          </div>
+        </div>
+        <div class="row" id="post-content">
+          <div>
+            <quill-editor [styles]="{height: '310px', 'max-width': '1200px'}" (onEditorChanged)="changedEditor($event)" ></quill-editor>
+          </div>
+          <div>
+            <div class="error-message" *ngIf="postForm.get('content').errors?.whitespace">*Conținutul este obligatoriu.</div>
+          </div>
+        </div>
+        <mat-card-actions align="end">
+          <button class="submit-button" mat-flat-button style="margin-right: 5px" type="submit" [disabled]="postForm.invalid">Creează</button>
+          <button class="preview-button" mat-flat-button color="accent"  type="button" (click)="onPreviewClicked()" [disabled]="postForm.invalid">Previzualizează</button>
+        </mat-card-actions>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

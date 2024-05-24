@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
-import {Roles} from "../../enums/roles";
+import {UserService} from "../../services/user.service";
+import {ProfileInfo} from "../../../features/user profile/types/profileInfo";
 
 @Component({
   selector: 'app-layout',
@@ -10,10 +11,21 @@ import {Roles} from "../../enums/roles";
 })
 export class LayoutComponent implements OnInit {
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  profilePhoto: String = '';
+  constructor(private authenticationService: AuthenticationService,
+              private userService: UserService,
+              private router: Router) { }
 
   ngOnInit(): void {
+    this.getProfilePhoto();
   }
+
+  getProfilePhoto(){
+    this.userService.getProfileInfo().subscribe((response: ProfileInfo) => {
+      this.profilePhoto = response.profilePhoto;
+    });
+  }
+
   logout(){
     this.authenticationService.logout();
     this.router.navigate(['login']);
@@ -23,13 +35,6 @@ export class LayoutComponent implements OnInit {
     let role = this.authenticationService.getRole();
     if(role!=null)
       return role;
-    return false;
-  }
-
-  checkIfUserRole(){
-    let role = this.authenticationService.getRole();
-    if(role==Roles[Roles.User])
-      return true;
     return false;
   }
 
@@ -63,5 +68,9 @@ export class LayoutComponent implements OnInit {
 
   goToLogin(){
     this.router.navigate(['login']);
+  }
+
+  goToProfile(){
+    this.router.navigate(['profile']);
   }
 }

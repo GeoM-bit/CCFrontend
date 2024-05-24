@@ -1,0 +1,27 @@
+#postWrapper{
+  margin-bottom:50px;
+}
+
+.comment-field {
+  width: 95%;
+}
+
+.send-button {
+  margin-left: auto;
+}
+
+.scrollable-accordion {
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.author-info {
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+

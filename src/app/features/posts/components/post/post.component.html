@@ -1,0 +1,37 @@
+<div id="postWrapper">
+  <mat-card>
+    <mat-card-header>
+      <div class="author-info">
+        <img src="{{postData.profilePhoto}}" alt="UserProfilePhoto" class="rounded-circle" width="40" style="margin-right: 5px">
+        <div>
+          <b style="font-size: 20px">{{postData.authorName}}</b>
+          <br>
+          <b>{{postData.publicationDate != undefined ? postData.publicationDate : getDate()}}</b>
+        </div>
+      </div>
+    </mat-card-header>
+    <mat-card-content >
+      <h1 style="margin-top: 20px">{{ postData.title }}</h1>
+      <div [innerHTML]="postData.content"></div>
+
+    </mat-card-content>
+    <div style="display: flex; align-items: center;">
+      <button mat-icon-button style="margin-top: 20px;" color="primary" (click)="toggleLiked()">
+        <mat-icon>{{ postData.isLiked ? 'thumb_up' : 'thumb_up_off_alt' }}</mat-icon>
+      </button>
+      <span style="margin-left: 5px; margin-top: 22px">{{ postData.numberOfLikes }}</span>
+    </div>
+    <mat-accordion class="scrollable-accordion" *ngIf="showComments">
+      <mat-expansion-panel
+                          (opened)="showDiscussion = true"
+                          (closed)="showDiscussion = false">
+        <mat-expansion-panel-header expandedHeight="auto">
+          <mat-panel-title>
+            Comentarii
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <app-comments currentUser="{{currentUsername}}" postId="{{postData.postId}}"></app-comments>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </mat-card>
+</div>

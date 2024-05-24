@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {CommentInterface} from "../../types/comment.interface";
-import {ActiveCommentTypeEnum} from "../../types/activeCommentType.enum";
-import {ActiveCommentInterface} from "../../types/activeComment.interface";
+import {Comment} from "../../types/comment";
+import {ActiveCommentType} from "../../types/activeCommentType";
+import {ActiveComment} from "../../types/activeComment";
 
 @Component({
   selector: 'app-comment',
@@ -12,16 +12,16 @@ export class CommentComponent implements OnInit{
   canReply: boolean = false;
   canEdit: boolean = false;
   canDelete: boolean = false;
-  activeCommentType = ActiveCommentTypeEnum;
+  activeCommentType = ActiveCommentType;
   replyId: string | null = null;
 
   @Input() currentUser!: string;
-  @Input() replies!: CommentInterface[];
-  @Input() comment!: CommentInterface;
-  @Input() activeComment! : ActiveCommentInterface | null;
+  @Input() replies!: Comment[];
+  @Input() comment!: Comment;
+  @Input() activeComment! : ActiveComment | null;
   @Input() parentId: string | null =null;
 
-  @Output() setActiveComment = new EventEmitter<ActiveCommentInterface | null>();
+  @Output() setActiveComment = new EventEmitter<ActiveComment | null>();
   @Output() addComment = new EventEmitter<{text: string, parentId: string | null}>();
   @Output() updateComment = new EventEmitter<{text: string, commentId: string}>();
   @Output() deleteComment = new EventEmitter<string>();

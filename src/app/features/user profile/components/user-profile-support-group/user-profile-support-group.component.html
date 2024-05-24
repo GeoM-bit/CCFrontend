@@ -1,0 +1,30 @@
+<mat-card style="max-width: 340px; margin-bottom: 10px">
+  <mat-card-header>
+    <mat-card-title
+      style="cursor: pointer"
+      (click)="goToGroup.emit(supportGroup.groupName)">
+      {{supportGroup.groupName}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div style="margin-bottom: 1rem;">
+      <p>{{ supportGroup.description }}</p>
+    </div>
+    <div>
+      <p>
+        <strong>Postări create:</strong> {{ supportGroup.createdPosts }}<br>
+        <strong>Postări apreciate:</strong> {{ supportGroup.likedPosts }}<br>
+        <strong>Comentarii adăugate:</strong> {{ supportGroup.comments }}
+      </p>
+    </div>
+  </mat-card-content>
+  <mat-card-actions style="align-self: flex-start">
+    <mat-icon class="action-item"
+              color="primary"
+              style="cursor: pointer"
+              (click)="removeSupportGroup.emit(supportGroup.groupName)">
+      delete
+    </mat-icon>
+  </mat-card-actions>
+</mat-card>
+

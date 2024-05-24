@@ -1,10 +1,10 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {CommentsService} from "../../../../core/services/comments.service";
-import {CommentInterface} from "../../types/comment.interface";
-import {ActiveCommentInterface} from "../../types/activeComment.interface";
-import {CreateCommentDto} from "../../../../../models/createCommentDto";
-import {PostIdDto} from "../../../../../models/postIdDto";
-import {UpdateCommentDto} from "../../../../../models/updateCommentDto";
+import {Comment} from "../../types/comment";
+import {ActiveComment} from "../../types/activeComment";
+import {CreateCommentModel} from "../../types/createCommentModel";
+import {PostId} from "../../../posts/types/postId";
+import {UpdateComment} from "../../types/updateComment";
 
 @Component({
   selector: 'app-comments',
@@ -15,12 +15,12 @@ export class CommentsComponent implements OnInit{
   @Input() currentUser!: string;
   @Input() postId!: string;
 
-  comments : CommentInterface[] = [];
-  parentComments: CommentInterface[] = [];
-  activeComment: ActiveCommentInterface | null = null;
-  newComment: CreateCommentDto = new CreateCommentDto();
-  postIdDto: PostIdDto = new PostIdDto();
-  updateCommentDto: UpdateCommentDto = new UpdateCommentDto();
+  comments : Comment[] = [];
+  parentComments: Comment[] = [];
+  activeComment: ActiveComment | null = null;
+  newComment: CreateCommentModel = new CreateCommentModel();
+  postIdDto: PostId = new PostId();
+  updateCommentModel: UpdateComment = new UpdateComment();
 
   constructor(private commentsService: CommentsService) {
   }
@@ -50,8 +50,8 @@ export class CommentsComponent implements OnInit{
   }
 
   updateComment({text, commentId}: {text: string, commentId:string}){
-    this.updateCommentDto.body = text;
-    this.commentsService.updateComment(commentId, this.updateCommentDto).subscribe((updatedComment)=>{
+    this.updateCommentModel.body = text;
+    this.commentsService.updateComment(commentId, this.updateCommentModel).subscribe((updatedComment)=>{
       this.comments = this.comments.map(comment =>{
         if(comment.id === commentId){
           this.getComments();
@@ -69,12 +69,12 @@ export class CommentsComponent implements OnInit{
     });
   }
 
-  getReplies(commentId: string): CommentInterface[]{
+  getReplies(commentId: string): Comment[]{
     return this.comments
       .filter(comment => comment.parentId===commentId);
   }
 
-  setActiveComment(activeComment: ActiveCommentInterface | null){
+  setActiveComment(activeComment: ActiveComment | null){
     this.activeComment = activeComment;
   }
 }

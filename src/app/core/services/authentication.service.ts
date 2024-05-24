@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { RegisterModel } from '../../../models/registerModel';
+import { RegisterModel } from '../../features/auth/types/registerModel';
 import { environment } from '../../../environments/environment';
-import {LoginModel} from "../../../models/loginModel";
-import {TokenModel} from "../../../models/tokenModel";
+import {LoginModel} from "../../features/auth/types/loginModel";
+import {TokenModel} from "../../features/auth/types/tokenModel";
 import {JwtHelperService} from "@auth0/angular-jwt";
 
 @Injectable({
@@ -27,12 +27,19 @@ export class AuthenticationService {
     });
     return result;
   }
+
   logout() {
     this.http.post<any>(environment.baseUrl + '/api/Auth/logout', null)
       .subscribe((response: any) => {
         localStorage.removeItem('token');
       });
   }
+
+  replaceToken(newToken: String){
+    localStorage.removeItem('token');
+    localStorage.setItem('token', JSON.stringify({token: newToken}));
+  }
+
   getRole(): string
   {
     let token = localStorage.getItem('token');
