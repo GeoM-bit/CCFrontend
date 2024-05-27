@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {MatDialogRef} from "@angular/material/dialog";
 import {NewSupportGroupModel} from "../../types/newSupportGroupModel";
 import {UserService} from "../../../../core/services/user.service";
 import {SupportGroupsService} from "../../../../core/services/supportGroups.service";
@@ -21,7 +21,6 @@ export class CreateSupportGroupComponent implements OnInit{
 
   constructor(private userService: UserService,
               private supportGroupsService: SupportGroupsService,
-              private dialog: MatDialog,
               private snackBar: SnackBarComponent,
               private dialogRef: MatDialogRef<CreateSupportGroupComponent>) {
   }

@@ -5,10 +5,11 @@
       <img src="{{profilePhoto}}" alt="UserProfilePhoto" class="rounded-circle" width="30">
       Hello, {{getUserName()}}!</span></button>
     <mat-menu #afterMenu="matMenu" xPosition="after">
-      <button mat-menu-item *ngIf="getRole()" (click)="logout()" >Logout</button>
       <button mat-menu-item (click)="goToSupportGroups()">Grupuri de suport</button>
       <button mat-menu-item (click)="goToFeed()">Articole</button>
+      <button mat-menu-item (click)="goToCalendar()">Calendar</button>
       <button mat-menu-item (click)="goToProfile()">Profil</button>
+      <button mat-menu-item *ngIf="getRole()" (click)="logout()">Deconectare</button>
     </mat-menu>
   </div>
   <div *ngIf="checkTokenValidity()" class="menu-position">

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +48,11 @@ import { CreateSupportGroupComponent } from "./features/support groups/component
 import { SupportGroupComponent } from "./features/support groups/components/support-group/support-group.component";
 import { FavoriteArticleComponent } from './features/user profile/components/favorite-article/favorite-article.component';
 import { UserProfileSupportGroupComponent } from './features/user profile/components/user-profile-support-group/user-profile-support-group.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ExtendedCalendarComponent } from './features/calendar/components/extended-calendar/extended-calendar.component';
+import { CalendarEventDialogComponent } from './features/calendar/components/calendar-event-dialog/calendar-event-dialog.component';
+import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from '@danielmoncada/angular-datetime-picker';
+import {MAT_DATE_LOCALE} from "@angular/material/core";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -75,7 +80,9 @@ export function tokenGetter() {
     PostPreviewComponent,
     ProfileComponent,
     FavoriteArticleComponent,
-    UserProfileSupportGroupComponent
+    UserProfileSupportGroupComponent,
+    ExtendedCalendarComponent,
+    CalendarEventDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -116,9 +123,15 @@ export function tokenGetter() {
     CommentsModule,
     MatAccordion,
     MatExpansionPanelDescription,
-    MatExpansionPanelHeader
+    MatExpansionPanelHeader,
+    FullCalendarModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'ro' },
+    { provide: MAT_DATE_LOCALE, useValue: 'ro' },
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'ro' },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideAnimationsAsync()
   ],

@@ -9,6 +9,7 @@ import {
   SupportGroupsTableComponent
 } from "./features/support groups/components/support-groups-table/support-groups-table.component";
 import {SupportGroupComponent} from "./features/support groups/components/support-group/support-group.component";
+import {ExtendedCalendarComponent} from "./features/calendar/components/extended-calendar/extended-calendar.component";
 
 const routes: Routes = [
 
@@ -19,7 +20,9 @@ const routes: Routes = [
   { path: 'article/:id', component: ArticleComponent},
   { path: 'support-groups', component: SupportGroupsTableComponent},
   { path: 'support-group/:groupName', component: SupportGroupComponent},
-  { path: 'profile', component: ProfileComponent }
+  { path: 'profile', component: ProfileComponent },
+  { path: 'calendar', component: ExtendedCalendarComponent }
+
 ];
 
 @NgModule({

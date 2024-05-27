@@ -1,4 +1,5 @@
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   FormGroupDirective,
@@ -41,11 +42,48 @@ export class CustomValidators {
     }
     return null;
   }
+
+  static dateValidator(control: AbstractControl){
+    const start = control.get('startDateTime');
+    const end = control.get('endDateTime');
+    if (start.value !== null && end.value !== null) {
+      if(start.value < Date.now()) {
+        return {pastDate: true}
+      }
+      if(start.value > end.value){
+        return {dateInvalid: true};
+      }
+    }
+    else if(start.value !== null && end.value == null){
+      return {missingEndDate: true};
+    }
+    else if(start.value == null && end.value !== null){
+      return {missingStartDate: true}
+    }
+    return null;
+  }
 }
 
 export class ConfirmValidParentMatcher implements ErrorStateMatcher {
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
     return (control.parent.errors?.['mismatch'] || control.errors?.['required']) && control.touched;
+  }
+}
+
+export class ConfirmValidDateMatcherCalendarEvent implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return (control.parent.errors?.dateInvalid && control.touched) ||
+      (control.touched && control.errors?.required) ||
+      control.parent.errors?.missingStartDate ||
+      (control.touched && control.parent.errors?.pastDate);
+  }
+}
+
+export class MissingDateMatcherCalendarEvent implements ErrorStateMatcher {
+  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    return (control.touched &&
+      (control.errors?.required || control.parent.errors?.missingEndDate)) ||
+      control.parent.errors?.missingEndDate;
   }
 }
 
