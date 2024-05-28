@@ -1,0 +1,13 @@
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 86vh;
+}
+
+.calendar-container {
+  margin-top: 100px;
+  width: 70%;
+  max-width: 700px;
+  height: auto;
+}

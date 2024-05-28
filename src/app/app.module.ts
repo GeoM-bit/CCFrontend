@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +21,7 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
-import { CommonModule } from "@angular/common";
+import {CommonModule, registerLocaleData} from "@angular/common";
 import { LayoutComponent } from "./core/components/layout/layout.component";
 import { LoginComponent } from "./features/auth/components/login/login.component";
 import { JwtModule } from "@auth0/angular-jwt";
@@ -48,10 +48,19 @@ import { CreateSupportGroupComponent } from "./features/support groups/component
 import { SupportGroupComponent } from "./features/support groups/components/support-group/support-group.component";
 import { FavoriteArticleComponent } from './features/user profile/components/favorite-article/favorite-article.component';
 import { UserProfileSupportGroupComponent } from './features/user profile/components/user-profile-support-group/user-profile-support-group.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { ExtendedCalendarComponent } from './features/calendar/components/extended-calendar/extended-calendar.component';
+import { CalendarEventDialogComponent } from './features/calendar/components/calendar-event-dialog/calendar-event-dialog.component';
+import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from '@danielmoncada/angular-datetime-picker';
+import {MAT_DATE_LOCALE} from "@angular/material/core";
+import { ViewCalendarEventDialogComponent } from './features/calendar/components/view-calendar-event-dialog/view-calendar-event-dialog.component';
+import localeRo from '@angular/common/locales/ro';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
+
+registerLocaleData(localeRo, 'ro');
 
 @NgModule({
   declarations: [
@@ -75,7 +84,10 @@ export function tokenGetter() {
     PostPreviewComponent,
     ProfileComponent,
     FavoriteArticleComponent,
-    UserProfileSupportGroupComponent
+    UserProfileSupportGroupComponent,
+    ExtendedCalendarComponent,
+    CalendarEventDialogComponent,
+    ViewCalendarEventDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -116,9 +128,15 @@ export function tokenGetter() {
     CommentsModule,
     MatAccordion,
     MatExpansionPanelDescription,
-    MatExpansionPanelHeader
+    MatExpansionPanelHeader,
+    FullCalendarModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   providers: [
+    { provide: LOCALE_ID, useValue: 'ro' },
+    { provide: MAT_DATE_LOCALE, useValue: 'ro' },
+    { provide: OWL_DATE_TIME_LOCALE, useValue: 'ro' },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     provideAnimationsAsync()
   ],

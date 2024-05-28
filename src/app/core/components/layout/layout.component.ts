@@ -73,4 +73,8 @@ export class LayoutComponent implements OnInit {
   goToProfile(){
     this.router.navigate(['profile']);
   }
+
+  goToCalendar(){
+    this.router.navigate(['calendar']);
+  }
 }

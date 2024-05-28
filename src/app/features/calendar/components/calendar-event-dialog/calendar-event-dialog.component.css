@@ -1,9 +1,5 @@
-.mat-card{
-  max-width: 500px;
-}
-
-.email-list {
-  max-height: 200px;
+mat-card{
+  max-height: 755px;
   overflow-y: auto;
 }
 
@@ -13,20 +9,25 @@
   overflow-y: auto;
 }
 
+.email-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
 .selected-email {
   display: inline-block;
   background-color: #f0f0f0;
   border-radius: 4px;
   padding: 4px 8px;
   margin-right: 8px;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .email-item:hover {
   background-color: #707070;
 }
 
-.submit-button{
-  margin-right: 5px;
-  margin-top: 10px;
+mat-form-field{
+  width: 100%;
+  margin-top: 5px;
 }
