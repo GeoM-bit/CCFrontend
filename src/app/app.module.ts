@@ -21,7 +21,7 @@ import { MatSortModule } from "@angular/material/sort";
 import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
-import { CommonModule } from "@angular/common";
+import {CommonModule, registerLocaleData} from "@angular/common";
 import { LayoutComponent } from "./core/components/layout/layout.component";
 import { LoginComponent } from "./features/auth/components/login/login.component";
 import { JwtModule } from "@auth0/angular-jwt";
@@ -53,10 +53,14 @@ import { ExtendedCalendarComponent } from './features/calendar/components/extend
 import { CalendarEventDialogComponent } from './features/calendar/components/calendar-event-dialog/calendar-event-dialog.component';
 import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from '@danielmoncada/angular-datetime-picker';
 import {MAT_DATE_LOCALE} from "@angular/material/core";
+import { ViewCalendarEventDialogComponent } from './features/calendar/components/view-calendar-event-dialog/view-calendar-event-dialog.component';
+import localeRo from '@angular/common/locales/ro';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
 }
+
+registerLocaleData(localeRo, 'ro');
 
 @NgModule({
   declarations: [
@@ -82,7 +86,8 @@ export function tokenGetter() {
     FavoriteArticleComponent,
     UserProfileSupportGroupComponent,
     ExtendedCalendarComponent,
-    CalendarEventDialogComponent
+    CalendarEventDialogComponent,
+    ViewCalendarEventDialogComponent
   ],
   imports: [
     BrowserModule,

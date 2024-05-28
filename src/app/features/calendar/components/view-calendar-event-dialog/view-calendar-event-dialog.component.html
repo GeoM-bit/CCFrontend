@@ -1,0 +1,16 @@
+<div class="event-dialog">
+  <h2>{{ calendarEvent.title }}</h2>
+  <p><strong>Detalii:</strong> {{ calendarEvent.details }}</p>
+  <p><strong>Data de început:</strong> {{ calendarEvent.start | date: 'dd/MM/yyyy, HH:mm' }}</p>
+  <p><strong>Data de sfârșit:</strong> {{ calendarEvent.end | date: 'dd/MM/yyyy, HH:mm' }}</p>
+
+  <div *ngIf="calendarEvent.isOwner" style=" max-height: 200px; overflow-y: auto;">
+    <p><strong>Participanți:</strong></p>
+    <ul>
+      <li *ngFor="let email of calendarEvent.participantEmails">{{ email }}</li>
+    </ul>
+  </div>
+  <div *ngIf="calendarEvent.isOwner" class="button-container">
+    <button mat-raised-button (click)="deleteEvent()">Șterge evenimentul</button>
+  </div>
+</div>

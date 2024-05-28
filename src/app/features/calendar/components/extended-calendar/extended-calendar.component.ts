@@ -7,10 +7,11 @@ import listPlugin from '@fullcalendar/list';
 import roLocale from '@fullcalendar/core/locales/ro';
 import {CalendarService} from "../../../../core/services/calendar.service";
 import {CalendarEventDialogComponent} from "../calendar-event-dialog/calendar-event-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {NewEventInput} from "../../types/newEventInput";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar.component";
+import {ViewCalendarEventDialogComponent} from "../view-calendar-event-dialog/view-calendar-event-dialog.component";
+import {EventInputDto} from "../../types/eventInputDto";
 
 @Component({
   selector: 'app-extended-calendar',
@@ -19,8 +20,9 @@ import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar
 })
 
 export class ExtendedCalendarComponent implements OnInit{
-  initialEvents: EventInput[] = [];
   calendarOptions: CalendarOptions;
+  initialEvents: EventInput[] = [];
+  clickedCalendarEvent : EventInputDto;
   currentEvents = signal<EventApi[]>([]);
 
   constructor(private changeDetector: ChangeDetectorRef,
@@ -35,10 +37,18 @@ export class ExtendedCalendarComponent implements OnInit{
 
   getEvents() {
     this.calendarService.getEvents().subscribe(result => {
-      // Update initialEvents with fetched events
-      this.initialEvents = result;
-
-      // Update calendarOptions with new events
+      this.initialEvents = result.map(dto => ({
+        id: dto.id,
+        title: dto.title,
+        start: dto.start,
+        end: dto.end,
+        extendedProps: {
+          eventId: dto.id,
+          isOwner: dto.isOwner,
+          details: dto.details,
+          participantEmails: dto.participantEmails,
+        }
+      }));
       this.calendarOptions = {
         plugins: [
           interactionPlugin,
@@ -52,7 +62,7 @@ export class ExtendedCalendarComponent implements OnInit{
           right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
         },
         initialView: 'dayGridMonth',
-        initialEvents: this.initialEvents, // Update initialEvents here
+        initialEvents: this.initialEvents,
         weekends: true,
         editable: true,
         selectable: true,
@@ -76,7 +86,7 @@ export class ExtendedCalendarComponent implements OnInit{
   }
 
   handleDateSelect(selectInfo: DateSelectArg) {
-    const dialogRef = this.dialog.open(CalendarEventDialogComponent);
+    const dialogRef: MatDialogRef<CalendarEventDialogComponent> = this.dialog.open(CalendarEventDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         let newEvent = new NewEventInput();
@@ -91,11 +101,14 @@ export class ExtendedCalendarComponent implements OnInit{
             calendarApi.unselect();
             calendarApi.addEvent({
               id: null,
-              title: result.title,
-              start: result.startDateTime,
-              end: result.endDateTime,
+              title: response.title,
+              start: response.start,
+              end: response.end,
               extendedProps: {
-                details: result.details
+                eventId: response.id,
+                details: response.details,
+                isOwner: response.isOwner,
+                participantEmails: response.participantEmails
               }
             });
             this.snackBar.openSnackBar('Evenimentul a fost adăugat!','');
@@ -107,11 +120,31 @@ export class ExtendedCalendarComponent implements OnInit{
     });
   }
 
-
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-      clickInfo.event.remove();
-    }
+    this.clickedCalendarEvent = {
+      id: clickInfo.event.extendedProps.eventId,
+      title: clickInfo.event.title,
+      start: clickInfo.event.start,
+      end: clickInfo.event.end,
+      details: clickInfo.event.extendedProps.details,
+      isOwner: clickInfo.event.extendedProps.isOwner,
+      participantEmails: clickInfo.event.extendedProps.participantEmails
+    };
+    const dialogRef: MatDialogRef<ViewCalendarEventDialogComponent> = this.dialog.open(ViewCalendarEventDialogComponent, {
+      data : this.clickedCalendarEvent
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.calendarService.deleteEvent(result).subscribe((response =>{
+          if(response){
+            clickInfo.event.remove();
+            this.snackBar.openSnackBar('Evenimentul a fost șters!','');
+          }
+          else
+            this.snackBar.openSnackBar('Evenimentul nu a putut fi șters!','');
+        }))
+      }
+    });
   }
 
   handleEvents(events: EventApi[]) {
