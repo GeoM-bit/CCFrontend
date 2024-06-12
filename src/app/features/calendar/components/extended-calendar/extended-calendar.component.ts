@@ -46,6 +46,8 @@ export class ExtendedCalendarComponent implements OnInit{
           eventId: dto.id,
           isOwner: dto.isOwner,
           details: dto.details,
+          counselorContact: dto.counselorContact,
+          linkMeeting: dto.linkMeeting,
           participantEmails: dto.participantEmails,
         }
       }));
@@ -127,6 +129,8 @@ export class ExtendedCalendarComponent implements OnInit{
       start: clickInfo.event.start,
       end: clickInfo.event.end,
       details: clickInfo.event.extendedProps.details,
+      counselorContact: clickInfo.event.extendedProps.counselorContact,
+      linkMeeting: clickInfo.event.extendedProps.linkMeeting,
       isOwner: clickInfo.event.extendedProps.isOwner,
       participantEmails: clickInfo.event.extendedProps.participantEmails
     };

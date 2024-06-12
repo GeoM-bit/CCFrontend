@@ -10,6 +10,12 @@ import {
 } from "./features/support groups/components/support-groups-table/support-groups-table.component";
 import {SupportGroupComponent} from "./features/support groups/components/support-group/support-group.component";
 import {ExtendedCalendarComponent} from "./features/calendar/components/extended-calendar/extended-calendar.component";
+import {
+  CounselingRequestFormComponent
+} from "./features/counseling/components/counseling-request-form/counseling-request-form.component";
+import {
+  CounselingRequestsTableComponent
+} from "./features/counseling/components/counseling-requests-table/counseling-requests-table.component";
 
 const routes: Routes = [
 
@@ -21,7 +27,9 @@ const routes: Routes = [
   { path: 'support-groups', component: SupportGroupsTableComponent},
   { path: 'support-group/:groupName', component: SupportGroupComponent},
   { path: 'profile', component: ProfileComponent },
-  { path: 'calendar', component: ExtendedCalendarComponent }
+  { path: 'calendar', component: ExtendedCalendarComponent },
+  { path: 'counseling-request', component: CounselingRequestFormComponent },
+  { path: 'counseling-requests', component: CounselingRequestsTableComponent }
 
 ];
 

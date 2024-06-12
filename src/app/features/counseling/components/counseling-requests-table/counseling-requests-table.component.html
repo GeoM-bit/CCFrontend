@@ -1,0 +1,78 @@
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="requesterEmail">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="requesterEmail" sortActionDescription="Sort by requesterEmail">
+        Adresa de email a solicitorului
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.requesterEmail}}</td>
+    </ng-container>
+    <ng-container matColumnDef="requesterName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="requesterName" sortActionDescription="Sort by requesterName">
+        Numele solicitorului
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.requesterName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="description" sortActionDescription="Sort by description">
+        Descriere
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+    <ng-container matColumnDef="isPersonal">
+      <th mat-header-cell *matHeaderCellDef>
+        Situație personală
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.isPersonal ? "DA" : "NU"}} </td>
+    </ng-container>
+    <ng-container matColumnDef="availability">
+      <th mat-header-cell *matHeaderCellDef>
+        Disponibilitate
+      </th>
+      <td mat-cell *matCellDef="let element">
+        <div *ngIf="element.availability && element.availability.length > 0; else noAvailability" style="margin-top: 15px">
+          <div *ngFor="let availability of element.availability">
+            <p>{{ availability.day }}: {{ availability.startHour }} - {{ availability.endHour }}</p>
+         </div>
+        </div>
+        <ng-template #noAvailability style="margin-top: 15px">
+          <p>Nu au fost selectate preferințe.</p>
+        </ng-template>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
+        Statusul cererii
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+    </ng-container>
+    <ng-container matColumnDef="action" class="action">
+      <th mat-header-cell *matHeaderCellDef>
+        Acțiuni
+      </th>
+      <td mat-cell *matCellDef="let element" >
+        <button *ngIf="isNotProcessed(element)"
+                class="action-button"
+                mat-raised-button
+                color="primary"
+                (click)="onAccept(element)">Preia</button>
+        <button *ngIf="isNotProcessed(element)"
+                class="action-button"
+                mat-raised-button
+                color="warn"
+                (click)="onReject(element)">Respinge</button>
+      </td>
+    </ng-container>
+    <ng-container  *ngIf="noRequests">
+      <tr class="noDataRow" *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          Nu au fost găsite solicitări.
+        </td>
+      </tr>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                 aria-label="Select page of counseling requests">
+  </mat-paginator>
+</div>

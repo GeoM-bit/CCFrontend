@@ -9,7 +9,7 @@
   </div>
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
     <ng-container matColumnDef="groupName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header="groupName" sortActionDescription="Sort by groupName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="groupName" sortActionDescription="Sort by groupName" style="align-self: center">
         Numele grupului
       </th>
       <td mat-cell *matCellDef="let element"> {{element.groupName}}</td>

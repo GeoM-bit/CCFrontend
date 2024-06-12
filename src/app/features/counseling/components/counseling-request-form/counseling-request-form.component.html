@@ -1,0 +1,84 @@
+<div class="main-div">
+  <mat-card>
+    <mat-card-title>Solicită consiliere</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="counselingRequestForm" (ngSubmit)="onSubmit()" class="counseling-form">
+        <div class="form-field" style="margin-top: 20px">
+          <div style="align-self: start; margin-bottom: 8px">Solicitarea vizează o problemă personală de sănătatea sau pe cea a unui apropiat?</div>
+          <mat-radio-group formControlName="isPersonal" color="accent">
+            <mat-radio-button value="true">Este personală</mat-radio-button>
+            <mat-radio-button value="false">Este vorba despre un apropiat</mat-radio-button>
+          </mat-radio-group>
+          <mat-error *ngIf="counselingRequestForm.get('isPersonal').errors?.required">
+            Vă rugăm bifați un răspuns!
+          </mat-error>
+        </div>
+        <div class="form-field">
+          <mat-form-field class="full-width">
+            <mat-label>Descrierea situației</mat-label>
+            <textarea matInput formControlName="description" placeholder="Introduceți detalii..."></textarea>
+            <mat-error *ngIf="counselingRequestForm.get('description').errors?.required">
+              Descrierea este obligatorie!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="form-field">
+          <mat-form-field class="full-width">
+            <mat-label>Doresc consiliere din partea unui </mat-label>
+            <mat-select  required formControlName="counselingType">
+              <mat-option value="Doctor">Medic</mat-option>
+              <mat-option value="Psychologist">Psiholog</mat-option>
+            </mat-select>
+            <mat-error *ngIf="counselingRequestForm.get('counselingType').errors?.required">
+              Tipul de consiliere este obligatoriu!
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div formArrayName="availability" class="availability">
+          <div style="align-self: start; margin-bottom: 8px">
+            Care este disponibilitatea dumneavoastră?<br>
+            Dacă nu completați cu nimic, veți primi o propunere de oră în funcție de disponibilitatea consilierului.
+          </div>
+          <div *ngFor="let group of availability.controls; let i = index" [formGroupName]="i" class="availability-row">
+            <div class="col" style="margin-bottom: 10px">
+              <div class="row">
+                <mat-form-field appearance="fill" class="half-width">
+                  <mat-label>{{ daysOfWeek[i] }}  - ora de început</mat-label>
+                  <mat-select formControlName="startHour">
+                    <mat-option value="">Niciuna</mat-option>
+                    <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="half-width">
+                  <mat-label>{{ daysOfWeek[i] }} - ora de sfârșit</mat-label>
+                  <mat-select formControlName="endHour">
+                    <mat-option value="">Niciuna</mat-option>
+                    <mat-option *ngFor="let hour of hours" [value]="hour">{{ hour }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="row" style="margin-top: -20px;">
+                <div class="col-6">
+                  <mat-error *ngIf="group.hasError('startHourRequired')">
+                    Ora de început este obligatorie!
+                  </mat-error>
+                </div>
+                <div class="col-5">
+                  <mat-error *ngIf="group.hasError('endHourRequired')">
+                    Ora de sfârșit este obligatorie!
+                  </mat-error>
+                </div>
+                <div class="col-5">
+                  <mat-error *ngIf="group.hasError('wrongHours')">
+                    Ora de început trebuie să fie înaintea orei de sfârșit!
+                  </mat-error>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button mat-raised-button color="primary" type="submit" [disabled]="counselingRequestForm.invalid">Trimite</button>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

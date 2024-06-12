@@ -3,6 +3,8 @@ export class EventInputDto{
   isOwner: boolean;
   title: string;
   details: string;
+  counselorContact: string;
+  linkMeeting: string;
   start: Date;
   end: Date;
   participantEmails: String[];

@@ -55,6 +55,11 @@ import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from '
 import {MAT_DATE_LOCALE} from "@angular/material/core";
 import { ViewCalendarEventDialogComponent } from './features/calendar/components/view-calendar-event-dialog/view-calendar-event-dialog.component';
 import localeRo from '@angular/common/locales/ro';
+import { CounselingRequestFormComponent } from './features/counseling/components/counseling-request-form/counseling-request-form.component';
+import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import { CounselingRequestsTableComponent } from './features/counseling/components/counseling-requests-table/counseling-requests-table.component';
+import { AcceptRequestComponent } from './features/counseling/components/accept-request/accept-request.component';
+import { RejectRequestComponent } from './features/counseling/components/reject-request/reject-request.component';
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -87,7 +92,11 @@ registerLocaleData(localeRo, 'ro');
     UserProfileSupportGroupComponent,
     ExtendedCalendarComponent,
     CalendarEventDialogComponent,
-    ViewCalendarEventDialogComponent
+    ViewCalendarEventDialogComponent,
+    CounselingRequestFormComponent,
+    CounselingRequestsTableComponent,
+    AcceptRequestComponent,
+    RejectRequestComponent
   ],
   imports: [
     BrowserModule,
@@ -131,7 +140,9 @@ registerLocaleData(localeRo, 'ro');
     MatExpansionPanelHeader,
     FullCalendarModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    MatRadioGroup,
+    MatRadioButton
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ro' },
