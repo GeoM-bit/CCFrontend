@@ -3,6 +3,7 @@ import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
 import {UserService} from "../../services/user.service";
 import {ProfileInfo} from "../../../features/user profile/types/profileInfo";
+import {Roles} from "../../enums/roles";
 
 @Component({
   selector: 'app-layout',
@@ -21,8 +22,9 @@ export class LayoutComponent implements OnInit {
   }
 
   getProfilePhoto(){
-    this.userService.getProfileInfo().subscribe((response: ProfileInfo) => {
-      this.profilePhoto = response.profilePhoto;
+    if(this.getRole())
+      this.userService.getProfileInfo().subscribe((response: ProfileInfo) => {
+        this.profilePhoto = response.profilePhoto;
     });
   }
 
@@ -76,5 +78,20 @@ export class LayoutComponent implements OnInit {
 
   goToCalendar(){
     this.router.navigate(['calendar']);
+  }
+
+  goToCounselingRequest(){
+    this.router.navigate(['counseling-request']);
+  }
+
+  goToCounselingRequestTable(){
+    this.router.navigate(['counseling-requests']);
+  }
+
+  isHealthStaff(){
+    let role = this.authenticationService.getRole();
+    if(role == Roles[4] || role == Roles[5])
+      return true;
+    return false;
   }
 }

@@ -50,7 +50,7 @@ export class CalendarEventDialogComponent implements OnInit{
       'endDateTime': new FormControl(null, [Validators.required]),
       'userEmails': new FormControl(null)
     },
-      [CustomValidators.dateValidator]
+      [CustomValidators.DateValidator]
     );
   }
 

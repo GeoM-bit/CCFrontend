@@ -14,7 +14,6 @@ import {SupportGroupsService} from "../../../../core/services/supportGroups.serv
 import {SupportGroupMemberModel} from "../../types/supportGroupMemberModel";
 import {Roles} from "../../../../core/enums/roles";
 import {SupportGroupName} from "../../types/supportGroupName";
-import {CreatePostComponent} from "../../../posts/components/create-post/create-post.component";
 
 @Component({
   selector: 'app-support-groups-table',
@@ -29,8 +28,11 @@ export class SupportGroupsTableComponent implements OnInit{
   supportGroupMemberModel: SupportGroupMemberModel = new SupportGroupMemberModel();
   group: SupportGroupName = new SupportGroupName();
 
-  constructor(private supportGroupService: SupportGroupsService, private authService: AuthenticationService,
-              private snackBar: SnackBarComponent, private dialog: MatDialog, private router: Router){
+  constructor(private supportGroupService: SupportGroupsService,
+              private authService: AuthenticationService,
+              private snackBar: SnackBarComponent,
+              private dialog: MatDialog,
+              private router: Router){
   }
 
   @ViewChild(MatSort) sort: MatSort;
@@ -43,12 +45,12 @@ export class SupportGroupsTableComponent implements OnInit{
       this.supportGroupService.getGroups().subscribe((response: SupportGroupModel[]) => {
         this.dataSource = new MatTableDataSource(response);
         this.dataSource.paginator = this.paginator;
-        this.dataSource.sort=this.sort;
-        if(this.dataSource.data.length==0) {
+        this.dataSource.sort = this.sort;
+        if(this.dataSource.data.length == 0) {
           this.noGroups = true;
         }
       })
-    this.noGroups = this.dataSource.data.length==0 ? true:false;
+    this.noGroups = this.dataSource.data.length == 0 ? true : false;
   }
 
   joinGroup(groupName: String) {

@@ -1,0 +1,30 @@
+<mat-card>
+  <mat-card-title>Data și ora pentru întânire</mat-card-title>
+  <mat-card-content>
+  <form [formGroup]="dateForm" style="margin-top: 30px;">
+    <mat-form-field appearance="fill">
+      <mat-label>Începutul evenimentului</mat-label>
+      <input matInput readonly
+         [owlDateTime]="startDateTime"
+         [owlDateTimeTrigger]="startDateTime"
+         [owlDateTimeFilter]="dateFilter"
+         [errorStateMatcher]="confirmValidDateMatcherCalendarEvent"
+         formControlName="startDateTime">
+      <owl-date-time #startDateTime></owl-date-time>
+      <mat-datepicker-toggle matSuffix [for]="startDateTime"></mat-datepicker-toggle>
+      <mat-error *ngIf="(dateForm.hasError('pastDate'))">
+        Data de început nu poate fi în trecut!
+      </mat-error>
+      <mat-error *ngIf="(dateForm.get('startDateTime').errors?.required)">
+        Data de început este obligatorie!
+      </mat-error>
+    </mat-form-field>
+    <mat-card-actions align="end">
+      <button mat-button (click)="onCancel()">Renunță</button>
+      <button mat-raised-button color="accent"
+              (click)="onSave()"
+              [disabled]="!dateForm.valid">Setează ședința</button>
+    </mat-card-actions>
+    </form>
+  </mat-card-content>
+</mat-card>

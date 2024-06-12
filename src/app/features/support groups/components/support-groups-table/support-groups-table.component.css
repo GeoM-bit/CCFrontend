@@ -44,3 +44,11 @@ tr.table-row-style:hover{
   cursor: pointer;
 }
 
+td {
+  text-align: center;
+}
+
+th {
+  text-align: right;
+}
+

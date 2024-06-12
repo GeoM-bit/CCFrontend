@@ -7,14 +7,16 @@
     <mat-menu #afterMenu="matMenu" xPosition="after">
       <button mat-menu-item (click)="goToSupportGroups()">Grupuri de suport</button>
       <button mat-menu-item (click)="goToFeed()">Articole</button>
+      <button mat-menu-item *ngIf="!isHealthStaff()" (click)="goToCounselingRequest()">Solicită consiliere</button>
+      <button mat-menu-item *ngIf="isHealthStaff()" (click)="goToCounselingRequestTable()">Cereri de consiliere</button>
       <button mat-menu-item (click)="goToCalendar()">Calendar</button>
       <button mat-menu-item (click)="goToProfile()">Profil</button>
       <button mat-menu-item *ngIf="getRole()" (click)="logout()">Deconectare</button>
     </mat-menu>
   </div>
   <div *ngIf="checkTokenValidity()" class="menu-position">
-    <button *ngIf="getLoginPage()" mat-raised-button (click)="goToRegisterAccount()">Register your account</button>
-    <button *ngIf="!getLoginPage()" mat-raised-button (click)="goToLogin()">Login</button>
+    <button *ngIf="getLoginPage()" mat-raised-button (click)="goToRegisterAccount()">Creează un cont</button>
+    <button *ngIf="!getLoginPage()" mat-raised-button (click)="goToLogin()">Conectare</button>
   </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

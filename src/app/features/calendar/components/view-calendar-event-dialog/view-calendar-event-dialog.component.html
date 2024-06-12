@@ -1,6 +1,8 @@
 <div class="event-dialog">
   <h2>{{ calendarEvent.title }}</h2>
-  <p><strong>Detalii:</strong> {{ calendarEvent.details }}</p>
+  <p *ngIf="calendarEvent.details!=null"><strong>Detalii:<br></strong> {{ calendarEvent.details }}</p>
+  <p *ngIf="calendarEvent.counselorContact!=null"><strong>Contact consilier:<br></strong> {{ calendarEvent.counselorContact }}</p>
+  <p *ngIf="calendarEvent.linkMeeting!=null"><strong>Link întâlnire:<br></strong> <a href="{{calendarEvent.linkMeeting}}">{{ calendarEvent.linkMeeting }}</a></p>
   <p><strong>Data de început:</strong> {{ calendarEvent.start | date: 'dd/MM/yyyy, HH:mm' }}</p>
   <p><strong>Data de sfârșit:</strong> {{ calendarEvent.end | date: 'dd/MM/yyyy, HH:mm' }}</p>
 

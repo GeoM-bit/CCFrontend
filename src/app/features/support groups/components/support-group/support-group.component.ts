@@ -15,7 +15,9 @@ export class SupportGroupComponent {
   posts: PostModel[] = [];
   supportGroupName: SupportGroupName = new SupportGroupName();
 
-  constructor(private route: ActivatedRoute, private dialog: MatDialog, private groupPostsService: GroupPostsService) {
+  constructor(private route: ActivatedRoute,
+              private dialog: MatDialog,
+              private groupPostsService: GroupPostsService) {
   }
 
   ngOnInit(): void {

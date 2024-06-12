@@ -1,0 +1,21 @@
+.table-container{
+  max-width: 1200px;
+  min-height: 600px;
+  margin: 100px auto;
+}
+
+.action-button{
+  margin-bottom: 5px;
+  margin-top: 5px;
+  width: 150px;
+  text-align: center;
+}
+
+.noDataRow{
+  height: 60px;
+  color: white;
+}
+
+th, td{
+  text-align: center;
+}

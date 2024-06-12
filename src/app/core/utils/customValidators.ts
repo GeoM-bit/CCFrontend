@@ -43,7 +43,7 @@ export class CustomValidators {
     return null;
   }
 
-  static dateValidator(control: AbstractControl){
+  static DateValidator(control: AbstractControl){
     const start = control.get('startDateTime');
     const end = control.get('endDateTime');
     if (start.value !== null && end.value !== null) {
@@ -59,6 +59,41 @@ export class CustomValidators {
     }
     else if(start.value == null && end.value !== null){
       return {missingStartDate: true}
+    }
+    return null;
+  }
+
+  static StartDateValidator(control: AbstractControl){
+    const start = control.get('startDateTime');
+    if (start.value !== null ) {
+      if(start.value < Date.now()) {
+        return {pastDate: true}
+      }
+    }
+    return null;
+  }
+
+
+  static StartOrEndHourValidator(control: AbstractControl){
+    const startHour = control.get('startHour');
+    const endHour = control.get('endHour');
+    if (!startHour || !endHour) return null;
+
+    const startHourValue = startHour.value;
+    const endHourValue = endHour.value;
+
+    if ((startHourValue && !endHourValue)) {
+      return {endHourRequired: true};
+    }
+    else if ((!startHourValue && endHourValue)) {
+      return {startHourRequired: true};
+    }
+    else if(startHourValue != null && endHourValue != null){
+      const start = parseInt(startHourValue.substring(0,2));
+      const end = parseInt(endHourValue.substring(0,2));
+      if(start >= end){
+        return {wrongHours: true};
+      }
     }
     return null;
   }
