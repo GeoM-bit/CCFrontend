@@ -15,7 +15,6 @@ export class ArticleComponent implements OnInit{
   }
 
   ngOnInit(): void {
-    console.log(this.route);
     this.route.params.subscribe(params => {
       if(params['id'] != undefined) {
         this.article.id = params['id'];

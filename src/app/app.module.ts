@@ -60,6 +60,10 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import { CounselingRequestsTableComponent } from './features/counseling/components/counseling-requests-table/counseling-requests-table.component';
 import { AcceptRequestComponent } from './features/counseling/components/accept-request/accept-request.component';
 import { RejectRequestComponent } from './features/counseling/components/reject-request/reject-request.component';
+import { RequestResetPasswordComponent } from './features/auth/components/request-reset-password/request-reset-password.component';
+import { ResetPasswordComponent } from './features/auth/components/reset-password/reset-password.component';
+import { ConfirmEmailComponent } from './features/auth/components/confirm-email/confirm-email.component';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -96,7 +100,10 @@ registerLocaleData(localeRo, 'ro');
     CounselingRequestFormComponent,
     CounselingRequestsTableComponent,
     AcceptRequestComponent,
-    RejectRequestComponent
+    RejectRequestComponent,
+    RequestResetPasswordComponent,
+    ResetPasswordComponent,
+    ConfirmEmailComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +149,8 @@ registerLocaleData(localeRo, 'ro');
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     MatRadioGroup,
-    MatRadioButton
+    MatRadioButton,
+    MatProgressSpinner
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ro' },

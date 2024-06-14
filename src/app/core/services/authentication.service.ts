@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
 import {LoginModel} from "../../features/auth/types/loginModel";
 import {TokenModel} from "../../features/auth/types/tokenModel";
 import {JwtHelperService} from "@auth0/angular-jwt";
+import {ResetPasswordModel} from "../../features/auth/types/resetPasswordModel";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,11 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   register(user: RegisterModel): Observable<any> {
-    return this.http.post(environment.baseUrl + '/api/Auth/register', user);
+    return this.http.post(environment.baseUrl + '/api/Auth/register', user, {withCredentials: true});
+  }
+
+  confirmEmail(userEmail: string, userToken: string){
+    return this.http.get(environment.baseUrl + '/api/Auth/confirm-email/'+ userEmail + "/" + userToken,{ withCredentials: true });
   }
 
   login(user: LoginModel): Observable<TokenModel> {
@@ -33,6 +38,14 @@ export class AuthenticationService {
       .subscribe((response: any) => {
         localStorage.removeItem('token');
       });
+  }
+
+  forgotPassword(model: ResetPasswordModel){
+    return this.http.post(environment.baseUrl + '/api/Auth/forgot-password', model, { withCredentials: true });
+  }
+
+  resetPassword(model: ResetPasswordModel, userEmail: string, userToken: string){
+    return this.http.post(environment.baseUrl + '/api/Auth/reset-password/'+ userEmail + "/" + userToken, model, { withCredentials: true });
   }
 
   replaceToken(newToken: String){

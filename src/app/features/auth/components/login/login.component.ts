@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
   }
 
   openFailedLoginSnackBar() {
-    this.snackBar.openSnackBar('Încercare eșuată de conectare!','');
+    this.snackBar.openSnackBar('Încercare eșuată de conectare! Asigurați-vă că ați confirmat adresa de email!','');
   }
 
   openSuccessfulLoginSnackBar() {
@@ -55,4 +55,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  goToRequestResetPassword(){
+    this.router.navigate(['request-reset-password']);
+  }
 }

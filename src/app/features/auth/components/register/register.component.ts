@@ -49,7 +49,7 @@ export class RegisterComponent implements OnInit {
 
   redirectToLogin(){
     this.router.navigate(['login']);
-    this.snackBar.openSnackBar('Contul dumneavoastră a fost creat cu succes!', '');
+    this.snackBar.openSnackBar('Contul a fost creat! Vă rugăm confirmați adresa de email!', '');
   }
 
   openFailedRegisterSnackBar() {
@@ -61,7 +61,8 @@ export class RegisterComponent implements OnInit {
         'firstName': new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z ]*$"), CustomValidators.WhitespaceInput]),
         'lastName': new FormControl(null, [Validators.required, Validators.pattern("^[a-zA-Z ]*$"), CustomValidators.WhitespaceInput]),
         'email': new FormControl(null, [Validators.required, Validators.email]),
-        'password': new FormControl(null, [Validators.required, Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#=+';:_,.?!@$%^&*-]).{10,}$")]),
+        'password': new FormControl(null, [Validators.required,
+          Validators.pattern("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#=+';:_,.?!@$%^&*-]).{10,}$")]),
         'confirmationPassword': new FormControl(null, [Validators.required])
       },
       [CustomValidators.PasswordMatchValidator]);
