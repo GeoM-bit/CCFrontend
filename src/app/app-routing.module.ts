@@ -16,6 +16,9 @@ import {
 import {
   CounselingRequestsTableComponent
 } from "./features/counseling/components/counseling-requests-table/counseling-requests-table.component";
+import {RequestResetPasswordComponent} from "./features/auth/components/request-reset-password/request-reset-password.component";
+import {ResetPasswordComponent} from "./features/auth/components/reset-password/reset-password.component";
+import {ConfirmEmailComponent} from "./features/auth/components/confirm-email/confirm-email.component";
 
 const routes: Routes = [
 
@@ -29,8 +32,10 @@ const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'calendar', component: ExtendedCalendarComponent },
   { path: 'counseling-request', component: CounselingRequestFormComponent },
-  { path: 'counseling-requests', component: CounselingRequestsTableComponent }
-
+  { path: 'counseling-requests', component: CounselingRequestsTableComponent },
+  { path: 'request-reset-password', component: RequestResetPasswordComponent },
+  { path: 'reset-password/:userEmail/:userToken', component: ResetPasswordComponent},
+  { path: 'confirm-email/:userEmail/:userToken', component: ConfirmEmailComponent}
 ];
 
 @NgModule({
