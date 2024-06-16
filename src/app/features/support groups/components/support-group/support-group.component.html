@@ -1,4 +1,19 @@
-<div id="postsFeed">
+<mat-card>
+  <mat-card-title>
+    {{supportGroupName.groupName}}
+  </mat-card-title>
+  <mat-card-content style="margin-top: 8px">
+    <i>{{description}}</i><br/>
+    <span class="entry">
+    <mat-icon>group</mat-icon>
+      <span> {{members}}</span>
+    </span>
+  </mat-card-content>
+</mat-card>
+<div id="postsFeed" *ngIf="!noPosts" >
   <app-post *ngFor="let post of posts" [postData]="post"></app-post>
+</div>
+<div *ngIf="noPosts" class="noPosts">
+  Nu există activitate încă.
 </div>
 <button (click)="onCreatePostClick()" mat-fab id="create-post-button"><mat-icon>add</mat-icon></button>

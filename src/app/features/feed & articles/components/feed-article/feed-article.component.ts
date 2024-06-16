@@ -3,6 +3,10 @@ import {Router} from "@angular/router";
 import {FeedArticle} from "../../types/feedArticle";
 import {ArticleService} from "../../../../core/services/article.service";
 import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar.component";
+import {
+  ConfirmationDialogComponent
+} from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-feed-article',
@@ -12,9 +16,12 @@ import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar
 export class FeedArticleComponent implements OnInit{
   @Input() articleData: FeedArticle;
   @Output() refreshArticle = new EventEmitter<String>();
+  @Output() getAllArticles = new EventEmitter();
+
   constructor( private router: Router,
                private articleService: ArticleService,
-               private snackBar: SnackBarComponent) {
+               private snackBar: SnackBarComponent,
+               private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -45,5 +52,28 @@ export class FeedArticleComponent implements OnInit{
         }
       });
     }
+  }
+
+  onDeleteArticle(article: FeedArticle){
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '500px',
+      data: {
+        title: "Confirmați ștergerea articolului",
+        content: "Sunteți sigur/ă că doriți să ștergeți articolul " + article.title + "?"
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.articleService.deleteArticle(article.id).subscribe(result=>{
+          if(result){
+            this.snackBar.openSnackBar('Articolul a fost șters!','');
+            this.getAllArticles.emit();
+          }
+          else
+            this.snackBar.openSnackBar('Articolul nu a putut fi șters!','');
+        });
+      }
+    });
   }
 }

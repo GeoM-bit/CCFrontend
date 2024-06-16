@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, OnInit, signal} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit, signal, ViewChild} from '@angular/core';
 import {CalendarOptions, DateSelectArg, EventClickArg, EventApi, EventInput} from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -12,6 +12,7 @@ import {NewEventInput} from "../../types/newEventInput";
 import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar.component";
 import {ViewCalendarEventDialogComponent} from "../view-calendar-event-dialog/view-calendar-event-dialog.component";
 import {EventInputDto} from "../../types/eventInputDto";
+import {FullCalendarComponent} from "@fullcalendar/angular";
 
 @Component({
   selector: 'app-extended-calendar',
@@ -24,6 +25,7 @@ export class ExtendedCalendarComponent implements OnInit{
   initialEvents: EventInput[] = [];
   clickedCalendarEvent : EventInputDto;
   currentEvents = signal<EventApi[]>([]);
+  @ViewChild('calendar') calendarComponent: FullCalendarComponent;
 
   constructor(private changeDetector: ChangeDetectorRef,
               private calendarService: CalendarService,
@@ -49,6 +51,8 @@ export class ExtendedCalendarComponent implements OnInit{
           counselorContact: dto.counselorContact,
           linkMeeting: dto.linkMeeting,
           participantEmails: dto.participantEmails,
+          participantsOption: dto.participantsOption,
+          selectedGroup: dto.selectedGroup,
         }
       }));
       this.calendarOptions = {
@@ -70,7 +74,6 @@ export class ExtendedCalendarComponent implements OnInit{
         selectable: true,
         selectMirror: true,
         dayMaxEvents: true,
-        select: this.handleDateSelect.bind(this),
         eventClick: this.handleEventClick.bind(this),
         eventsSet: this.handleEvents.bind(this),
         locales: [roLocale],
@@ -87,7 +90,7 @@ export class ExtendedCalendarComponent implements OnInit{
     });
   }
 
-  handleDateSelect(selectInfo: DateSelectArg) {
+  onCreateEventClick() {
     const dialogRef: MatDialogRef<CalendarEventDialogComponent> = this.dialog.open(CalendarEventDialogComponent);
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
@@ -96,11 +99,15 @@ export class ExtendedCalendarComponent implements OnInit{
         newEvent.details = result.details;
         newEvent.start = result.startDateTime;
         newEvent.end = result.endDateTime;
+        newEvent.participantsOption = result.participantsOption;
+        newEvent.selectedGroup = result.selectedGroup;
         newEvent.participantEmails = result.userEmails;
+        newEvent.selectedGroupName = result.selectedGroupName;
         this.calendarService.createEvent(newEvent).subscribe((response => {
           if(response){
-            const calendarApi = selectInfo.view.calendar;
+            const calendarApi = this.calendarComponent.getApi();
             calendarApi.unselect();
+            calendarApi.render();
             calendarApi.addEvent({
               id: null,
               title: response.title,
@@ -110,7 +117,9 @@ export class ExtendedCalendarComponent implements OnInit{
                 eventId: response.id,
                 details: response.details,
                 isOwner: response.isOwner,
-                participantEmails: response.participantEmails
+                participantEmails: newEvent.participantEmails,
+                participantsOption: newEvent.participantsOption,
+                selectedGroup: newEvent.selectedGroupName
               }
             });
             this.snackBar.openSnackBar('Evenimentul a fost adăugat!','');
@@ -132,7 +141,10 @@ export class ExtendedCalendarComponent implements OnInit{
       counselorContact: clickInfo.event.extendedProps.counselorContact,
       linkMeeting: clickInfo.event.extendedProps.linkMeeting,
       isOwner: clickInfo.event.extendedProps.isOwner,
-      participantEmails: clickInfo.event.extendedProps.participantEmails
+      participantEmails: clickInfo.event.extendedProps.participantEmails,
+      participantsOption: clickInfo.event.extendedProps.participantsOption,
+      selectedGroup: clickInfo.event.extendedProps.selectedGroup,
+      selectedGroupName: null
     };
     const dialogRef: MatDialogRef<ViewCalendarEventDialogComponent> = this.dialog.open(ViewCalendarEventDialogComponent, {
       data : this.clickedCalendarEvent

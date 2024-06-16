@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PostModel} from "../../../posts/types/postModel";
 import {SupportGroupName} from "../../types/supportGroupName";
 import {GroupPostsService} from "../../../../core/services/groupPosts.service";
@@ -14,10 +14,17 @@ import {CreatePostComponent} from "../../../posts/components/create-post/create-
 export class SupportGroupComponent {
   posts: PostModel[] = [];
   supportGroupName: SupportGroupName = new SupportGroupName();
+  description: string;
+  members: string;
+  noPosts: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private dialog: MatDialog,
-              private groupPostsService: GroupPostsService) {
+              private groupPostsService: GroupPostsService,
+              private router: Router) {
+
+    this.description = this.router.getCurrentNavigation()?.extras.state.description;
+    this.members = this.router.getCurrentNavigation()?.extras.state.members;
   }
 
   ngOnInit(): void {
@@ -31,7 +38,10 @@ export class SupportGroupComponent {
 
   getPosts(supportGroupNameDto: SupportGroupName) {
     this.groupPostsService.getPosts(supportGroupNameDto).subscribe((response: PostModel[]) => {
-      response.forEach(x=>this.posts.push(x));
+      if(response)
+        response.forEach(x=>this.posts.push(x));
+      else
+        this.noPosts=true;
     });
   }
 

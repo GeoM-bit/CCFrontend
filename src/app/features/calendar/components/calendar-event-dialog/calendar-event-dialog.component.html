@@ -11,7 +11,7 @@
         Titlul este obligatoriu!
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" style="width: 49%; margin-right: 1%">
       <mat-label>Începutul evenimentului</mat-label>
       <input matInput readonly
              [owlDateTime]="startDateTime"
@@ -31,7 +31,7 @@
         Data de început nu poate fi în trecut!
       </mat-error>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" style="width: 49%">
       <mat-label>Sfârșitul evenimentului</mat-label>
       <input matInput readonly
              [owlDateTime]="endDateTime"
@@ -48,8 +48,15 @@
                 placeholder="Introduceți detaliile evenimentului...">
       </textarea>
     </mat-form-field>
+      <mat-label style="color: white">Selectați participanții:</mat-label><br/>
+      <mat-radio-group formControlName="participantsOption">
+        <mat-radio-button value="emails">Manual, după email</mat-radio-button>
+        <mat-radio-button value="groups">După grupul de suport</mat-radio-button>
+        <mat-radio-button value="everyone">Toată lumea</mat-radio-button>
+      </mat-radio-group>
+    <div *ngIf="eventForm.get('participantsOption').value === 'emails'">
     <mat-form-field>
-      <mat-label>Participanți</mat-label>
+      <mat-label>Adrese de email...</mat-label>
       <input matInput (keyup)="applyFilter($event)" placeholder="Căutați după email...">
       <mat-icon matPrefix>search</mat-icon>
     </mat-form-field>
@@ -76,11 +83,21 @@
         </button>
       </div>
     </div>
+    </div>
+    <div *ngIf="eventForm.get('participantsOption').value === 'groups'">
+      <mat-select formControlName="selectedGroup"
+                  placeholder="Selectați un grup"
+                  style="width: 30%">
+        <mat-option *ngFor="let group of groups" [value]="group.id">{{ group.groupName }}</mat-option>
+      </mat-select>
+    </div>
     <mat-card-actions align="end">
       <button mat-button (click)="onCancel()">Renunță</button>
       <button mat-raised-button color="accent"
               (click)="onSave()"
-              [disabled]="!eventForm.valid || selectedEmails.length < 2">Salvează</button>
+              [disabled]="!eventForm.valid ||
+                           (eventForm.get('participantsOption').value === 'emails' &&  selectedEmails.length < 2)"
+      >Salvează</button>
     </mat-card-actions>
   </form>
   </mat-card-content>

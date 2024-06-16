@@ -20,6 +20,10 @@ export class SupportGroupsService {
     return this.http.get<SupportGroupModel[]>(environment.baseUrl + '/api/SupportGroup/get-support-groups');
   }
 
+  getGroupNames(): Observable<SupportGroupName[]> {
+    return this.http.get<SupportGroupName[]>(environment.baseUrl + '/api/SupportGroup/get-group-names');
+  }
+
   addMember(member: SupportGroupMemberModel): Observable<any> {
     return this.http.post<SupportGroupMemberModel>(environment.baseUrl + '/api/SupportGroup/add-member', member);
   }

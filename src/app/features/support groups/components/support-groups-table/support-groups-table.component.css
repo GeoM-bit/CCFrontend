@@ -24,7 +24,7 @@
 .table-container{
   max-width: 1200px;
   min-height: 650px;
-  margin: 100px auto;
+  margin: 20px auto 0px  auto;
 }
 
 #create-group-button{
@@ -50,5 +50,10 @@ td {
 
 th {
   text-align: right;
+}
+
+.page-title{
+  font-size: 25px;
+  margin-bottom: 20px;
 }
 

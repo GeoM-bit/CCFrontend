@@ -1,4 +1,5 @@
 <div class="table-container">
+  <div class="page-title">Grupuri de suport</div>
   <div class="search-container">
     <mat-form-field style="width: 100%">
       <input matInput placeholder="Caută un grup..." #searchInput (keyup)="applyFilter($event)">
@@ -57,7 +58,7 @@
       </tr>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
-    <tr class="table-row-style" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToGroup(row.groupName)"></tr>
+    <tr class="table-row-style" mat-row *matRowDef="let row; columns: displayedColumns;" (click)="goToGroup(row)"></tr>
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
                  aria-label="Select page of support groups">

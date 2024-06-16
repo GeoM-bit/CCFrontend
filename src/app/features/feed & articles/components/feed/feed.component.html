@@ -1,9 +1,22 @@
-  <div id="articlesFeed" style="display: flex; flex-wrap: wrap;">
-    <app-feed-article *ngFor="let article of articles"
+<div class="page-title">Articole disponibile</div>
+<div class="search-container">
+  <mat-form-field style="width: 100%">
+    <input matInput placeholder="Caută un articol..." #searchInput
+           (keyup)="applyFilter($event)">
+    <button *ngIf="searchInput.value" matSuffix
+            mat-icon-button aria-label="Clear"
+            (click)="clearSearchInput(searchInput)">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
+
+<div id="articlesFeed" style="display: flex; flex-wrap: wrap;">
+    <app-feed-article *ngFor="let article of filteredArticles"
                       [articleData]="article"
                       (refreshArticle)="refreshArticle($event)"
+                      (getAllArticles)="getArticles()"
                       style="flex: 0 0 calc(33.33% - 10px); margin: 5px;">
-
     </app-feed-article>
   </div>
 <button (click)="onCreateArticleClick()" mat-fab id="create-article-button"><mat-icon>add</mat-icon></button>

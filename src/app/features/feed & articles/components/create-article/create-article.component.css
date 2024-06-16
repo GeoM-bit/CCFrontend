@@ -4,7 +4,7 @@ mat-card{
   min-width: 370px;
   max-width: 1200px;
   overflow-y: auto;
-  max-height: 780px;
+  max-height: 680px;
 }
 
 #article-title-label{

@@ -67,7 +67,7 @@
     </div>
     <div class="row" id="article-content">
       <div>
-        <quill-editor [styles]="{height: '310px', 'max-width': '1200px'}" (onEditorChanged)="changedEditor($event)" ></quill-editor>
+        <quill-editor [styles]="{height: '250px', 'max-width': '1200px'}" (onEditorChanged)="changedEditor($event)" ></quill-editor>
       </div>
       <div>
         <div class="error-message" *ngIf="articleForm.get('content').errors?.whitespace">*Conținutul este obligatoriu.</div>

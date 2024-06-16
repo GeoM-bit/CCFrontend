@@ -16,6 +16,7 @@ import {ArticleService} from "../../../../core/services/article.service";
 import {UserProfileSupportGroup} from "../../types/userProfileSupportGroup";
 import {SupportGroupsService} from "../../../../core/services/supportGroups.service";
 import {SupportGroupMemberModel} from "../../../support groups/types/supportGroupMemberModel";
+import {SupportGroupModel} from "../../../support groups/types/supportGroupModel";
 
 @Component({
   selector: 'app-profile',
@@ -251,7 +252,12 @@ export class ProfileComponent implements OnInit{
     }))
   }
 
-  goToGroup(groupName: String){
-    this.router.navigate(['support-group', groupName]);
+  goToGroup(groupToGo: UserProfileSupportGroup){
+    this.router.navigateByUrl('support-group/' + groupToGo.groupName,
+      {
+        state:
+          { description: groupToGo.description.toString(),
+            members: groupToGo.memberCount.toString() }
+      });
   }
 }

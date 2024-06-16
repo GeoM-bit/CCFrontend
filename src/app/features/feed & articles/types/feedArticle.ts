@@ -6,4 +6,5 @@ export class FeedArticle {
   titlePhotoContent: String;
   summary: String;
   isFavorite: boolean;
+  isOwner: boolean;
 }

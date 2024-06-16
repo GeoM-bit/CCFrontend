@@ -16,11 +16,19 @@ export class AuthenticationService {
   constructor(private http: HttpClient, private jwtHelper: JwtHelperService) { }
 
   register(user: RegisterModel): Observable<any> {
-    return this.http.post(environment.baseUrl + '/api/Auth/register', user, {withCredentials: true});
+    return this.http.post(environment.baseUrl + '/api/Auth/register',
+                              user,
+                      {withCredentials: true});
   }
 
-  confirmEmail(userEmail: string, userToken: string){
-    return this.http.get(environment.baseUrl + '/api/Auth/confirm-email/'+ userEmail + "/" + userToken,{ withCredentials: true });
+  confirmEmail(userEmail: string, userToken: string) {
+    return this.http.post(environment.baseUrl + '/api/Auth/confirm-email/'+ userEmail + "/" + userToken,
+      null,{ withCredentials: true });
+  }
+
+  resetPassword(model: ResetPasswordModel, userEmail: string, userToken: string){
+    return this.http.post(environment.baseUrl + '/api/Auth/reset-password/'+ userEmail + "/" + userToken,
+      model, { withCredentials: true });
   }
 
   login(user: LoginModel): Observable<TokenModel> {
@@ -42,10 +50,6 @@ export class AuthenticationService {
 
   forgotPassword(model: ResetPasswordModel){
     return this.http.post(environment.baseUrl + '/api/Auth/forgot-password', model, { withCredentials: true });
-  }
-
-  resetPassword(model: ResetPasswordModel, userEmail: string, userToken: string){
-    return this.http.post(environment.baseUrl + '/api/Auth/reset-password/'+ userEmail + "/" + userToken, model, { withCredentials: true });
   }
 
   replaceToken(newToken: String){

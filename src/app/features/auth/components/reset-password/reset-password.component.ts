@@ -40,21 +40,14 @@ export class ResetPasswordComponent implements OnInit {
     this.resetPasswordModel = this.resetPasswordForm.value;
     this.authenticationService.resetPassword(this.resetPasswordModel, this.userEmail, this.userToken).subscribe((response: boolean) => {
       if(response) {
-        this.openSuccessfulLoginSnackBar();
+        this.snackBar.openSnackBar('Parola a fost resetată cu succes!','');
+        document.cookie = "resetPasswordToken=; Max-Age=-99999999; path=/;Secure;SameSite=None";
         this.router.navigate(['login']);
       }
       else {
-        this.openFailedLoginSnackBar();
+        this.snackBar.openSnackBar('Încercare eșuată de resetare a parolei!','');
       }
     });
-  }
-
-  openFailedLoginSnackBar() {
-    this.snackBar.openSnackBar('Încercare eșuată de resetare a parolei!','');
-  }
-
-  openSuccessfulLoginSnackBar() {
-    this.snackBar.openSnackBar('Parola a fost resetată cu succes!','');
   }
 
   initForm() {

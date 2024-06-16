@@ -7,6 +7,8 @@ import {
   CustomValidators,
   MissingDateMatcherCalendarEvent
 } from "../../../../core/utils/customValidators";
+import {SupportGroupName} from "../../../support groups/types/supportGroupName";
+import {SupportGroupsService} from "../../../../core/services/supportGroups.service";
 
 @Component({
   selector: 'app-calendar-event-dialog',
@@ -20,6 +22,7 @@ export class CalendarEventDialogComponent implements OnInit{
   emails: String[] = [];
   confirmValidDateMatcherCalendarEvent = new ConfirmValidDateMatcherCalendarEvent();
   missingDateMatcherCalendarEvent = new MissingDateMatcherCalendarEvent();
+  groups: SupportGroupName[] = [];
   dateFilter = (date: Date | null): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
@@ -28,17 +31,25 @@ export class CalendarEventDialogComponent implements OnInit{
 
   constructor( public dialogRef: MatDialogRef<CalendarEventDialogComponent>,
                @Inject(MAT_DIALOG_DATA) public data: any,
-               private userService: UserService) {}
+               private userService: UserService,
+               private supportGroupService: SupportGroupsService) {}
 
   ngOnInit(): void {
     this.getEmails();
-    this.filteredEmails = this.emails;
+    this.getGroups();
     this.initForm();
   }
 
   getEmails(){
     this.userService.getUsersEmails().subscribe((response: String[]) => {
-      response.forEach(x=>this.emails.push(x));
+      this.emails = response;
+      this.filteredEmails = this.emails;
+    });
+  }
+
+  getGroups(){
+    this.supportGroupService.getGroupNames().subscribe(response => {
+      this.groups = response;
     });
   }
 
@@ -48,8 +59,11 @@ export class CalendarEventDialogComponent implements OnInit{
       'details': new FormControl(null),
       'startDateTime': new FormControl(null, [Validators.required]),
       'endDateTime': new FormControl(null, [Validators.required]),
-      'userEmails': new FormControl(null)
-    },
+      'userEmails': new FormControl(null),
+      'participantsOption': new FormControl('emails'),
+      'selectedGroup': new FormControl(null),
+      'selectedGroupName': new FormControl(null),
+      },
       [CustomValidators.DateValidator]
     );
   }
@@ -87,7 +101,14 @@ export class CalendarEventDialogComponent implements OnInit{
 
   onSave(): void {
     if (this.eventForm.valid) {
-      this.eventForm.get("userEmails").setValue(this.selectedEmails);
+      if(this.eventForm.get("participantsOption").value === 'emails')
+        this.eventForm.get("userEmails").setValue(this.selectedEmails);
+      if(this.eventForm.get("participantsOption").value === 'groups'){
+        let groupId= this.eventForm.get("selectedGroup").value;
+        let groupName =  this.groups.find(g => g.id === groupId).groupName;
+        this.eventForm.get("selectedGroupName").setValue(groupName);
+      }
+
       const formValue = this.eventForm.value;
       this.dialogRef.close(formValue);
     }

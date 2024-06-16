@@ -3,7 +3,6 @@ import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {CreateArticleComponent} from "../create-article/create-article.component";
 import {ArticleService} from "../../../../core/services/article.service";
 import {FeedArticle} from "../../types/feedArticle";
-import {ArticleModel} from "../../types/articleModel";
 
 @Component({
   selector: 'app-feed',
@@ -12,18 +11,21 @@ import {ArticleModel} from "../../types/articleModel";
 })
 export class FeedComponent implements OnInit{
   articles: FeedArticle[] = [];
-
+  filteredArticles: FeedArticle[] = [];
   constructor(private dialog: MatDialog,
               private articleService: ArticleService) {
   }
 
   ngOnInit(): void {
-    this.getArticles();
+    setTimeout(() => {
+      this.getArticles();
+    }, 500);
   }
 
   getArticles() {
     this.articleService.getArticles().subscribe((response: FeedArticle[]) => {
-      response.forEach(x=>this.articles.push(x));
+      this.articles = response;
+      this.filteredArticles = response;
     });
   }
 
@@ -42,5 +44,18 @@ export class FeedComponent implements OnInit{
     if (article) {
       article.isFavorite = !article.isFavorite;
     }
+  }
+
+  applyFilter(event: any) {
+    const filterValue = event.target.value.trim().toLowerCase();
+    this.filteredArticles = this.articles.filter(article =>
+      article.title.toLowerCase().includes(filterValue) ||
+      article.summary.toLowerCase().includes(filterValue)
+    );
+  }
+
+  clearSearchInput(input: HTMLInputElement) {
+    input.value = '';
+    this.filteredArticles = this.articles;
   }
 }

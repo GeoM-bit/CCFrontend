@@ -8,4 +8,7 @@ export class EventInputDto{
   start: Date;
   end: Date;
   participantEmails: String[];
+  participantsOption: string;
+  selectedGroup: string;
+  selectedGroupName: string;
 }

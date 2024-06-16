@@ -1,0 +1,49 @@
+mat-toolbar{
+  position:fixed;
+  top:0;
+  z-index: 2;
+}
+
+mat-sidenav-container {
+  height:100%;
+}
+
+mat-sidenav {
+  padding-top: 3.5rem;
+  @media screen and (min-width: 600px) {
+    padding-top: 4rem;
+  }
+
+  .entry{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding:0.75rem;
+  }
+}
+
+mat-sidenav-content{
+  padding-top: 3.5rem;
+  @media screen and (min-width: 600px) {
+    padding-top: 4rem;
+  }
+}
+
+.logout-section {
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+.menu-position{
+  margin: 0 0 0 auto;
+}
+
+.toolbar-title {
+  flex: 1;
+  text-align: center;
+}
+
+
+
+

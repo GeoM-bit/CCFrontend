@@ -2,4 +2,5 @@
 @import "@danielmoncada/angular-datetime-picker/assets/style/picker.min.css";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+
