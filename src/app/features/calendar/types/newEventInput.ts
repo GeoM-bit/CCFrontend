@@ -4,4 +4,7 @@ export class NewEventInput{
   start: Date;
   end: Date;
   participantEmails: String[];
+  participantsOption: string;
+  selectedGroup: string;
+  selectedGroupName: string;
 }

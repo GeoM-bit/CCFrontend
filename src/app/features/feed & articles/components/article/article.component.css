@@ -8,3 +8,8 @@ mat-card{
   margin-top: 50px;
   background-color: #b0bec5;
 }
+
+.action-item{
+  margin-left: .5em;
+  cursor: pointer;
+}

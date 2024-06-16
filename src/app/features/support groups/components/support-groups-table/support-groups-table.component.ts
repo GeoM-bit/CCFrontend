@@ -5,7 +5,7 @@ import {MatPaginator} from "@angular/material/paginator";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {ManageMembersComponent} from "../manage-members/manage-members.component";
 import {CreateSupportGroupComponent} from "../create-support-group/create-support-group.component";
-import {Router} from "@angular/router";
+import {NavigationExtras, Router} from "@angular/router";
 import {SupportGroupModel} from "../../types/supportGroupModel";
 import { ConfirmationDialogComponent } from "../../../../core/components/confirmation-dialog/confirmation-dialog.component";
 import {AuthenticationService} from "../../../../core/services/authentication.service";
@@ -59,10 +59,10 @@ export class SupportGroupsTableComponent implements OnInit{
     this.supportGroupService.addMember(this.supportGroupMemberModel).subscribe((response: Boolean) => {
       if(response!=null) {
         this.getData();
-        this.openSuccessfullyJoinedGroupSnackBar();
+        this.snackBar.openSnackBar('V-ați alăturat cu succes grupului!','');
       }
       else {
-        this.openFailedToJoinGroupSnackBar();
+        this.snackBar.openSnackBar('Nu ați putut fi adăugat grupului!','');
       }
     });
   }
@@ -70,13 +70,6 @@ export class SupportGroupsTableComponent implements OnInit{
   checkRole(): boolean {
     let role = this.authService.getRole();
     return Roles[role] != Roles.User && Roles[role] != Roles.Member;
-  }
-
-  openSuccessfullyJoinedGroupSnackBar() {
-    this.snackBar.openSnackBar('V-ați alăturat cu succes grupului!','');
-  }
-  openFailedToJoinGroupSnackBar(){
-    this.snackBar.openSnackBar('Nu ați putut fi adăugat grupului!','');
   }
 
   onAddMembersClick(groupName: String) {
@@ -146,7 +139,19 @@ export class SupportGroupsTableComponent implements OnInit{
     });
   }
 
-  goToGroup(groupName: String){
-    this.router.navigate(['support-group', groupName]);
+  goToGroup(groupToGo: SupportGroupModel){
+    if(groupToGo.isMember) {
+      this.router.navigateByUrl('support-group/' + groupToGo.groupName,
+        {
+          state:
+            {
+              description: groupToGo.description.toString(),
+              members: groupToGo.memberCount.toString()
+            }
+        });
+    }
+    else {
+      this.snackBar.openSnackBar('Nu sunteți membru al grupului ' + groupToGo.groupName + '!','');
+    }
   }
 }

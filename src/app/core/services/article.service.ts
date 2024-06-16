@@ -37,4 +37,8 @@ export class ArticleService {
   removeArticleFromFavorites(articleId: String): Observable<boolean>{
     return this.http.delete<boolean>(environment.baseUrl + '/api/Article/remove-article-from-favorites/' + articleId);
   }
+
+  deleteArticle(articleId: String): Observable<boolean>{
+    return this.http.delete<boolean>(environment.baseUrl + '/api/Article/delete-article/' + articleId);
+  }
 }

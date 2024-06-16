@@ -22,13 +22,12 @@ import { MatPaginatorModule } from "@angular/material/paginator";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatIconModule } from "@angular/material/icon";
 import {CommonModule, registerLocaleData} from "@angular/common";
-import { LayoutComponent } from "./core/components/layout/layout.component";
 import { LoginComponent } from "./features/auth/components/login/login.component";
 import { JwtModule } from "@auth0/angular-jwt";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { QuillModule} from "ngx-quill";
 import { JwtInterceptor } from "./core/interceptor/token.interceptor";
-import { MatList, MatListItem } from "@angular/material/list";
+import {MatList, MatListItem, MatNavList} from "@angular/material/list";
 import { MatCheckbox } from "@angular/material/checkbox";
 import { ConfirmationDialogComponent } from './core/components/confirmation-dialog/confirmation-dialog.component';
 import { SupportGroupPostComponent } from './features/posts/components/post/post.component';
@@ -64,6 +63,9 @@ import { RequestResetPasswordComponent } from './features/auth/components/reques
 import { ResetPasswordComponent } from './features/auth/components/reset-password/reset-password.component';
 import { ConfirmEmailComponent } from './features/auth/components/confirm-email/confirm-email.component';
 import {MatProgressSpinner} from "@angular/material/progress-spinner";
+import { UserTableComponent } from './features/user management/components/user-table/user-table.component';
+import { EditUserComponent } from './features/user management/components/edit-user/edit-user.component';
+import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
 
 export function tokenGetter() {
   return localStorage.getItem("token");
@@ -76,7 +78,6 @@ registerLocaleData(localeRo, 'ro');
     AppComponent,
     RegisterComponent,
     SnackBarComponent,
-    LayoutComponent,
     LoginComponent,
     FeedComponent,
     FeedArticleComponent,
@@ -103,55 +104,61 @@ registerLocaleData(localeRo, 'ro');
     RejectRequestComponent,
     RequestResetPasswordComponent,
     ResetPasswordComponent,
-    ConfirmEmailComponent
+    ConfirmEmailComponent,
+    UserTableComponent,
+    EditUserComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    ReactiveFormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    FormsModule,
-    MatToolbarModule,
-    MatCardModule,
-    MatTableModule,
-    MatDatepickerModule,
-    HttpClientModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    MatSortModule,
-    MatPaginatorModule,
-    MatDialogModule,
-    CommonModule,
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        allowedDomains: ["localhost:4200"],
-      },
-    }),
-    MatMenuTrigger,
-    MatMenu,
-    MatMenuItem,
-    QuillModule.forRoot(),
-    MatList,
-    MatListItem,
-    MatCheckbox,
-    MatExpansionPanel,
-    MatExpansionPanelTitle,
-    CommentsModule,
-    MatAccordion,
-    MatExpansionPanelDescription,
-    MatExpansionPanelHeader,
-    FullCalendarModule,
-    OwlDateTimeModule,
-    OwlNativeDateTimeModule,
-    MatRadioGroup,
-    MatRadioButton,
-    MatProgressSpinner
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        ReactiveFormsModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatIconModule,
+        FormsModule,
+        MatToolbarModule,
+        MatCardModule,
+        MatTableModule,
+        MatDatepickerModule,
+        HttpClientModule,
+        MatSnackBarModule,
+        MatSelectModule,
+        MatSortModule,
+        MatPaginatorModule,
+        MatDialogModule,
+        CommonModule,
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: tokenGetter,
+                allowedDomains: ["localhost:4200"],
+            },
+        }),
+        MatMenuTrigger,
+        MatMenu,
+        MatMenuItem,
+        QuillModule.forRoot(),
+        MatList,
+        MatListItem,
+        MatCheckbox,
+        MatExpansionPanel,
+        MatExpansionPanelTitle,
+        CommentsModule,
+        MatAccordion,
+        MatExpansionPanelDescription,
+        MatExpansionPanelHeader,
+        FullCalendarModule,
+        OwlDateTimeModule,
+        OwlNativeDateTimeModule,
+        MatRadioGroup,
+        MatRadioButton,
+        MatProgressSpinner,
+        MatSidenavContainer,
+        MatNavList,
+        MatSidenav,
+        MatSidenavContent
+    ],
   providers: [
     { provide: LOCALE_ID, useValue: 'ro' },
     { provide: MAT_DATE_LOCALE, useValue: 'ro' },

@@ -6,11 +6,17 @@
   <p><strong>Data de început:</strong> {{ calendarEvent.start | date: 'dd/MM/yyyy, HH:mm' }}</p>
   <p><strong>Data de sfârșit:</strong> {{ calendarEvent.end | date: 'dd/MM/yyyy, HH:mm' }}</p>
 
-  <div *ngIf="calendarEvent.isOwner" style=" max-height: 200px; overflow-y: auto;">
+  <div style=" max-height: 200px; overflow-y: auto;">
     <p><strong>Participanți:</strong></p>
-    <ul>
+    <ul *ngIf="calendarEvent.participantsOption === 'emails'">
       <li *ngFor="let email of calendarEvent.participantEmails">{{ email }}</li>
     </ul>
+    <div *ngIf="calendarEvent.participantsOption === 'groups'">
+      Grupul <i>{{calendarEvent.selectedGroup}}</i>
+    </div>
+    <div *ngIf="calendarEvent.participantsOption === 'everyone'">
+      Eveniment deschis tuturor
+    </div>
   </div>
   <div *ngIf="calendarEvent.isOwner" class="button-container">
     <button mat-raised-button (click)="deleteEvent()">Șterge evenimentul</button>

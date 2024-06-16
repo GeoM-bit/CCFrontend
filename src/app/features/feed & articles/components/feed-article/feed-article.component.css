@@ -8,5 +8,6 @@ mat-card{
   align-items: center;
   margin-top: 50px;
   background-color: #b0bec5;
+  min-height: 400px;
 }
 

@@ -1,0 +1,64 @@
+<div class="table-container">
+<div class="page-title">Utilizatori</div>
+<div class="table-container">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="Prenume">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="Prenume" sortActionDescription="Sort by Prenume">
+        Prenume
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.firstName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Nume">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="Nume" sortActionDescription="Sort by Nume">
+        Nume
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.lastName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="Email" sortActionDescription="Sort by Email">
+        Adresa de email
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}}</td>
+    </ng-container>
+    <ng-container matColumnDef="EmailConfirmat">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header="EmailConfirmat" sortActionDescription="Sort by EmailConfirmat">
+        Email confirmat
+      </th>
+      <td mat-cell *matCellDef="let element"> {{element.emailConfirmed ? 'DA' : 'NU'}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Rol">
+      <th mat-header-cell *matHeaderCellDef>
+        Rol
+      </th>
+      <td mat-cell *matCellDef="let element"> {{ Roles[element.role]}} </td>
+    </ng-container>
+    <ng-container matColumnDef="action" class="action">
+      <th mat-header-cell *matHeaderCellDef>
+        Acțiuni
+      </th>
+      <td mat-cell *matCellDef="let element" >
+        <button class="action-button"
+                mat-raised-button
+                color="primary"
+                (click)="delete(element)">Șterge</button>
+        <button class="action-button"
+                mat-raised-button
+                color="accent"
+                (click)="edit(element)">Editează</button>
+      </td>
+    </ng-container>
+    <ng-container  *ngIf="noUsers">
+      <tr class="noDataRow" *matNoDataRow>
+        <td [attr.colspan]="displayedColumns.length">
+          Nu au fost găsiți utilizatori.
+        </td>
+      </tr>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns" ></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons
+                 aria-label="Select page of users">
+  </mat-paginator>
+</div>
+</div>

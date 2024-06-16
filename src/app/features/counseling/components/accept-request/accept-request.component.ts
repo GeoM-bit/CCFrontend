@@ -1,9 +1,7 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {CounselingRequestDto} from "../../types/counselingRequestDto";
+import {Component, OnInit} from '@angular/core';
+import {MatDialogRef} from "@angular/material/dialog";
 import {ConfirmValidDateMatcherCalendarEvent, CustomValidators} from "../../../../core/utils/customValidators";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
-import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar.component";
 
 @Component({
   selector: 'app-accept-request',

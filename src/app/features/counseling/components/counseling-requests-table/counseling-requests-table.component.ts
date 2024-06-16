@@ -65,7 +65,6 @@ export class CounselingRequestsTableComponent implements OnInit{
 
   onAccept(request: CounselingRequestDto){
     const dialogRef: MatDialogRef<AcceptRequestComponent> = this.dialog.open(AcceptRequestComponent);
-
     dialogRef.afterClosed().subscribe(result => {
       if(result) {
         let counselingDate = new CounselingDate();

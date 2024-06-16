@@ -17,7 +17,9 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   hidePassword = true;
 
-  constructor(private authenticationService: AuthenticationService, private snackBar: SnackBarComponent, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService,
+              private snackBar: SnackBarComponent,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -31,21 +33,13 @@ export class LoginComponent implements OnInit {
     this.loginModel = this.loginForm.value;
     this.authenticationService.login(this.loginModel).subscribe((response: TokenModel) => {
       if(response!=null) {
-        this.openSuccessfulLoginSnackBar();
+        this.snackBar.openSnackBar('V-ați conectat cu succes!','');
         this.router.navigate(['feed']);
       }
       else {
-        this.openFailedLoginSnackBar();
+        this.snackBar.openSnackBar('Încercare eșuată de conectare! Asigurați-vă că ați confirmat adresa de email!','');
       }
     });
-  }
-
-  openFailedLoginSnackBar() {
-    this.snackBar.openSnackBar('Încercare eșuată de conectare! Asigurați-vă că ați confirmat adresa de email!','');
-  }
-
-  openSuccessfulLoginSnackBar() {
-    this.snackBar.openSnackBar('V-ați conectat cu succes!','');
   }
 
   initForm() {

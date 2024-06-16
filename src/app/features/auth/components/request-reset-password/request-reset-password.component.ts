@@ -27,21 +27,13 @@ export class RequestResetPasswordComponent implements OnInit {
     this.resetPasswordModel = this.resetPasswordForm.value;
     this.authenticationService.forgotPassword(this.resetPasswordModel).subscribe((response: boolean) => {
       if(response) {
-        this.openSuccessfulLoginSnackBar();
+        this.snackBar.openSnackBar('Un email de resetare a parolei a fost trimis!','');
         this.router.navigate(['login']);
       }
       else {
-        this.openFailedLoginSnackBar();
+        this.snackBar.openSnackBar('Cererea de resetare a parolei nu a putut fi trimisă!','');
       }
     });
-  }
-
-  openFailedLoginSnackBar() {
-    this.snackBar.openSnackBar('Cererea de resetare a parolei nu a putut fi trimisă!','');
-  }
-
-  openSuccessfulLoginSnackBar() {
-    this.snackBar.openSnackBar('Un email de resetare a parolei a fost trimis!','');
   }
 
   initForm() {

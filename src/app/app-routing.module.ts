@@ -19,6 +19,7 @@ import {
 import {RequestResetPasswordComponent} from "./features/auth/components/request-reset-password/request-reset-password.component";
 import {ResetPasswordComponent} from "./features/auth/components/reset-password/reset-password.component";
 import {ConfirmEmailComponent} from "./features/auth/components/confirm-email/confirm-email.component";
+import {UserTableComponent} from "./features/user management/components/user-table/user-table.component";
 
 const routes: Routes = [
 
@@ -35,7 +36,8 @@ const routes: Routes = [
   { path: 'counseling-requests', component: CounselingRequestsTableComponent },
   { path: 'request-reset-password', component: RequestResetPasswordComponent },
   { path: 'reset-password/:userEmail/:userToken', component: ResetPasswordComponent},
-  { path: 'confirm-email/:userEmail/:userToken', component: ConfirmEmailComponent}
+  { path: 'confirm-email/:userEmail/:userToken', component: ConfirmEmailComponent},
+  { path: 'user-table', component: UserTableComponent}
 ];
 
 @NgModule({

@@ -1,16 +1,17 @@
 mat-card{
-  max-height: 755px;
+  max-height: 670px;
   overflow-y: auto;
+  max-width: 900px;
 }
 
 .selected-emails {
-  margin-top: 20px;
+  margin-top: 10px;
   max-height: 150px;
   overflow-y: auto;
 }
 
 .email-list {
-  max-height: 200px;
+  max-height: 180px;
   overflow-y: auto;
 }
 
@@ -29,5 +30,7 @@ mat-card{
 
 mat-form-field{
   width: 100%;
-  margin-top: 5px;
 }
+
+
+

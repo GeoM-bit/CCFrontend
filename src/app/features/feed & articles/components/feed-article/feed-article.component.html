@@ -1,12 +1,17 @@
 <mat-card>
   <mat-card-header>
-    <mat-card-title style="font-size: 35px; cursor:pointer" (click)="onFeedArticleClick()">
+    <mat-card-title style="font-size: 35px; cursor:pointer"
+                    (click)="onFeedArticleClick()">
       <img src="{{articleData.titlePhotoContent}}" style="max-height: 280px; max-width: 320px">
     </mat-card-title>
-  <mat-card-subtitle style="margin-top: 5px">{{articleData.authorName}}, {{articleData.publicationDate}}</mat-card-subtitle>
+  <mat-card-subtitle style="margin-top: 5px">
+    {{articleData.authorName}}, {{articleData.publicationDate}}
+  </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content (click)="onFeedArticleClick()" style="cursor:pointer">
-    <div style="font-size: 30px;margin-top: 10px; font-weight: bold; line-height: 1"> {{articleData.title}}</div>
+    <div style="font-size: 30px;margin-top: 10px; font-weight: bold; line-height: 1">
+      {{articleData.title}}
+    </div>
   </mat-card-content>
   <div style="align-self: flex-start; margin-left: 30px; margin-right: 30px; margin-top: 20px">
     {{articleData.summary}}
@@ -14,6 +19,12 @@
   <mat-card-actions style="align-self: flex-start">
     <mat-icon class="action-item" color="primary" (click)="toggleFavorite()">
       {{ articleData.isFavorite ? 'favorite' : 'favorite_border' }}
+    </mat-icon>
+    <mat-icon class="action-item"
+              style="cursor: pointer; color: dimgrey"
+              *ngIf="articleData.isOwner"
+              (click)="onDeleteArticle(articleData)">
+      delete
     </mat-icon>
   </mat-card-actions>
 </mat-card>

@@ -4,11 +4,23 @@
   right: 1.5em;
 }
 
-#articlesFeed{
+#articlesFeed {
   max-width: 1200px;
-  min-height: 700px;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 100px;
 }
 
+.search-container {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+.page-title{
+  font-size: 25px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}

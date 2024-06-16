@@ -20,7 +20,9 @@ export class RegisterComponent implements OnInit {
   hideConfirmationPassword = true;
   confirmValidParentMatcher = new ConfirmValidParentMatcher();
 
-  constructor(private authenticationService: AuthenticationService, private snackBar: SnackBarComponent, private router: Router) { }
+  constructor(private authenticationService: AuthenticationService,
+              private snackBar: SnackBarComponent,
+              private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
@@ -39,21 +41,13 @@ export class RegisterComponent implements OnInit {
     this.registerModel = this.registerForm.value;
     this.authenticationService.register(this.registerModel).subscribe((response: any) => {
       if (response == true) {
-        this.redirectToLogin();
+        this.router.navigate(['login']);
+        this.snackBar.openSnackBar('Contul a fost creat! Vă rugăm confirmați adresa de email!', '');
       }
       else {
-        this.openFailedRegisterSnackBar();
+        this.snackBar.openSnackBar('Contul nu a putut fi creat!','');
       }
     });
-  }
-
-  redirectToLogin(){
-    this.router.navigate(['login']);
-    this.snackBar.openSnackBar('Contul a fost creat! Vă rugăm confirmați adresa de email!', '');
-  }
-
-  openFailedRegisterSnackBar() {
-      this.snackBar.openSnackBar('Contul nu a putut fi creat!','');
   }
 
   initForm(){

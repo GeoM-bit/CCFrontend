@@ -5,4 +5,6 @@ export class ArticleModel {
   publicationDate: Date;
   titlePhotoContent: String;
   content: String;
+  isFavorite: boolean;
+  isOwner: boolean;
 }

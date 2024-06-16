@@ -9,5 +9,5 @@ import {UserProfileSupportGroup} from "../../types/userProfileSupportGroup";
 export class UserProfileSupportGroupComponent {
   @Input() supportGroup: UserProfileSupportGroup = new UserProfileSupportGroup();
   @Output() removeSupportGroup = new EventEmitter<String>();
-  @Output() goToGroup = new EventEmitter<String>();
+  @Output() goToGroup = new EventEmitter<UserProfileSupportGroup>();
 }

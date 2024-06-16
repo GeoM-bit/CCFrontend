@@ -11,10 +11,13 @@ import {SnackBarComponent} from "../../../../core/components/snack-bar/snack-bar
 export class ConfirmEmailComponent implements OnInit{
   userEmail: string = "";
   userToken: string = "";
+  confirmed= false;
+  loading = true;
 
   constructor(private authService: AuthenticationService,
               private route: ActivatedRoute,
-              private snackBar: SnackBarComponent) {
+              private snackBar: SnackBarComponent,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -28,6 +31,15 @@ export class ConfirmEmailComponent implements OnInit{
   }
 
   confirmEmail(): void {
-    this.authService.confirmEmail(this.userEmail, this.userToken).subscribe(result=>{})
+    this.authService.confirmEmail(this.userEmail, this.userToken).subscribe(result=>{
+      this.loading=false;
+      if(result){
+        this.confirmed=true;
+        document.cookie = "confirmEmailToken=; Max-Age=-99999999; path=/;Secure;SameSite=None";
+      }
+      setTimeout(() => {
+        this.router.navigate(['login']);
+      }, 5000);
+    })
   }
 }
