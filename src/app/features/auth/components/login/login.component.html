@@ -9,11 +9,11 @@
                 <div class="col-md-6">
                   <mat-form-field>
                     <mat-label for="email">Email</mat-label>
-                    <input matInput formControlName="email" />
-                    <mat-error *ngIf="(!loginForm.get('email').valid || loginForm.get('email').errors?.whitespace) && !loginForm.get('email').errors?.required">
+                    <input matInput id="loginEmail" formControlName="email" />
+                    <mat-error id="invalidEmailError" *ngIf="(!loginForm.get('email').valid || loginForm.get('email').errors?.whitespace) && !loginForm.get('email').errors?.required">
                       Vă rugăm introduceți o adresă de email validă!
                     </mat-error>
-                    <mat-error *ngIf="loginForm.get('email').errors?.required">
+                    <mat-error id="requiredEmailError" *ngIf="loginForm.get('email').errors?.required">
                       Adresa de email este obligatorie!
                     </mat-error>
                   </mat-form-field>
@@ -23,17 +23,17 @@
                 <div class="col-md-6">
                   <mat-form-field>
                     <mat-label for="password">Parolă</mat-label>
-                    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" #password >
+                    <input matInput id="loginPassword" [type]="hidePassword ? 'password' : 'text'" formControlName="password" #password >
                     <mat-icon matSuffix (click)="togglePasswordVisibility(password)" >
                       {{hidePassword?'visibility_off':'visibility'}}
                     </mat-icon>
-                    <mat-error *ngIf="loginForm.get('password').errors?.required">
+                    <mat-error id="requiredPasswordError" *ngIf="loginForm.get('password').errors?.required">
                       Parola e obligatorie!
                     </mat-error>
                   </mat-form-field>
                 </div>
               </div>
-              <button mat-raised-button color="primary" type="submit" [disabled]="loginForm.invalid" >Conectare</button>
+              <button mat-raised-button color="primary" id="submitLogin" type="submit" [disabled]="loginForm.invalid" >Conectare</button>
             </form>
             <div style="cursor:pointer; color: white; text-align: center; margin-top: 20px" (click)="goToRequestResetPassword()"><u>Ați uitat parola?</u></div>
           </mat-card-content>

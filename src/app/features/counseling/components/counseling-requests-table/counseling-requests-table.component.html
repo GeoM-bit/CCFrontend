@@ -54,11 +54,13 @@
                 class="action-button"
                 mat-raised-button
                 color="primary"
+                id="acceptRequestButton"
                 (click)="onAccept(element)">Preia</button>
         <button *ngIf="isNotProcessed(element)"
                 class="action-button"
                 mat-raised-button
                 color="warn"
+                id="rejectRequestButton"
                 (click)="onReject(element)">Respinge</button>
       </td>
     </ng-container>

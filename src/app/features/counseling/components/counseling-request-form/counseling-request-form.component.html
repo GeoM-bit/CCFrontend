@@ -6,18 +6,18 @@
         <div class="form-field" style="margin-top: 20px">
           <div style="align-self: start; margin-bottom: 8px">Solicitarea vizează o problemă personală de sănătatea sau pe cea a unui apropiat?</div>
           <mat-radio-group formControlName="isPersonal" color="accent">
-            <mat-radio-button value="true">Este personală</mat-radio-button>
-            <mat-radio-button value="false">Este vorba despre un apropiat</mat-radio-button>
+            <mat-radio-button value="true" id="radioPersonal">Este personală</mat-radio-button>
+            <mat-radio-button value="false" id="radioNotPersonal">Este vorba despre un apropiat</mat-radio-button>
           </mat-radio-group>
-          <mat-error *ngIf="counselingRequestForm.get('isPersonal').errors?.required">
+          <mat-error id="personalError" *ngIf="counselingRequestForm.get('isPersonal').errors?.required">
             Vă rugăm bifați un răspuns!
           </mat-error>
         </div>
         <div class="form-field">
           <mat-form-field class="full-width">
             <mat-label>Descrierea situației</mat-label>
-            <textarea matInput formControlName="description" placeholder="Introduceți detalii..."></textarea>
-            <mat-error *ngIf="counselingRequestForm.get('description').errors?.required">
+            <textarea id="details" matInput formControlName="description" placeholder="Introduceți detalii..."></textarea>
+            <mat-error id="detailsError" *ngIf="counselingRequestForm.get('description').errors?.required">
               Descrierea este obligatorie!
             </mat-error>
           </mat-form-field>
@@ -26,10 +26,10 @@
           <mat-form-field class="full-width">
             <mat-label>Doresc consiliere din partea unui </mat-label>
             <mat-select  required formControlName="counselingType">
-              <mat-option value="Doctor">Medic</mat-option>
-              <mat-option value="Psychologist">Psiholog</mat-option>
+              <mat-option id="doctorOption" value="Doctor">Medic</mat-option>
+              <mat-option id="psychologistOption" value="Psychologist">Psiholog</mat-option>
             </mat-select>
-            <mat-error *ngIf="counselingRequestForm.get('counselingType').errors?.required">
+            <mat-error id="counselingTypeError" *ngIf="counselingRequestForm.get('counselingType').errors?.required">
               Tipul de consiliere este obligatoriu!
             </mat-error>
           </mat-form-field>

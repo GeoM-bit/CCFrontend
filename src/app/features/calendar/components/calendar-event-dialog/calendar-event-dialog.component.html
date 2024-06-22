@@ -6,8 +6,8 @@
   <form [formGroup]="eventForm">
     <mat-form-field appearance="fill">
       <mat-label>Titlu</mat-label>
-      <input matInput formControlName="title">
-      <mat-error *ngIf="(eventForm.get('title').errors?.required)">
+      <input id="calendarEventTitle" matInput formControlName="title">
+      <mat-error id="calendarEventRequiredError" *ngIf="(eventForm.get('title').errors?.required)">
         Titlul este obligatoriu!
       </mat-error>
     </mat-form-field>
@@ -18,16 +18,17 @@
              [owlDateTimeTrigger]="startDateTime"
              [owlDateTimeFilter]="dateFilter"
              [errorStateMatcher]="confirmValidDateMatcherCalendarEvent"
+             id="startDateTimeInput"
              formControlName="startDateTime">
       <owl-date-time #startDateTime></owl-date-time>
-      <mat-datepicker-toggle matSuffix [for]="startDateTime"></mat-datepicker-toggle>
-      <mat-error *ngIf="(eventForm.hasError('dateInvalid'))">
+      <mat-datepicker-toggle  id="calendarEventStartDateTime" matSuffix [for]="startDateTime"></mat-datepicker-toggle>
+      <mat-error id="calendarEventDateInvalidError" *ngIf="(eventForm.hasError('dateInvalid'))">
         Data de început nu poate fi după cea de sfârșit!
       </mat-error>
-      <mat-error *ngIf="(eventForm.hasError('missingStartDate') || eventForm.get('startDateTime').errors?.required)">
+      <mat-error id="calendarEventMissingDate" *ngIf="(eventForm.hasError('missingStartDate') || eventForm.get('startDateTime').errors?.required)">
         Data de început este obligatorie!
       </mat-error>
-      <mat-error *ngIf="(eventForm.hasError('pastDate'))">
+      <mat-error id="calendarEventPastDate" *ngIf="(eventForm.hasError('pastDate'))">
         Data de început nu poate fi în trecut!
       </mat-error>
     </mat-form-field>
@@ -38,6 +39,7 @@
              [owlDateTimeTrigger]="endDateTime"
              [owlDateTimeFilter]="dateFilter"
              [errorStateMatcher]="missingDateMatcherCalendarEvent"
+             id="calendarEventEndDateTime"
              formControlName="endDateTime">
       <owl-date-time #endDateTime></owl-date-time>
       <mat-datepicker-toggle matSuffix [for]="endDateTime"></mat-datepicker-toggle>
@@ -50,9 +52,9 @@
     </mat-form-field>
       <mat-label style="color: white">Selectați participanții:</mat-label><br/>
       <mat-radio-group formControlName="participantsOption">
-        <mat-radio-button value="emails">Manual, după email</mat-radio-button>
-        <mat-radio-button value="groups">După grupul de suport</mat-radio-button>
-        <mat-radio-button value="everyone">Toată lumea</mat-radio-button>
+        <mat-radio-button value="emails" id="participantsOptionEmails">Manual, după email</mat-radio-button>
+        <mat-radio-button value="groups" id="participantsOptionSupportGroup">După grupul de suport</mat-radio-button>
+        <mat-radio-button value="everyone" id="participantsOptionEveryone">Toată lumea</mat-radio-button>
       </mat-radio-group>
     <div *ngIf="eventForm.get('participantsOption').value === 'emails'">
     <mat-form-field>
@@ -72,7 +74,7 @@
         </div>
       </mat-list-item>
     </mat-list>
-    <mat-error *ngIf="(selectedEmails.length < 2)">
+    <mat-error id="emailsError" *ngIf="(selectedEmails.length < 2)">
       Evenimentul trebuie să aibă cel puțin 2 participanți!
     </mat-error>
     <div *ngIf="selectedEmails.length > 0" class="selected-emails">
@@ -87,6 +89,7 @@
     <div *ngIf="eventForm.get('participantsOption').value === 'groups'">
       <mat-select formControlName="selectedGroup"
                   placeholder="Selectați un grup"
+                  id="groupSelector"
                   style="width: 30%">
         <mat-option *ngFor="let group of groups" [value]="group.id">{{ group.groupName }}</mat-option>
       </mat-select>

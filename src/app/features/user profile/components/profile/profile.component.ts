@@ -16,7 +16,6 @@ import {ArticleService} from "../../../../core/services/article.service";
 import {UserProfileSupportGroup} from "../../types/userProfileSupportGroup";
 import {SupportGroupsService} from "../../../../core/services/supportGroups.service";
 import {SupportGroupMemberModel} from "../../../support groups/types/supportGroupMemberModel";
-import {SupportGroupModel} from "../../../support groups/types/supportGroupModel";
 
 @Component({
   selector: 'app-profile',
@@ -54,16 +53,19 @@ export class ProfileComponent implements OnInit{
   }
 
   getProfileData(){
-    this.userService.getProfileInfo().subscribe((response: ProfileInfo) => {
+    this.userService.getProfileInfo().subscribe(
+      (response: ProfileInfo) => {
       this.profileInfo = response;
       this.originalProfileInfo = response;
     });
 
-    this.articleService.getFavoriteArticles().subscribe((response: FavoriteArticle[]) =>{
+    this.articleService.getFavoriteArticles().subscribe(
+      (response: FavoriteArticle[]) =>{
       this.favoriteArticles = response;
     });
 
-    this.supportGroupsService.getGroupsForProfile().subscribe((response: UserProfileSupportGroup[]) =>{
+    this.supportGroupsService.getGroupsForProfile().subscribe(
+      (response: UserProfileSupportGroup[]) =>{
       this.supportGroups = response;
     });
   }

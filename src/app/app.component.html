@@ -34,25 +34,25 @@
       <a mat-list-item *ngIf="!isHealthStaff()">
         <span class="entry">
            <mat-icon>emoji_people</mat-icon>
-           <span  (click)="goToCounselingRequest()">Solicită consiliere</span>
+           <span id="requestCounselingEntry" (click)="goToCounselingRequest()">Solicită consiliere</span>
         </span>
       </a>
       <a mat-list-item *ngIf="isHealthStaff()">
         <span class="entry">
            <mat-icon>emoji_people</mat-icon>
-           <span  (click)="goToCounselingRequestTable()">Cereri de consiliere</span>
+           <span id="counselingRequestsTable" (click)="goToCounselingRequestTable()">Cereri de consiliere</span>
         </span>
       </a>
       <a mat-list-item>
         <span class="entry">
            <mat-icon>calendar_month</mat-icon>
-           <span (click)="goToCalendar()">Calendar</span>
+           <span id="calendarEntry" (click)="goToCalendar()">Calendar</span>
         </span>
       </a>
       <a mat-list-item>
         <span class="entry">
            <mat-icon>account_circle</mat-icon>
-           <span (click)="goToProfile()">Profil</span>
+           <span id="profileEntry" (click)="goToProfile()">Profil</span>
         </span>
       </a>
       <a mat-list-item *ngIf="isAdmin()">
@@ -65,7 +65,7 @@
         <a mat-list-item>
         <span class="entry">
           <mat-icon>logout</mat-icon>
-          <span (click)="logout()">Deconectare</span>
+          <span id="deconnectEntry" (click)="logout()">Deconectare</span>
         </span>
         </a>
       </div>

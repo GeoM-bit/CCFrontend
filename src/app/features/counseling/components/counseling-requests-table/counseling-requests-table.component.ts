@@ -33,7 +33,8 @@ export class CounselingRequestsTableComponent implements OnInit{
   }
 
   getData(){
-    this.counselingService.getCounselingRequests().subscribe((response => {
+    this.counselingService.getCounselingRequests().subscribe(
+      (response => {
       this.dataSource = new MatTableDataSource(response);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;

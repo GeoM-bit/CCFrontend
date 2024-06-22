@@ -15,6 +15,7 @@
         <button mat-button (click)="onCancel()">Renunță</button>
         <button mat-raised-button color="accent"
                 (click)="onSave()"
+                id="rejectButton"
                 [disabled]="!reasonForm.valid">Refuză solicitarea</button>
       </mat-card-actions>
     </form>

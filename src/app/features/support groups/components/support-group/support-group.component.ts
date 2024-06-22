@@ -37,7 +37,8 @@ export class SupportGroupComponent {
   }
 
   getPosts(supportGroupNameDto: SupportGroupName) {
-    this.groupPostsService.getPosts(supportGroupNameDto).subscribe((response: PostModel[]) => {
+    this.groupPostsService.getPosts(supportGroupNameDto).subscribe(
+      (response: PostModel[]) => {
       if(response)
         response.forEach(x=>this.posts.push(x));
       else
@@ -46,7 +47,8 @@ export class SupportGroupComponent {
   }
 
   onCreatePostClick() {
-    const dialogRef: MatDialogRef<CreatePostComponent> = this.dialog.open(CreatePostComponent, {
+    const dialogRef: MatDialogRef<CreatePostComponent> = this.dialog.open(
+      CreatePostComponent, {
       data: this.supportGroupName.groupName
     });
 

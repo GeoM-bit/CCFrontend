@@ -3,11 +3,11 @@
     <div class="row gutters-sm">
       <div class="col-md-4 mb-3">
         <div class="card">
-          <div class="card-body">
+          <div class="card-body" id="profileCard">
             <div class="d-flex flex-column align-items-center text-center position-relative">
               <div style="position: relative;">
                 <img src="{{profileInfo.profilePhoto}}" alt="UserProfilePhoto" class="rounded-circle" width="150">
-                <button class="btn-remove-photo" (click)="removePhoto()" title="Șterge poza" *ngIf="profileInfo.profilePhoto">
+                <button class="btn-remove-photo" id="deletePhoto" (click)="removePhoto()" title="Șterge poza" *ngIf="profileInfo.profilePhoto">
                   <i class="fas fa-times"></i>
                 </button>
               </div>
@@ -29,7 +29,7 @@
           <div class="card-body">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <mat-panel-title>
+                <mat-panel-title id="detailsPanel">
                   Detalii profil
                 </mat-panel-title>
               </mat-expansion-panel-header>
@@ -37,7 +37,7 @@
                 <div>
                   <mat-form-field>
                     <mat-label>Prenume</mat-label>
-                    <input matInput formControlName="firstName" (input)="onProfileDetailsInputChange()" [value]="profileInfo.firstName">
+                    <input id="firstNameInput" matInput formControlName="firstName" (input)="onProfileDetailsInputChange()" [value]="profileInfo.firstName">
                     <mat-error *ngIf="((!profileDetailsForm.get('firstName').valid) && profileDetailsFormChanged) ">
                       Prenumele nu este valid!
                     </mat-error>
@@ -46,7 +46,7 @@
                 <div>
                   <mat-form-field>
                     <mat-label>Nume</mat-label>
-                    <input matInput formControlName="lastName" (input)="onProfileDetailsInputChange()" [value]="profileInfo.lastName">
+                    <input id="lastNameInput" matInput formControlName="lastName" (input)="onProfileDetailsInputChange()" [value]="profileInfo.lastName">
                     <mat-error *ngIf="((!profileDetailsForm.get('lastName').valid) && profileDetailsFormChanged)">
                       Numele nu este valid!
                     </mat-error>
@@ -55,7 +55,7 @@
                 <div style="display: flex; align-items: center;">
                   <mat-form-field>
                     <mat-label>Email</mat-label>
-                    <input matInput formControlName="email" (input)="onProfileDetailsInputChange()" [value]="profileInfo.email">
+                    <input id="emailInput" matInput formControlName="email" (input)="onProfileDetailsInputChange()" [value]="profileInfo.email">
                     <mat-error *ngIf="((!profileDetailsForm.get('email').valid) && profileDetailsFormChanged)">
                       Adresa de email nu este validă!
                     </mat-error>
@@ -68,7 +68,7 @@
                 <div>
                   <mat-form-field>
                     <mat-label>Tip de cont</mat-label>
-                    <input matInput formControlName="role" [value]="profileInfo.role" readonly>
+                    <input id="accountType" matInput formControlName="role" [value]="profileInfo.role" readonly>
                   </mat-form-field>
                 </div>
                 <div class="button-container">
